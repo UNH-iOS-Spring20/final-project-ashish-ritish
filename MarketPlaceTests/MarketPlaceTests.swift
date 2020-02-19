@@ -30,5 +30,14 @@ class MarketPlaceTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testProductItemInitSucceds(){
+           let car = ProductItem.init(name: "Honda", category: "Vechile", condition: "New", email: "ashre1@unh.newhave.edu", date: "02/16/2020", price: 2000.00)
+           XCTAssertNotNil(car)
+        
+            let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)
+            XCTAssertNotNil(phone)
+            
+    }
 
 }

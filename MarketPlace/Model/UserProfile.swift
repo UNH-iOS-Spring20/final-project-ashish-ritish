@@ -21,7 +21,7 @@ class UserProfile{
         self.name = name
         self.email = email
         self.contactNumber = contactNumber
-        self.zipCode = String
+        self.zipCode = zipCode
         self.address = address
         
     }

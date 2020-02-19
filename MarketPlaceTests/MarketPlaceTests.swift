@@ -51,8 +51,8 @@ class MarketPlaceTests: XCTestCase {
 
         let noEmailUser = UserProfile.init(name:"Ritish karki", email:"", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
         XCTAssertNil(noEmailUser)
-        
-        let noContactUser = UserProfile.init(name:"Ritish karki", email:"rkark1@unh.newhaven.edu", contactNumber:"", zipCode:"06516", address:"21 andrews street")
+
+        let noContactUser = UserProfile.init(name:"R karki", email:"rkark1@unh.newhaven.edu", contactNumber:"", zipCode:"06516", address:"21 andrews street")
         XCTAssertNil(noContactUser)
     }
 }

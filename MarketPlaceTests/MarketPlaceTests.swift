@@ -40,4 +40,19 @@ class MarketPlaceTests: XCTestCase {
             
     }
 
+    func testUserProfileInitSucceds(){
+        let user1 = UserProfile.init(name:"Ritish Karki", email:"rkark1@unh.newhaven.edu", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
+        XCTAssertNotNil(user1)
+    }
+
+    func testUserProfileInitFails(){
+        let noNameUser = UserProfile.init(name:"", email:"rkark1@unh.newhaven.edu", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
+        XCTAssertNil(noNameUser)
+
+        let noEmailUser = UserProfile.init(name:"Ritish karki", email:"", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
+        XCTAssertNil(noEmailUser)
+        
+        let noContactUser = UserProfile.init(name:"Ritish karki", email:"rkark1@unh.newhaven.edu", contactNumber:"", zipCode:"06516", address:"21 andrews street")
+        XCTAssertNil(noContactUser)
+    }
 }

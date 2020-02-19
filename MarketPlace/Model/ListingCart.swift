@@ -6,4 +6,11 @@
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
-import Foundation
+class ListingCart{
+    var items = [ProductItem]()
+    
+    func ListItem(item: ProductItem){
+        items.append(item)
+    }
+    
+}

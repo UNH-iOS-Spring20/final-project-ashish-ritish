@@ -12,5 +12,13 @@ class ListingCart{
     func listItem(item: ProductItem){
         items.append(item)
     }
+
+    func returnTotal() -> Double{
+        var total: Double = 0.0
+        for item in items{
+            total += item.price
+        }
+        return total
+    }
     
 }

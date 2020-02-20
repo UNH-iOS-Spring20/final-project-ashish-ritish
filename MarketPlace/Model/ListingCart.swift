@@ -9,7 +9,7 @@
 class ListingCart{
     var items = [ProductItem]()
     
-    func ListItem(item: ProductItem){
+    func listItem(item: ProductItem){
         items.append(item)
     }
     

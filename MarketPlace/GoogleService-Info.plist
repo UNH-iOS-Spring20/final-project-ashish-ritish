@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>164531463719-g7clr02ulbc4ssgc22eufd3k4vsvamn1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.164531463719-g7clr02ulbc4ssgc22eufd3k4vsvamn1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCRaifKrFr7LAgwfm1ozgIl5tnfUXeQkjw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>164531463719</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.newhaven.MarketPlace</string>
+	<key>PROJECT_ID</key>
+	<string>marketplace-71120</string>
+	<key>STORAGE_BUCKET</key>
+	<string>marketplace-71120.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:164531463719:ios:fc6c9d46e14aa386f51002</string>
+	<key>DATABASE_URL</key>
+	<string>https://marketplace-71120.firebaseio.com</string>
+</dict>
+</plist>

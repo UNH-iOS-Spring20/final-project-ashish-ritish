@@ -37,8 +37,9 @@ class MarketPlaceTests: XCTestCase {
         
             let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)
             XCTAssertNotNil(phone)
-            
     }
+    
+    
     
     func testProductItemInitFails(){
         let noProductName = ProductItem.init(name: "", category: "Vechile", condition: "New", email: "ashre1@unh.newhaven.edu", date: "02/16/2020", price: 2000.00)
@@ -70,6 +71,11 @@ class MarketPlaceTests: XCTestCase {
         XCTAssertEqual(2, lists.items.count)
     }
 
+    
+    
+    
+    
+    
     func testListingCartProductTotal() {
         let car = ProductItem.init(name: "Honda", category: "Vechile", condition: "New", email: "ashre1@unh.newhave.edu", date: "02/16/2020", price: 2000.00)
         let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)

@@ -58,9 +58,9 @@
 		68CF90B64EEB765BB0E91624 /* Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlace-MarketPlaceUITests/Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		773EB9A8A1FB88EA6ADBC5A7 /* Pods-MarketPlace-MarketPlaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace-MarketPlaceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarketPlace-MarketPlaceUITests/Pods-MarketPlace-MarketPlaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7F499949B4F2FD071AB70D98 /* Pods-MarketPlaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlaceTests.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlaceTests/Pods-MarketPlaceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E92FFF94240EC18C00BB2822 /* MarketPlaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92FFF95240EC18C00BB2822 /* MarketPlaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93F2FF42405DD5100A7E661 /* MarketPlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E93F2FF52405DD8200A7E661 /* MarketPlaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MarketPlaceTests.xctest; path = "/Users/ashishshrestha/Documents/UNH/ThirdSemester/IOS/Project/MarketPlace/build/Debug-iphoneos/MarketPlaceTests.xctest"; sourceTree = "<absolute>"; };
-		E93F2FF62405DD8200A7E661 /* MarketPlaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MarketPlaceUITests.xctest; path = "/Users/ashishshrestha/Documents/UNH/ThirdSemester/IOS/Project/MarketPlace/build/Debug-iphoneos/MarketPlaceUITests.xctest"; sourceTree = "<absolute>"; };
 		E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E9708C3C23FDB9EB009542A8 /* ProductItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItem.swift; sourceTree = "<group>"; };
 		E9708C4023FDBA49009542A8 /* ListingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCart.swift; sourceTree = "<group>"; };
@@ -127,7 +127,6 @@
 				7F499949B4F2FD071AB70D98 /* Pods-MarketPlaceTests.debug.xcconfig */,
 				65BC9AD5CD1B704BADC8CF2D /* Pods-MarketPlaceTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -150,6 +149,8 @@
 				E93F2FF42405DD5100A7E661 /* MarketPlace.app */,
 				C2DB623E2E8D824A9F69CBAD /* Pods */,
 				0BBB4A3CEB45724CEA3A338A /* Frameworks */,
+				E92FFF94240EC18C00BB2822 /* MarketPlaceTests.xctest */,
+				E92FFF95240EC18C00BB2822 /* MarketPlaceUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -233,7 +234,7 @@
 			);
 			name = MarketPlaceTests;
 			productName = MarketPlaceTests;
-			productReference = E93F2FF52405DD8200A7E661 /* MarketPlaceTests.xctest */;
+			productReference = E92FFF94240EC18C00BB2822 /* MarketPlaceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E98D1F7F23FB202F00F98CD6 /* MarketPlaceUITests */ = {
@@ -253,7 +254,7 @@
 			);
 			name = MarketPlaceUITests;
 			productName = MarketPlaceUITests;
-			productReference = E93F2FF62405DD8200A7E661 /* MarketPlaceUITests.xctest */;
+			productReference = E92FFF95240EC18C00BB2822 /* MarketPlaceUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -616,6 +617,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
+				DEVELOPMENT_TEAM = UF287CT58T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -636,6 +638,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MarketPlace/Preview Content\"";
+				DEVELOPMENT_TEAM = UF287CT58T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MarketPlace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -655,7 +658,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF287CT58T;
 				INFOPLIST_FILE = MarketPlaceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -677,7 +682,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF287CT58T;
 				INFOPLIST_FILE = MarketPlaceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -698,7 +705,9 @@
 			baseConfigurationReference = 68CF90B64EEB765BB0E91624 /* Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF287CT58T;
 				INFOPLIST_FILE = MarketPlaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -718,7 +727,9 @@
 			baseConfigurationReference = 773EB9A8A1FB88EA6ADBC5A7 /* Pods-MarketPlace-MarketPlaceUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF287CT58T;
 				INFOPLIST_FILE = MarketPlaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,21 +11,25 @@ import CoreLocation
 
 struct Product: Hashable, Codable, Identifiable {
     
-    var id: Int
+    var id = UUID()
     var name: String
     var price: Double
-    fileprivate var imageName: String
-    fileprivate var coordinates: Coordinates
     var email: String
-    var category: Category
+    var category: String
+    var imageName: String
+    var latitude: Double
+    var longitude: Double
+    
+ //   fileprivate var coordinates: Coordinates
+  //  fileprivate var imageName: String
 
-    var locationCoordinate: CLLocationCoordinate2D {
+/*    var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: coordinates.latitude,
             longitude: coordinates.longitude)
-    }
+    } */
 
-    enum Category: String, CaseIterable, Codable, Hashable {
+  /*  enum Category: String, CaseIterable, Codable, Hashable {
         case featured = "Featured"
         case vechiles = "Vechiles"
         case electronics = "Electronics"
@@ -33,14 +37,14 @@ struct Product: Hashable, Codable, Identifiable {
         case house = "House"
         case sport = "Sport"
         case other = "Other"
-    }
+    } */
 }
 
 extension Product {
     var image: Image {
         ImageStore.shared.image(name: imageName)
     }
-}
+} 
 
 struct Coordinates: Hashable, Codable {
     var latitude: Double

@@ -9,16 +9,19 @@
 import SwiftUI
 
 struct CategoryImage: View {
+    var picture: String
+    
     var body: some View {
-        Image("Iphone8")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
+        Image(picture)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
         //.frame(width: 350, height: 300, alignment: .center)
     }
 }
 
 struct CategoryImage_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryImage()
+        CategoryImage(picture: productData[0].imageName)
     }
 }
+

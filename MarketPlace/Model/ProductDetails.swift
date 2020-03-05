@@ -9,37 +9,70 @@
 import SwiftUI
 
 struct ProductDetails: View {
+    var product: Product
+    
     var body: some View {
         VStack{
             
-            CategoryImage()
-               // .frame(height: 300)
-               // .edgesIgnoringSafeArea(.top)
+            CategoryImage(picture: product.imageName)
+            // .frame(height: 300)
+            // .edgesIgnoringSafeArea(.top)
             
             VStack (alignment: .leading){
-                Text("Name: Iphone 8")
-                    .font(.title)
-                    .padding(5)
-                Text("Condition: Good")
-                    .font(.headline)
-                    .fontWeight(.regular)
-                    .padding(5)
-                Text("Price: 500")
-                    .font(.headline)
-                    .fontWeight(.regular)
-                    .padding(5)
+                HStack{
+                    Text("Name:")
+                        .font(.headline)
+                        .padding(.leading, 25)
+                    Spacer()
+                    Text(product.name)
+                        .font(.headline)
+                   //     .padding(.trailing, 50)
+                }
+                .padding(10)
+                HStack{
+                    Text("Categoty:")
+                        .font(.headline)
+                        .padding(.leading,25)
+                    Spacer()
+                    Text(product.category)
+                        .font(.headline)
+                     //   .padding(.trailing, 50)
+                    
+                }
+                .padding(10)
+                HStack{
+                    Text("Email")
+                        .font(.headline)
+                        .padding(.leading, 25)
+                    Spacer()
+                    Text(product.email)
+                        .font(.headline)
+                    //    .padding(.leading,50)
+                }
+                .padding(10)
+                HStack{
+                    Text("Price:")
+                        .font(.headline)
+                        .padding(.leading, 25)
+                    Spacer()
+                    Text("$ " + String(product.price))
+                        .font(.headline)
+                        .padding(.leading,50)
+                }
+                .padding(10)
                 
             }
             .padding()
             
-            MapView()
+            MapView(latitudeData: product.latitude, longitudeData: product.longitude)
                 .frame(height: 300)
         }
+        .navigationBarTitle(Text(product.name), displayMode: .inline)
     }
 }
 
 struct ProductDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetails()
+        ProductDetails(product: productData[0])
     }
 }

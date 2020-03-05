@@ -20,6 +20,7 @@ struct Product: Hashable, Codable, Identifiable {
     var imageName: String
     var latitude: Double
     var longitude: Double
+    var description: String
     
  //   fileprivate var coordinates: Coordinates
   //  fileprivate var imageName: String

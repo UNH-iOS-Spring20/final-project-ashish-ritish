@@ -71,6 +71,7 @@ struct ProductDetails: View {
                 }
                 .padding(10)
                 
+                
             }
             .padding()
             

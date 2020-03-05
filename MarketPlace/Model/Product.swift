@@ -16,6 +16,7 @@ struct Product: Hashable, Codable, Identifiable {
     var price: Double
     var email: String
     var category: String
+    var condition: String
     var imageName: String
     var latitude: Double
     var longitude: Double

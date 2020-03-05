@@ -62,11 +62,8 @@ struct Home: View {
                                 .edgesIgnoringSafeArea(.top)
                                 .scaledToFit()
                             //  .padding(20)
-                            
                         }
                         .padding(.bottom, 20)
-                        
-                        
                         Text(self.userdata)
                             .font(.system(size: 20))
                             .fontWeight(.bold)

@@ -18,11 +18,11 @@ class UserProfile{
             return nil
         }
         
-        self.name = name
-        self.email = email
-        self.contactNumber = contactNumber
-        self.zipCode = zipCode
-        self.address = address
+        self.name = "Ritish Karki"
+        self.email = "rkark1@unh.newhaven,edu"
+        self.contactNumber = "2034353851"
+        self.zipCode = "06516"
+        self.address = "21 Andrew Street"
         
     }
 }

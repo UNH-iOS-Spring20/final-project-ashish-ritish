@@ -16,10 +16,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2020-03-03 at 2.19.28 PM" translatesAutoresizingMaskIntoConstraints="NO" id="TSU-fH-hIo">
-                                <rect key="frame" x="88" y="348.66666666666674" width="238" height="199.00000000000006"/>
+                                <rect key="frame" x="-31" y="249" width="476" height="398"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Place where you can Buy and Sell Anything" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wm-cG-pSf">
-                                <rect key="frame" x="7.6666666666666572" y="577.66666666666663" width="398.66666666666674" height="21.666666666666629"/>
+                                <rect key="frame" x="7.6666666666666572" y="677.33333333333337" width="398.66666666666674" height="21.666666666666629"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                                 <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

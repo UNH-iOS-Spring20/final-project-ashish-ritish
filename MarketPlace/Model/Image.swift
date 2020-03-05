@@ -1,22 +1,21 @@
 //
-//  ContentView.swift
+//  Image.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 2/17/20.
+//  Created by Ashish Shrestha on 3/4/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct Image: View {
     var body: some View {
-        Home()
-
+       Image("star")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct Image_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Image()
     }
 }

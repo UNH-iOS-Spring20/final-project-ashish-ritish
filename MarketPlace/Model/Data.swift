@@ -17,7 +17,7 @@ import UIKit
 import SwiftUI
 import CoreLocation
 
-let productData: [Product] = load("landmarkData.json")
+let productData: [Product] = load("productData.json")
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data

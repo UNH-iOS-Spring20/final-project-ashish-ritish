@@ -15,6 +15,7 @@ let productDatas: [Product] = [
         price: 500.0,
         email: "ashre1@unh.newhaven.edu",
         category: "Electronic",
+        condition:"New",
         imageName: "Iphone8",
         latitude: 41.290703,
         longitude: -72.961647
@@ -26,6 +27,7 @@ let productDatas: [Product] = [
         price: 1500.0,
         email: "ashre1@unh.newhaven.edu",
         category: "Electronic",
+        condition:"Used",
         imageName: "Mac",
         latitude: 41.290703,
         longitude: -72.961647
@@ -36,7 +38,8 @@ let productDatas: [Product] = [
         name: "BMW",
         price: 5000.0,
         email: "ashre1@unh.newhaven.edu",
-        category: "Vechiles",
+        category: "Vehicle",
+        condition:"New",
         imageName: "BMW",
         latitude: 41.290703,
         longitude: -72.961647
@@ -48,6 +51,7 @@ let productDatas: [Product] = [
         price: 50.0,
         email: "ashre1@unh.newhaven.edu",
         category: "Sport",
+        condition:"Used",
         imageName: "Football",
         latitude: 41.290703,
         longitude: -72.961647
@@ -59,7 +63,8 @@ let productDatas: [Product] = [
            price: 10.0,
            email: "ashre1@unh.newhaven.edu",
            category: "Fashion",
-           imageName: "cloth",
+           condition:"New",
+           imageName: "Cloth",
            latitude: 41.290703,
            longitude: -72.961647
            

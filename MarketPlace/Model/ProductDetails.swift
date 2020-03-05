@@ -30,11 +30,21 @@ struct ProductDetails: View {
                 }
                 .padding(10)
                 HStack{
-                    Text("Categoty:")
+                    Text("Category:")
                         .font(.headline)
                         .padding(.leading,25)
                     Spacer()
                     Text(product.category)
+                        .font(.headline)
+                     //   .padding(.trailing, 50)
+                    
+                }.padding(10)
+                HStack{
+                    Text("Condition:")
+                        .font(.headline)
+                        .padding(.leading,25)
+                    Spacer()
+                    Text(product.condition)
                         .font(.headline)
                      //   .padding(.trailing, 50)
                     

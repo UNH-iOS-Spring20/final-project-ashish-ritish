@@ -36,7 +36,7 @@ let productDatas: [Product] = [
         name: "BMW",
         price: 5000.0,
         email: "ashre1@unh.newhaven.edu",
-        category: "Vechiles",
+        category: "Vehicle",
         imageName: "BMW",
         latitude: 41.290703,
         longitude: -72.961647
@@ -59,7 +59,7 @@ let productDatas: [Product] = [
            price: 10.0,
            email: "ashre1@unh.newhaven.edu",
            category: "Fashion",
-           imageName: "cloth",
+           imageName: "Cloth",
            latitude: 41.290703,
            longitude: -72.961647
            

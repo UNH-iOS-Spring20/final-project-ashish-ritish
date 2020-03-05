@@ -40,24 +40,18 @@ struct Home: View {
                         }
                         
                     }
-                    // .padding()
                 }
                 .navigationBarTitle(Text("Products"))
             }
-                
-                /*   List {
-                 ImageRow()
-                 }
-                 .navigationBarTitle(Text("Products")) */
                 
                 .navigationBarItems(leading: profileButton)
                 .sheet(isPresented: $showingprofile){
                     VStack{
                         HStack{
-                            Text("***User Profile***")
+                            Text("User Profile")
                                 .font(.title)
                                 .fontWeight(.bold)
-                            // .padding(20)
+                                .padding(10)
                             Spacer()
                             Image("karki")
                                 .edgesIgnoringSafeArea(.top)

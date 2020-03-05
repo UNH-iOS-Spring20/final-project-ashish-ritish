@@ -30,7 +30,7 @@ struct ProductDetails: View {
                 }
                 .padding(10)
                 HStack{
-                    Text("Categoty:")
+                    Text("Category:")
                         .font(.headline)
                         .padding(.leading,25)
                     Spacer()

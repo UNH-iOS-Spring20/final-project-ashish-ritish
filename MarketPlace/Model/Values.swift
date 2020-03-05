@@ -19,7 +19,8 @@ let productDatas: [Product] = [
         imageName: "Iphone8",
         latitude: 41.290703,
         longitude: -72.961647,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis",
+        isFavorite: true
         
     ),
     Product(
@@ -32,7 +33,8 @@ let productDatas: [Product] = [
         imageName: "Mac",
         latitude: 41.262010,
         longitude: -72.946210,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis",
+         isFavorite: false
         
     ),
     Product(
@@ -45,7 +47,8 @@ let productDatas: [Product] = [
         imageName: "BMW",
         latitude: 41.311779,
         longitude: -72.931038,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis",
+         isFavorite: true
         
     ),
     Product(
@@ -58,8 +61,8 @@ let productDatas: [Product] = [
         imageName: "Football",
         latitude: 41.153660,
         longitude: -73.237140,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis"
-        
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis",
+         isFavorite: false
     ),
     Product(
            //  id: 101,
@@ -71,7 +74,8 @@ let productDatas: [Product] = [
            imageName: "Cloth",
            latitude: 41.282730,
            longitude: -73.028430,
-           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis"
+           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus tempor lorem consectetur consectetur. Aenean odio ex, tempor quis elementum a, mollis et felis",
+         isFavorite: false
            
        ),
     

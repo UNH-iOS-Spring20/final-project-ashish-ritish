@@ -21,6 +21,7 @@ struct Product: Hashable, Codable, Identifiable {
     var latitude: Double
     var longitude: Double
     var description: String
+    var isFavorite: Bool
     
  //   fileprivate var coordinates: Coordinates
   //  fileprivate var imageName: String
@@ -42,7 +43,7 @@ struct Product: Hashable, Codable, Identifiable {
     } */
 }
 
-extension Product {
+/*extension Product {
     var image: Image {
         ImageStore.shared.image(name: imageName)
     }
@@ -52,3 +53,4 @@ struct Coordinates: Hashable, Codable {
     var latitude: Double
     var longitude: Double
 }
+*/

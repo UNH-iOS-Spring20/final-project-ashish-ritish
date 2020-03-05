@@ -32,6 +32,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(latitudeData: productData[0].latitude, longitudeData: productData[0].longitude)
+        MapView(latitudeData: productDatas[0].latitude, longitudeData: productDatas[0].longitude)
     }
 }

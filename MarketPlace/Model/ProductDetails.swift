@@ -71,6 +71,7 @@ struct ProductDetails: View {
                 }
                 .padding(10)
                 
+                
             }
             .padding()
             
@@ -83,6 +84,6 @@ struct ProductDetails: View {
 
 struct ProductDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetails(product: productData[0])
+        ProductDetails(product: productDatas[0])
     }
 }

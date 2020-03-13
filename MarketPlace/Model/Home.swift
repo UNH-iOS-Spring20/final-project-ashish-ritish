@@ -32,14 +32,23 @@ struct Home: View {
             List(productDatas) { productData in
                 NavigationLink(destination: ProductDetails(product: productData)){
                     HStack{
-                        ForEach(0..<2) { index in
+                      //  ForEach(0..<2) { index in
                             Image(productData.imageName)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 180, height: 180, alignment: .center)
-                        }
                         
+                        VStack {
+                            Text(productData.name)
+                                .font(.title)
+                            Text("$ " + String(productData.price))
+                            .font(.headline)
+                        }
+                    .padding(20)
+                     //   }
+                    
                     }
+                    
                 }
                 .navigationBarTitle(Text("Products"))
             }

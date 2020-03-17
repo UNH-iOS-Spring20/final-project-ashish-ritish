@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-
+import FirebaseFirestore
 
 struct Home: View {
-    
+    @ObservedObject private var fbSession = firebaseSession
     
     @State var showingprofile = false
     
@@ -29,6 +29,13 @@ struct Home: View {
     
     var body: some View {
         NavigationView{
+            List {
+                ForEach(fbSession.categories) { category in
+                    HStack{
+                     Text(category.name)
+                    }
+                }
+            }
             List(productDatas) { productData in
                 NavigationLink(destination: ProductDetails(product: productData)){
                     HStack{

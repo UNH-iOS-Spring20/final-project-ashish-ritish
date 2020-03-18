@@ -5,31 +5,56 @@
 //  Created by Ashish Shrestha on 3/17/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
-
 import SwiftUI
 
-struct CategoryRow: View {
- //  var categories: [Category]
+/*struct CategoryRow: View {
+    var items: [Category]
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 20) {
-                ForEach(0..<10) {
-                    Text("\($0)")
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .frame(width: 50, height: 50)
-                        .background(Color.red)
+        VStack(alignment: .leading){
+            
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(alignment: .top, spacing: 0){
+                    ForEach(self.items) { category in
+                        NavigationLink(
+                            destination: ProductDetails(
+                                product: category
+                            )
+                        ){
+                            CategoryItem(category: category)
+                        }
+                        
+                    }
                 }
             }
+            .frame(height: 100)
         }
-        
-     //   Text(categories[0].name)
+    }
+}
+
+struct CategoryItem: View {
+    var category: Category
+    var body: some View{
+        VStack(){
+            CategoryImage(picture: category.image)
+            
+            Text(category.name)
+               .foregroundColor(.primary)
+                .font(.caption)
+              //  .padding()
+        }
+        .padding(.leading, 15)
+        .padding(.top)
     }
 }
 
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRow()
+        CategoryRow(
+          //  categoryName: landmarkData[0].category.rawValue,
+            items: Array(categoryDatas.prefix(5))
+        )
     }
 }
+
+*/

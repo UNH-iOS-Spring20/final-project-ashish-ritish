@@ -12,9 +12,11 @@ import SwiftUI
 
 struct Home: View {
     
+    // var categories = [Category]()
     
     @State var showingprofile = false
     @State private var searchText: String = ""
+    @State private var isNavigationBarHidden = true
     
     var userdata = " Name: Ritish Karki\n\n Email: rkark1@unh.newhaven.edu " + "\n\n Contact: +2034353851\n\n Address: 2 Andrew Street Apt 1B\n\n City: West Haven"
         + "\n\n State: CT\n\n ZipCode: 06516"
@@ -29,14 +31,19 @@ struct Home: View {
     }
     
     var body: some View {
+        
         NavigationView {
             VStack{
-                SearchBar(text: $searchText, placeholder: "Search")
-                CategoryRow()
+                HStack{
+                    profileButton
+                    SearchBar(text: $searchText, placeholder: "Search")
+                }
+                // .offset(x: 0, y: -0)
                 
-                //   List(productDatas) { productData in
                 List {
-                    ForEach(productDatas) { productData in
+                    ForEach(productDatas.filter {
+                        self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
+                    }, id: \.id) { productData in
                         NavigationLink(destination: ProductDetails(product: productData)){
                             HStack{
                                 //  ForEach(0..<2) { index in
@@ -57,38 +64,48 @@ struct Home: View {
                             }
                         }
                     }
-                    //  .navigationBarTitle(Text("Products"))
+                    
                 }
-                .navigationBarItems(leading: profileButton)
-                .sheet(isPresented: $showingprofile){
-                    VStack{
-                        HStack{
-                            Text("User Profile")
-                                .font(.title)
+                    //     .navigationBarItems(leading:profileButton)
+                    .sheet(isPresented: $showingprofile){
+                        VStack{
+                            HStack{
+                                Text("User Profile")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding(10)
+                                Spacer()
+                                Image("karki")
+                                    .edgesIgnoringSafeArea(.top)
+                                    .clipShape(Circle())
+                                    .overlay(
+                                        Circle().stroke(Color.white, lineWidth: 4))
+                                    .shadow(radius: 10)
+                                    .edgesIgnoringSafeArea(.top)
+                                    .scaledToFit()
+                                //  .padding(20)
+                            }
+                            .padding(.bottom, 20)
+                            Text(self.userdata)
+                                .font(.system(size: 20))
                                 .fontWeight(.bold)
-                                .padding(10)
-                            Spacer()
-                            Image("karki")
-                                .edgesIgnoringSafeArea(.top)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle().stroke(Color.white, lineWidth: 4))
-                                .shadow(radius: 10)
-                                .edgesIgnoringSafeArea(.top)
-                                .scaledToFit()
-                            //  .padding(20)
+                                .foregroundColor(.gray)
                         }
-                        .padding(.bottom, 20)
-                        Text(self.userdata)
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
+                        .padding()
                 }
             }
+          .navigationBarHidden(isNavigationBarHidden)
+          .navigationBarTitle("Back")
+          .onAppear {
+              self.isNavigationBarHidden = true
+          }
+          .onDisappear {
+              self.isNavigationBarHidden = false
+          }
         }
+     //   .edgesIgnoringSafeArea(.top)
     }
+    
 }
 
 

@@ -15,7 +15,7 @@ struct ProductImage: View {
         Image(picture)
             .resizable()
             .aspectRatio(contentMode: .fit)
-        //.frame(width: 350, height: 300, alignment: .center)
+           // .frame(width: 250, height: 250, alignment: .center)
     }
 }
 

@@ -12,9 +12,11 @@ struct ProductDetails: View {
     var product: Product
     
     var body: some View {
+        //   ScrollView(.vertical, showsIndicators: false){
         VStack{
             
-            CategoryImage(picture: product.imageName)
+            ProductImage(picture: product.imageName)
+            // .offset(x: 0, y: 40)
             // .frame(height: 300)
             // .edgesIgnoringSafeArea(.top)
             
@@ -26,7 +28,7 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.name)
                         .font(.headline)
-                   //     .padding(.trailing, 50)
+                    //     .padding(.trailing, 50)
                 }
                 .padding(10)
                 HStack{
@@ -36,7 +38,7 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.category)
                         .font(.headline)
-                     //   .padding(.trailing, 50)
+                    //   .padding(.trailing, 50)
                     
                 }.padding(10)
                 HStack{
@@ -46,7 +48,7 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.condition)
                         .font(.headline)
-                     //   .padding(.trailing, 50)
+                    //   .padding(.trailing, 50)
                     
                 }
                 .padding(10)
@@ -79,6 +81,8 @@ struct ProductDetails: View {
                 .frame(height: 300)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
+        //     }
+        
     }
 }
 

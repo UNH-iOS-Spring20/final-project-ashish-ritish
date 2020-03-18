@@ -8,11 +8,10 @@
 
 import SwiftUI
 
-
+import FirebaseFirestore
 
 struct Home: View {
-    
-    
+    @ObservedObject private var fbSession = firebaseSession
     @State var showingprofile = false
     
     var userdata = " Name: Ritish Karki\n\n Email: rkark1@unh.newhaven.edu " + "\n\n Contact: +2034353851\n\n Address: 2 Andrew Street Apt 1B\n\n City: West Haven"
@@ -29,31 +28,39 @@ struct Home: View {
     
     var body: some View {
         NavigationView{
-            List(productDatas) { productData in
-                NavigationLink(destination: ProductDetails(product: productData)){
+            List {
+                ForEach(fbSession.categories) { category in
                     HStack{
-                      //  ForEach(0..<2) { index in
-                            Image(productData.imageName)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 180, height: 180, alignment: .center)
-                        
-                        VStack {
-                            Text(productData.name)
-                                .font(.title)
-                            Text("$ " + String(productData.price))
-                            .font(.headline)
-                        }
-                    .padding(20)
-                     //   }
-                    
+                     Text(category.name)
                     }
-                    
                 }
-                .navigationBarTitle(Text("Products"))
             }
-                
-                .navigationBarItems(leading: profileButton)
+            
+            List{
+                ForEach(fbSession.products) { productData in
+                   NavigationLink(destination: ProductDetails(product: productData)){
+                       HStack{
+                         //  ForEach(0..<2) { index in
+                               Image(productData.imageName)
+                                   .resizable()
+                                   .aspectRatio(contentMode: .fit)
+                                   .frame(width: 180, height: 180, alignment: .center)
+                           
+                           VStack {
+                               Text(productData.name)
+                                   .font(.title)
+                               Text("$ " + String(productData.price))
+                               .font(.headline)
+                           }
+                       .padding(20)
+                        //   }
+                       
+                       }
+                       
+                   }
+                   .navigationBarTitle(Text("Products"))
+               }
+            }.navigationBarItems(leading: profileButton)
                 .sheet(isPresented: $showingprofile){
                     VStack{
                         HStack{
@@ -80,6 +87,8 @@ struct Home: View {
                     }
                     .padding()
             }
+            
+            
         }
     }
 }

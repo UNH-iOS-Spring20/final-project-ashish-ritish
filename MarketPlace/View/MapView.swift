@@ -9,13 +9,9 @@
 import SwiftUI
 import MapKit
 
-import SwiftUI
-import MapKit
-
 struct MapView: UIViewRepresentable {
 
-    var latitudeData: Double
-    var longitudeData: Double
+    var location: Array<Double>
     
     func makeUIView(context: Context) -> MKMapView {
         MKMapView(frame: .zero)
@@ -23,7 +19,7 @@ struct MapView: UIViewRepresentable {
 
     func updateUIView(_ view: MKMapView, context: Context) {
         let coordinate = CLLocationCoordinate2D(
-            latitude: latitudeData, longitude: longitudeData)
+            latitude: location[0], longitude: location[1])
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         view.setRegion(region, animated: true)
@@ -32,6 +28,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(latitudeData: productDatas[0].latitude, longitudeData: productDatas[0].longitude)
+        MapView(location: [firebaseSession.products[0].latitude, firebaseSession.products[0].longitude])
     }
 }

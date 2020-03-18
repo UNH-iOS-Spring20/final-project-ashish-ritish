@@ -21,7 +21,7 @@ struct CategoryImage: View {
 
 struct CategoryImage_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryImage(picture: productDatas[0].imageName)
+        CategoryImage(picture: firebaseSession.products[0].imageName)
     }
 }
 

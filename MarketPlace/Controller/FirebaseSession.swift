@@ -12,15 +12,18 @@ let firebaseSession = FirebaseSession() // singleton
 
 class FirebaseSession: ObservableObject {
     @Published var categories = [Category]()
+    @Published var products = [Product]()
+    
     private let categoriesCollection = Firestore.firestore().collection("categories")
+    private let productsCollection = Firestore.firestore().collection("products")
         
     init() {
-        listenForChanges()
-        
+        listenForCategoryChanges()
+        listenForProductChanges()
     }
     
     // Reference link : https://firebase.google.com/docs/firestore/query-data/listen
-    func listenForChanges() {
+    func listenForCategoryChanges() {
         categoriesCollection.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error fetching snapshots: \(error!)")
@@ -66,6 +69,93 @@ class FirebaseSession: ObservableObject {
         print("Deleting category: \(categories[index])")
         let id = self.categories[index].id
         categoriesCollection.document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+    
+    // listening for chnages in product addition or just reading the products
+    func listenForProductChanges(){
+        productsCollection.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshots: \(error!)")
+                return
+            }
+            
+            snapshot.documentChanges.forEach { diff in
+                
+                // for new add and read
+                if (diff.type == .added) {
+                    print("product added: \(diff.document.data())")
+                    let product = Product(id: diff.document.documentID,
+                                          name: diff.document.get("name") as! String,
+                                          price: diff.document.get("price") as! Double,
+                                          email: diff.document.get("email") as! String,
+                                          category: diff.document.get("category") as! String,
+                                          condition: diff.document.get("condition") as! String,
+                                          imageName: diff.document.get("imageName") as! String,
+                                          location: diff.document.get("location") as! Array<Double>,
+                                          description: diff.document.get("description") as! String,
+                                          isFavorite: diff.document.get("isFavorite") as! Bool)
+                    
+                    self.products.append(product)
+                }
+                
+                // for new modifications the products value
+                if (diff.type == .modified) {
+                    print("product modified: \(diff.document.data())")
+                    guard let modifiedIndex = self.categories.firstIndex(where: { $0.id == diff.document.documentID }) else {
+                        print("Could not find modified product in data model")
+                        return
+                    }
+                    
+                    self.products[modifiedIndex].name = diff.document.get("name") as! String
+                    self.products[modifiedIndex].price = diff.document.get("price") as! Double
+                    self.products[modifiedIndex].email = diff.document.get("email") as! String
+                    self.products[modifiedIndex].category = diff.document.get("category") as! String
+                    self.products[modifiedIndex].condition = diff.document.get("condition") as! String
+                    self.products[modifiedIndex].imageName = diff.document.get("imageName") as! String
+                    self.products[modifiedIndex].location = diff.document.get("location") as! Array<Double>
+                    self.products[modifiedIndex].description = diff.document.get("description") as! String
+                    self.products[modifiedIndex].isFavorite = diff.document.get("isFavorite") as! Bool
+                }
+                
+                // for product items that are to be removed
+                if (diff.type == .removed) {
+                    print("product removed: \(diff.document.data())")
+                    guard let removedIndex = self.categories.firstIndex(where: { $0.id == diff.document.documentID }) else {
+                        print("Could not find removed product in data model")
+                        return
+                    }
+                    self.products.remove(at: removedIndex)
+                }
+            }
+        }
+    }
+    
+    // Adding product item
+    func createProduct(name: String, price: Double, email: String, category: String, condition: String, imageName: String, location: Array<Double>, description: String, isFavorite: Bool) {
+        productsCollection.document().setData([
+            "name": name,
+            "price": price,
+            "email": email,
+            "category": category,
+            "condition": condition,
+            "imageName": imageName,
+            "location": location,
+            "description": description,
+            "isFavorite": isFavorite
+        ])
+    }
+    
+    // deleting product item
+    func deleteProduct(index: Int) {
+        print("Deleting product: \(categories[index])")
+        let id = self.categories[index].id
+        productsCollection.document(id).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {

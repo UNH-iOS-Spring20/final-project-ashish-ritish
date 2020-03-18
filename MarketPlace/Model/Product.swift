@@ -10,47 +10,14 @@ import SwiftUI
 import CoreLocation
 
 struct Product: Hashable, Codable, Identifiable {
-    
-    var id = UUID()
+    var id: String
     var name: String
     var price: Double
     var email: String
     var category: String
     var condition: String
     var imageName: String
-    var latitude: Double
-    var longitude: Double
+    var location: Array<Double>
     var description: String
     var isFavorite: Bool
-    
- //   fileprivate var coordinates: Coordinates
-  //  fileprivate var imageName: String
-
-/*    var locationCoordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude)
-    } */
-
-  /*  enum Category: String, CaseIterable, Codable, Hashable {
-        case featured = "Featured"
-        case vechiles = "Vechiles"
-        case electronics = "Electronics"
-        case fashion = "Fashion"
-        case house = "House"
-        case sport = "Sport"
-        case other = "Other"
-    } */
 }
-
-/*extension Product {
-    var image: Image {
-        ImageStore.shared.image(name: imageName)
-    }
-} 
-
-struct Coordinates: Hashable, Codable {
-    var latitude: Double
-    var longitude: Double
-}
-*/

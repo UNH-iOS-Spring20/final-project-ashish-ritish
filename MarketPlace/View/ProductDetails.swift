@@ -14,7 +14,7 @@ struct ProductDetails: View {
     var body: some View {
         VStack{
             
-            CategoryImage(picture: product.imageName)
+            ProductImage(picture: product.imageName)
             // .frame(height: 300)
             // .edgesIgnoringSafeArea(.top)
             

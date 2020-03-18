@@ -2,7 +2,7 @@
 //  CategoryImage.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/4/20.
+//  Created by Ashish Shrestha on 3/17/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -13,15 +13,19 @@ struct CategoryImage: View {
     
     var body: some View {
         Image(picture)
+            .renderingMode(.original)
             .resizable()
+            .clipShape(Circle())
+            .overlay(
+                 Circle().stroke(Color.white, lineWidth: 4))
+            .frame(width: 90, height: 90)
+             .shadow(radius: 10)
             .aspectRatio(contentMode: .fit)
-        //.frame(width: 350, height: 300, alignment: .center)
     }
 }
 
 struct CategoryImage_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryImage(picture: productDatas[0].imageName)
+        CategoryImage(picture: categoryDatas[0].image)
     }
 }
-

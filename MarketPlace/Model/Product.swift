@@ -6,7 +6,7 @@
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
-import SwiftUI
+
 import CoreLocation
 
 struct Product: Hashable, Codable, Identifiable {

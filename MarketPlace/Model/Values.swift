@@ -6,8 +6,6 @@
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
-import SwiftUI
-
 let productDatas: [Product] = [
     Product(
         //  id: 101,

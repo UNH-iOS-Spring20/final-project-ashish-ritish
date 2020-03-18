@@ -14,6 +14,7 @@ struct Home: View {
     
     
     @State var showingprofile = false
+    @State private var searchText: String = ""
     
     var userdata = " Name: Ritish Karki\n\n Email: rkark1@unh.newhaven.edu " + "\n\n Contact: +2034353851\n\n Address: 2 Andrew Street Apt 1B\n\n City: West Haven"
         + "\n\n State: CT\n\n ZipCode: 06516"
@@ -28,31 +29,36 @@ struct Home: View {
     }
     
     var body: some View {
-        NavigationView{
-            List(productDatas) { productData in
-                NavigationLink(destination: ProductDetails(product: productData)){
-                    HStack{
-                      //  ForEach(0..<2) { index in
-                            Image(productData.imageName)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 180, height: 180, alignment: .center)
-                        
-                        VStack {
-                            Text(productData.name)
-                                .font(.title)
-                            Text("$ " + String(productData.price))
-                            .font(.headline)
-                        }
-                    .padding(20)
-                     //   }
-                    
-                    }
-                    
-                }
-                .navigationBarTitle(Text("Products"))
-            }
+        NavigationView {
+            VStack{
+                SearchBar(text: $searchText, placeholder: "Search")
+                CategoryRow()
                 
+                //   List(productDatas) { productData in
+                List {
+                    ForEach(productDatas) { productData in
+                        NavigationLink(destination: ProductDetails(product: productData)){
+                            HStack{
+                                //  ForEach(0..<2) { index in
+                                Image(productData.imageName)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 180, height: 180, alignment: .center)
+                                
+                                VStack {
+                                    Text(productData.name)
+                                        .font(.title)
+                                    Text("$ " + String(productData.price))
+                                        .font(.headline)
+                                }
+                                .padding(20)
+                                //   }
+                                
+                            }
+                        }
+                    }
+                    //  .navigationBarTitle(Text("Products"))
+                }
                 .navigationBarItems(leading: profileButton)
                 .sheet(isPresented: $showingprofile){
                     VStack{
@@ -79,10 +85,12 @@ struct Home: View {
                             .foregroundColor(.gray)
                     }
                     .padding()
+                }
             }
         }
     }
 }
+
 
 
 struct Home_Previews: PreviewProvider {

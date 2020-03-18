@@ -75,7 +75,7 @@ struct ProductDetails: View {
             }
             .padding()
             
-            MapView(location: product.location)
+            MapView(location: [product.latitude, product.longitude])
                 .frame(height: 300)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)

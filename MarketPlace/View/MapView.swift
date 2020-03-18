@@ -28,6 +28,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(location: firebaseSession.products[0].location)
+        MapView(location: [firebaseSession.products[0].latitude, firebaseSession.products[0].longitude])
     }
 }

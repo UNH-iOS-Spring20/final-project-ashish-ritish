@@ -97,7 +97,8 @@ class FirebaseSession: ObservableObject {
                                           category: diff.document.get("category") as! String,
                                           condition: diff.document.get("condition") as! String,
                                           imageName: diff.document.get("imageName") as! String,
-                                          location: diff.document.get("location") as! Array<Double>,
+                                          latitude: diff.document.get("latitude") as! Double,
+                                          longitude: diff.document.get("longitude") as! Double,
                                           description: diff.document.get("description") as! String,
                                           isFavorite: diff.document.get("isFavorite") as! Bool)
                     
@@ -118,7 +119,8 @@ class FirebaseSession: ObservableObject {
                     self.products[modifiedIndex].category = diff.document.get("category") as! String
                     self.products[modifiedIndex].condition = diff.document.get("condition") as! String
                     self.products[modifiedIndex].imageName = diff.document.get("imageName") as! String
-                    self.products[modifiedIndex].location = diff.document.get("location") as! Array<Double>
+                    self.products[modifiedIndex].latitude = diff.document.get("latitude") as! Double
+                    self.products[modifiedIndex].longitude = diff.document.get("longitude") as! Double
                     self.products[modifiedIndex].description = diff.document.get("description") as! String
                     self.products[modifiedIndex].isFavorite = diff.document.get("isFavorite") as! Bool
                 }
@@ -137,7 +139,7 @@ class FirebaseSession: ObservableObject {
     }
     
     // Adding product item
-    func createProduct(name: String, price: Double, email: String, category: String, condition: String, imageName: String, location: Array<Double>, description: String, isFavorite: Bool) {
+    func createProduct(name: String, price: Double, email: String, category: String, condition: String, imageName: String, latitude: Double, longitude: Double, description: String, isFavorite: Bool) {
         productsCollection.document().setData([
             "name": name,
             "price": price,
@@ -145,7 +147,8 @@ class FirebaseSession: ObservableObject {
             "category": category,
             "condition": condition,
             "imageName": imageName,
-            "location": location,
+            "latitude": latitude,
+            "longitude": longitude,
             "description": description,
             "isFavorite": isFavorite
         ])

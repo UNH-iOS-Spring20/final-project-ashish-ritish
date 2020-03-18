@@ -17,7 +17,8 @@ struct Product: Hashable, Codable, Identifiable {
     var category: String
     var condition: String
     var imageName: String
-    var location: Array<Double>
+    var latitude: Double
+    var longitude: Double
     var description: String
     var isFavorite: Bool
 }

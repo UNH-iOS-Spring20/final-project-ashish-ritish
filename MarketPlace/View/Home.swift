@@ -8,12 +8,10 @@
 
 import SwiftUI
 
-
+import FirebaseFirestore
 
 struct Home: View {
-    
-    // var categories = [Category]()
-    
+    @ObservedObject private var fbSession = firebaseSession
     @State var showingprofile = false
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
@@ -41,7 +39,7 @@ struct Home: View {
                 // .offset(x: 0, y: -0)
                 
                 List {
-                    ForEach(productDatas.filter {
+                    ForEach(fbSession.products.filter {
                         self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                     }, id: \.id) { productData in
                         NavigationLink(destination: ProductDetails(product: productData)){
@@ -64,7 +62,6 @@ struct Home: View {
                             }
                         }
                     }
-                    
                 }
                     //     .navigationBarItems(leading:profileButton)
                     .sheet(isPresented: $showingprofile){

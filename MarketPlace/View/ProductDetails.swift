@@ -77,7 +77,7 @@ struct ProductDetails: View {
             }
             .padding()
             
-            MapView(latitudeData: product.latitude, longitudeData: product.longitude)
+            MapView(location: [product.latitude, product.longitude])
                 .frame(height: 300)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
@@ -88,6 +88,6 @@ struct ProductDetails: View {
 
 struct ProductDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetails(product: productDatas[0])
+        ProductDetails(product: firebaseSession.products[0])
     }
 }

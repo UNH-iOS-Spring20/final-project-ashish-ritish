@@ -12,14 +12,8 @@ struct ProductDetails: View {
     var product: Product
     
     var body: some View {
-        //   ScrollView(.vertical, showsIndicators: false){
         VStack{
-            
             ProductImage(picture: product.imageName)
-            // .offset(x: 0, y: 40)
-            // .frame(height: 300)
-            // .edgesIgnoringSafeArea(.top)
-            
             VStack (alignment: .leading){
                 HStack{
                     Text("Name:")
@@ -81,8 +75,6 @@ struct ProductDetails: View {
                 .frame(height: 300)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
-        //     }
-        
     }
 }
 

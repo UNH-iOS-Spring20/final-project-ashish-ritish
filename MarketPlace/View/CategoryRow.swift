@@ -7,54 +7,28 @@
 //
 import SwiftUI
 
-/*struct CategoryRow: View {
+struct CategoryRow: View {
     var items: [Category]
+    var categoryName="Sample"
     
     var body: some View {
-        VStack(alignment: .leading){
-            
-            ScrollView(.horizontal, showsIndicators: false){
-                HStack(alignment: .top, spacing: 0){
-                    ForEach(self.items) { category in
-                        NavigationLink(
-                            destination: ProductDetails(
-                                product: category
-                            )
-                        ){
-                            CategoryItem(category: category)
-                        }
-                        
-                    }
-                }
-            }
-            .frame(height: 100)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .center) {
+              ForEach(items, id: \.self.id) { category in
+                VStack{
+                    CategoryImage(picture: category.name)
+                    Text(category.name)
+                }.padding()
+               }
+            }.frame(height: 120)
         }
-    }
-}
-
-struct CategoryItem: View {
-    var category: Category
-    var body: some View{
-        VStack(){
-            CategoryImage(picture: category.image)
-            
-            Text(category.name)
-               .foregroundColor(.primary)
-                .font(.caption)
-              //  .padding()
-        }
-        .padding(.leading, 15)
-        .padding(.top)
     }
 }
 
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRow(
-          //  categoryName: landmarkData[0].category.rawValue,
-            items: Array(categoryDatas.prefix(5))
+            items: firebaseSession.categories
         )
     }
 }
-
-*/

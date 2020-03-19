@@ -31,20 +31,25 @@ struct Home: View {
     var body: some View {
         
         NavigationView {
-            VStack{
-                HStack{
+            VStack(alignment: .trailing){
+                // stack for top search bar
+                HStack(spacing: 0){
                     profileButton
                     SearchBar(text: $searchText, placeholder: "Search")
                 }
-                // .offset(x: 0, y: -0)
                 
+                //stack for category slider
+                HStack(alignment: .top, spacing: 0){
+                    CategoryRow(items: fbSession.categories)
+                }.padding(.top, 0)
+                
+                //list of products
                 List {
                     ForEach(fbSession.products.filter {
                         self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                     }, id: \.id) { productData in
                         NavigationLink(destination: ProductDetails(product: productData)){
                             HStack{
-                                //  ForEach(0..<2) { index in
                                 Image(productData.imageName)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -57,14 +62,11 @@ struct Home: View {
                                         .font(.headline)
                                 }
                                 .padding(20)
-                                //   }
-                                
                             }
                         }
                     }
                 }
-                    //     .navigationBarItems(leading:profileButton)
-                    .sheet(isPresented: $showingprofile){
+                .sheet(isPresented: $showingprofile){
                         VStack{
                             HStack{
                                 Text("User Profile")
@@ -80,7 +82,6 @@ struct Home: View {
                                     .shadow(radius: 10)
                                     .edgesIgnoringSafeArea(.top)
                                     .scaledToFit()
-                                //  .padding(20)
                             }
                             .padding(.bottom, 20)
                             Text(self.userdata)
@@ -100,7 +101,6 @@ struct Home: View {
               self.isNavigationBarHidden = false
           }
         }
-     //   .edgesIgnoringSafeArea(.top)
     }
     
 }

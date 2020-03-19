@@ -17,9 +17,10 @@ struct CategoryImage: View {
             .resizable()
             .clipShape(Circle())
             .overlay(
-                 Circle().stroke(Color.white, lineWidth: 4))
-            .frame(width: 90, height: 90)
-             .shadow(radius: 10)
+                 Circle().stroke(Color.white, lineWidth: 2)
+            )
+            .frame(width: 70, height: 70, alignment: .center)
+             .shadow(radius: 4)
             .aspectRatio(contentMode: .fit)
     }
 }

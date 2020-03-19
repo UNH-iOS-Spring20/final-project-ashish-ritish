@@ -38,7 +38,7 @@ struct Home: View {
                     SearchBar(text: $searchText, placeholder: "Search")
                 }
                 
-                //stack for category slider
+                // stack for category slider
                 HStack(alignment: .top, spacing: 0){
                     CategoryRow(items: fbSession.categories)
                 }.padding(.top, 0)
@@ -93,7 +93,7 @@ struct Home: View {
                 }
             }
           .navigationBarHidden(isNavigationBarHidden)
-          .navigationBarTitle("Back")
+          .navigationBarTitle("Back", displayMode: .inline)
           .onAppear {
               self.isNavigationBarHidden = true
           }

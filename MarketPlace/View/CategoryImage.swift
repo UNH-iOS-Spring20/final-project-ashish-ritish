@@ -19,7 +19,7 @@ struct CategoryImage: View {
             .overlay(
                  Circle().stroke(Color.white, lineWidth: 2)
             )
-            .frame(width: 60, height: 60, alignment: .center)
+            .frame(width: 50, height: 50, alignment: .center)
              .shadow(radius: 4)
             .aspectRatio(contentMode: .fit)
     }

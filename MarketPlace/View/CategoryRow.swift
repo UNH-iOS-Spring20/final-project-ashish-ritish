@@ -13,14 +13,16 @@ struct CategoryRow: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .center) {
-              ForEach(items, id: \.self.id) { category in
-                VStack{
-                    CategoryImage(picture: category.name)
-                    Text(category.name)
-                }.padding()
-               }
-            }.frame(height: 120)
+            HStack(alignment: .top, spacing: -5) {
+                ForEach(items, id: \.self.id) { category in
+                    VStack{
+                        CategoryImage(picture: category.name)
+                        Text(category.name)
+                            .foregroundColor(.primary)
+                            .font(.caption)
+                    }.padding()
+                }
+            }.frame(height: 100)
         }
     }
 }
@@ -28,7 +30,7 @@ struct CategoryRow: View {
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRow(
-            items: firebaseSession.categories
+            items: Array(firebaseSession.categories.prefix(5))
         )
     }
 }

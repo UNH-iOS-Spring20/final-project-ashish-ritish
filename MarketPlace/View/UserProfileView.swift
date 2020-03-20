@@ -16,12 +16,11 @@ struct UserProfileView: View {
     var body: some View {
         VStack() {
             HStack{
-                GeometryReader{ geometry in
-                    Image("karki")
-                      .resizable()
-                        .frame(width: geometry.size.width, height:200)
-                      .aspectRatio(contentMode: .fit)
-                }
+                Image("karki")
+                .resizable()
+                .frame(width:150, height:150)
+                .aspectRatio(contentMode: .fit)
+                .
             }
            
            Spacer()

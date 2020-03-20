@@ -13,25 +13,19 @@ struct ProductView: View {
     
     var body: some View {
         VStack() {
-            Image(product.imageName)
-                /*  .resizable()
-                 .aspectRatio(contentMode: .fit)
-                 .clipped()
-                 .layoutPriority(97)
-                 .frame(width: 100, height: 100) */
-                 .renderingMode(.original)
+            HStack(alignment: .center){
+                Image(self.product.imageName)
+                .renderingMode(.original)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                //.clipped()
                 .layoutPriority(97)
-                .frame(width: 100, height: 100)
-            
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 150)
+            }.padding()
             HStack() {
-                VStack(alignment: .center) {
+                VStack(alignment: .leading) {
                     Text(product.name)
                         .font(.headline)
                         .foregroundColor(.primary)
-                        .padding(.bottom, 8)
                         .fixedSize(horizontal: false, vertical: true)
                         .layoutPriority(98)
                     Text("$ " + String(product.price))
@@ -42,13 +36,12 @@ struct ProductView: View {
                 }
                 Spacer()
             }
-            .padding([.leading, .trailing, .bottom], 8)
+            .padding()
+            .background(Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)))
         }
-        .cornerRadius(8)
-        .background(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.secondary.opacity(0.5))
-        )
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(color: .gray, radius: 4, x:0, y:0)
     }
 }
 

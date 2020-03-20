@@ -56,16 +56,14 @@ struct HomeView: View {
                 .gridStyle(
                     columnsInPortrait: 2,
                     columnsInLandscape: 3,
-                    spacing: 8,
-                    padding: EdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 8),
+                    spacing: 15,
+                    padding: EdgeInsets(top: 7.5, leading: 15, bottom: 7.5, trailing: 15),
                     animation: .easeInOut(duration: 0.5)
                 )
-                    .scrollOptions(
+                .scrollOptions(
                         direction: .vertical,
                         showsIndicators: true
                 )
-                    
-                    //  }
                     .sheet(isPresented: $showingprofile){
                         VStack{
                             HStack{
@@ -92,10 +90,9 @@ struct HomeView: View {
                         .padding()
                 }
             }
-                // .background(Color.secondary)
-                .navigationBarHidden(isNavigationBarHidden)
-                .navigationBarTitle("Back", displayMode: .inline)
-                .onAppear {
+            .navigationBarHidden(isNavigationBarHidden)
+            .navigationBarTitle("Back", displayMode: .inline)
+            .onAppear {
                     self.isNavigationBarHidden = true
             }
             .onDisappear {

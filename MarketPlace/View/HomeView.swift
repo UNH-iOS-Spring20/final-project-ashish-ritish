@@ -40,11 +40,7 @@ struct HomeView: View {
                 
                 
                 
-                //list of products
-                //  List{
-                /*  ForEach(self.fbSession.products.filter {
-                 self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
-                 }, id: \.id) { productData in */
+                //list of products displayed in grid style suing waterfall grid
                 WaterfallGrid(self.fbSession.products.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.id) { productData in

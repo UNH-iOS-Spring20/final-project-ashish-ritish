@@ -17,10 +17,14 @@ struct UserProfileView: View {
         VStack() {
             HStack{
                 Image("karki")
-                .resizable()
-                .frame(width:150, height:150)
-                .aspectRatio(contentMode: .fit)
-                .
+                    .edgesIgnoringSafeArea(.top)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 10)
+                    .edgesIgnoringSafeArea(.top)
+                    .scaledToFit()
+                    .padding(20)
             }
            
            Spacer()

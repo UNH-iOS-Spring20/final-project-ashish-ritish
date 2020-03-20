@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct ListView: View {
+struct ListScreenView: View {
     var body: some View {
         Color.blue
     }
 }
 
-struct ListView_Previews: PreviewProvider {
+struct ListScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView()
+        ListScreenView()
     }
 }

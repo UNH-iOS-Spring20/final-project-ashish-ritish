@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CategoryRow: View {
     var items: [Category]
-    var categoryName="Sample"
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

@@ -27,7 +27,7 @@ struct Home: View {
                     Image(systemName: "camera.fill")
                     Text("Sell")
             }
-            ListView()
+            ListScreenView()
                 .tabItem {
                     Image(systemName: "list.dash")
                     Text("List")

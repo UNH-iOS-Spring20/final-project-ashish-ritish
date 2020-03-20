@@ -19,7 +19,7 @@ struct ProductView: View {
                 .resizable()
                 .layoutPriority(97)
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 150)
+                .clipped()
             }.padding()
             HStack() {
                 VStack(alignment: .leading) {

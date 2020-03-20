@@ -32,7 +32,8 @@ struct Home: View {
                     Image(systemName: "list.dash")
                     Text("List")
             }
-        }.font(.headline)
+        }.edgesIgnoringSafeArea(.top)
+            .padding(.bottom, 0)
     }
     
 }

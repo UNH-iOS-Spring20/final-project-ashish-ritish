@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import WaterfallGrid
 
 struct HomeView: View {
     @ObservedObject private var fbSession = firebaseSession
@@ -40,61 +41,62 @@ struct HomeView: View {
                 
                 
                 //list of products
-                List{
-                    
-                    ForEach(self.fbSession.products.filter {
-                        self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
-                    }, id: \.id) { productData in
-                        NavigationLink(destination: ProductDetails(product: productData)){
-                            //  GridStack(rows: 2, columns: 2) { row, col in
-                            HStack{
-                                Image(productData.imageName)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 140, height: 120, alignment: .center)
-                                
-                                VStack {
-                                    Text(productData.name)
-                                        .font(.title)
-                                    Text("$ " + String(productData.price))
-                                        .font(.headline)
-                                }
-                                .padding(20)
-                            }
-                        }
+                //  List{
+                /*  ForEach(self.fbSession.products.filter {
+                 self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
+                 }, id: \.id) { productData in */
+                WaterfallGrid(self.fbSession.products.filter {
+                    self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
+                }, id: \.id) { productData in
+                    NavigationLink(destination: ProductDetails(product: productData)){
+                        ProductView(product: productData)
                     }
                     
                 }
-                .sheet(isPresented: $showingprofile){
-                    VStack{
-                        HStack{
-                            Text("User Profile")
-                                .font(.title)
+                .gridStyle(
+                    columnsInPortrait: 2,
+                    columnsInLandscape: 3,
+                    spacing: 8,
+                    padding: EdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 8),
+                    animation: .easeInOut(duration: 0.5)
+                )
+                    .scrollOptions(
+                        direction: .vertical,
+                        showsIndicators: true
+                )
+                    
+                    //  }
+                    .sheet(isPresented: $showingprofile){
+                        VStack{
+                            HStack{
+                                Text("User Profile")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding(10)
+                                Spacer()
+                                Image("karki")
+                                    .edgesIgnoringSafeArea(.top)
+                                    .clipShape(Circle())
+                                    .overlay(
+                                        Circle().stroke(Color.white, lineWidth: 4))
+                                    .shadow(radius: 10)
+                                    .edgesIgnoringSafeArea(.top)
+                                    .scaledToFit()
+                            }
+                            .padding(.bottom, 20)
+                            Text(self.userdata)
+                                .font(.system(size: 20))
                                 .fontWeight(.bold)
-                                .padding(10)
-                            Spacer()
-                            Image("karki")
-                                .edgesIgnoringSafeArea(.top)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle().stroke(Color.white, lineWidth: 4))
-                                .shadow(radius: 10)
-                                .edgesIgnoringSafeArea(.top)
-                                .scaledToFit()
+                                .foregroundColor(.gray)
                         }
-                        .padding(.bottom, 20)
-                        Text(self.userdata)
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
+                        .padding()
                 }
             }
-            .navigationBarHidden(isNavigationBarHidden)
-            .navigationBarTitle("Back", displayMode: .inline)
-            .onAppear {
-                self.isNavigationBarHidden = true
+                // .background(Color.secondary)
+                .navigationBarHidden(isNavigationBarHidden)
+                .navigationBarTitle("Back", displayMode: .inline)
+                .onAppear {
+                    self.isNavigationBarHidden = true
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

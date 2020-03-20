@@ -264,10 +264,12 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - WaterfallGrid (0.4.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Firestore
+  - WaterfallGrid (~> 0.4.0)
 
 SPEC REPOS:
   trunk:
@@ -290,6 +292,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - WaterfallGrid
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -311,7 +314,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  WaterfallGrid: 568881d69470c0ffe635732dfafd859db1365989
 
-PODFILE CHECKSUM: 272767e26f439b770c5999cd202abcafef9e7213
+PODFILE CHECKSUM: 36b30262ecac8b08d86d475be34c775faf7377de
 
 COCOAPODS: 1.9.0

@@ -64,30 +64,8 @@ struct HomeView: View {
                         direction: .vertical,
                         showsIndicators: true
                 )
-                    .sheet(isPresented: $showingprofile){
-                        VStack{
-                            HStack{
-                                Text("User Profile")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding(10)
-                                Spacer()
-                                Image("karki")
-                                    .edgesIgnoringSafeArea(.top)
-                                    .clipShape(Circle())
-                                    .overlay(
-                                        Circle().stroke(Color.white, lineWidth: 4))
-                                    .shadow(radius: 10)
-                                    .edgesIgnoringSafeArea(.top)
-                                    .scaledToFit()
-                            }
-                            .padding(.bottom, 20)
-                            Text(self.userdata)
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                                .foregroundColor(.gray)
-                        }
-                        .padding()
+                .sheet(isPresented: $showingprofile){
+                    UserProfileView()
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)

@@ -10,8 +10,9 @@ import SwiftUI
 
 struct SellView: View {
     var body: some View {
-     //   Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        Color.green
+     //   Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/
+        Color.purple
+       .navigationBarTitle(Text("Sells"), displayMode: .inline)
     }
 }
 

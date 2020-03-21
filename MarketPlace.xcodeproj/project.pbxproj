@@ -11,6 +11,7 @@
 		74620363E32BC906F6B67730 /* Pods_MarketPlace_MarketPlaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8936A2B79A3BD0801C23DB6 /* Pods_MarketPlace_MarketPlaceUITests.framework */; };
 		774EE22C2424983D00CC46DC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774EE22B2424983D00CC46DC /* UserProfileView.swift */; };
 		7755C15B242165F000AAB4BE /* FirebaseSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755C15A242165F000AAB4BE /* FirebaseSession.swift */; };
+		778CC0A12425B79C00E73EED /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778CC0A02425B79C00E73EED /* RatingView.swift */; };
 		9437AD155E9B5CF9985E5247 /* Pods_MarketPlace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6ED626A85D1463C09C2374B /* Pods_MarketPlace.framework */; };
 		E92FFFAE240F395D00BB2822 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FFFAD240F395D00BB2822 /* Home.swift */; };
 		E93F2FF82405DE0300A7E661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */; };
@@ -73,6 +74,7 @@
 		774EE22B2424983D00CC46DC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		7755C15A242165F000AAB4BE /* FirebaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSession.swift; sourceTree = "<group>"; };
 		7755C15C24216AE900AAB4BE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		778CC0A02425B79C00E73EED /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		8C57BAAEE520A89FDA6E9809 /* Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlace-MarketPlaceUITests/Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B54636A806B0C428BADD6002 /* Pods_MarketPlaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarketPlaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8936A2B79A3BD0801C23DB6 /* Pods_MarketPlace_MarketPlaceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarketPlace_MarketPlaceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +254,7 @@
 				E99D70FC24240D590064DD3A /* HomeView.swift */,
 				E9805806242443D400BC9A47 /* ProductView.swift */,
 				774EE22B2424983D00CC46DC /* UserProfileView.swift */,
+				778CC0A02425B79C00E73EED /* RatingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				E9805807242443D400BC9A47 /* ProductView.swift in Sources */,
 				E9708C4523FDBA84009542A8 /* UserProfile.swift in Sources */,
 				E98D1F6523FB202E00F98CD6 /* SceneDelegate.swift in Sources */,
+				778CC0A12425B79C00E73EED /* RatingView.swift in Sources */,
 				774EE22C2424983D00CC46DC /* UserProfileView.swift in Sources */,
 				E94C1A2124102011008D668E /* Product.swift in Sources */,
 				E99D70F924240CAD0064DD3A /* SellView.swift in Sources */,

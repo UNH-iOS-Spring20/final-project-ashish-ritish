@@ -12,25 +12,32 @@ struct UserProfileView: View {
     // MARK: - Propertiers
     @State private var email = ""
     @State private var password = ""
-    
+    @State private var userRating = 4
     var body: some View {
         VStack() {
-            VStack{
-                Image("karki")
+            VStack(alignment: .leading){
+                HStack{
+                    Image("karki")
                     .resizable()
                     .frame(width: 150, height: 150)
                     .edgesIgnoringSafeArea(.top)
                     .clipShape(Circle())
-                    .overlay(
-                        Circle().stroke(Color.white, lineWidth: 2))
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
                     .shadow(radius: 10)
                     .edgesIgnoringSafeArea(.top)
                     .scaledToFit()
-                    .padding([.top,.leading,.trailing], 50)
-                
-                Text("Ritish Karki")
-                    .font(.system(size: 25))
-                
+                    .padding([.top,.bottom], 50)
+                    .padding([.leading,.trailing], 20)
+                    
+                    VStack(alignment: .leading){
+                        Text("Ritish Karki").font(.system(size: 25))
+                        Text("21 Andrews Street, West Haven")
+                        Section {
+                            RatingView(rating: $userRating)
+                        }
+                    }
+                }
+        
                 HStack{
                     Text("Notifications")
                     Spacer()

@@ -11,6 +11,8 @@ import SwiftUI
 struct ListScreenView: View {
     var body: some View {
         Color.blue
+        .navigationBarTitle(Text("Listings"), displayMode: .inline)
+        
     }
 }
 

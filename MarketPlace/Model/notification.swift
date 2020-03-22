@@ -10,6 +10,6 @@ struct Notification: Identifiable {
     var id: String
     var title: String
     var description: String
-    var createdDate: Int
-    var seenDate: Int
+    var createdTime: Int
+    var seenTime: Int
 }

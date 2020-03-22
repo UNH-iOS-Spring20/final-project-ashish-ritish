@@ -6,8 +6,6 @@
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
-import FirebaseFirestore
-
 struct Category: Identifiable {
     var id: String
     var name: String

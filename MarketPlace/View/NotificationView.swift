@@ -10,57 +10,62 @@ import SwiftUI
 
 struct NotificationView: View {
     @State private var showingSheet = false
+    @State private var actionTitle = ""
+    @State private var notificationId = ""
     
+    @ObservedObject private var session = firebaseSession
     var actionSheet: ActionSheet{
-        ActionSheet(title: Text(""), message: Text("Title"), buttons: [
-                 // .default(Text("Delete")),
+        ActionSheet(title: Text(""), message: Text(actionTitle), buttons: [
                   .destructive(Text("Delete"), action: {
-                      print("Delete")
+                     print("Delete")
+                     self.session.deletenotification(id: self.notificationId)
                   }),
-                .cancel()
+                  .cancel(Text("Cancel"), action:{
+                    self.actionTitle = ""
+                    self.notificationId = ""
+                  })
               ])
     }
     var body: some View {
         List{
-            HStack(){
-                Image("AppLogo")
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle().stroke(Color.white, lineWidth: 2))
-                    .shadow(radius: 4)
-                    .scaledToFit()
-                // .padding(20)
-                HStack() {
-                    VStack(alignment: .leading) {
-                        Text("Title")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .layoutPriority(98)
-                        Text("Details")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .layoutPriority(99)
-                    }
-                   // .padding(.top, 0)
-                        //  .background(Color.red)
+            ForEach(session.notifications, id: \.self.id) { notification in
+                HStack(){
+                    Image("AppLogo")
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(Color.white, lineWidth: 2))
+                        .shadow(radius: 4)
+                        .scaledToFit()
+                    HStack() {
+                        VStack(alignment: .leading) {
+                            Text(notification.title)
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .layoutPriority(98)
+                            Text(notification.description)
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .layoutPriority(99)
+                        }
                         .padding(10)
-                    Spacer()
-                    Button(action : {
-                        self.showingSheet = true
-                    }){
-                        Image(systemName: "ellipsis")
+                        Spacer()
+                        Button(action : {
+                            self.showingSheet = true
+                            self.notificationId = notification.id
+                            self.actionTitle = notification.title
+                        }){
+                            Image(systemName: "ellipsis")
+                        }
+                        .actionSheet(isPresented: self.$showingSheet, content: {
+                                   self.actionSheet })
+                        
                     }
-                    .actionSheet(isPresented: $showingSheet, content: {
-                               self.actionSheet })
                     
-                }
-                
-            }.padding(10)
-                //.frame(height: 10)
-                .navigationBarTitle(Text("Notifications"), displayMode: .inline)
-               
+                }.padding(10)
+                    .navigationBarTitle(Text("Notifications"), displayMode: .inline)
+            }
         }
     }
 }

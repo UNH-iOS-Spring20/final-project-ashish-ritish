@@ -11,18 +11,9 @@ import FirebaseFirestore
 
 struct Home: View {
     init() {
-//          // 1.
-      //  UINavigationBar.appearance().backgroundColor = .gray
-//
-//          // 2.
-//        //  UINavigationBar.appearance().largeTitleTextAttributes = [
-//          //    .foregroundColor: UIColor.darkGray,
-//            //  .font : UIFont(name:"Papyrus", size: 80)!]
-//
-//          // 3.
           UINavigationBar.appearance().titleTextAttributes = [
              .foregroundColor: UIColor.darkGray,
-            .font : UIFont(name: "Georgia-Bold", size: 20)!]
+            .font : UIFont(name: "Arial", size: 20)!]
     }
   
     var body: some View {

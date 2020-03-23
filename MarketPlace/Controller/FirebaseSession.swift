@@ -184,8 +184,8 @@ class FirebaseSession: ObservableObject {
                     let notification = Notification(id: diff.document.documentID,
                                             title: diff.document.get("title") as! String,
                                             description: diff.document.get("description") as! String,
-                                            createdDate: diff.document.get("createdDate") as! Int,
-                                            seenDate: diff.document.get("seenDate") as! Int)
+                                            createdTime: diff.document.get("createdTime") as! Int,
+                                            seenTime: diff.document.get("seenTime") as! Int)
                     self.notifications.append(notification)
                 }
                 if (diff.type == .modified) {
@@ -209,12 +209,12 @@ class FirebaseSession: ObservableObject {
     }
     
     //adding notification item
-    func createnotification(title: String, description: String, createdDate: Int, seenDate: Int) {
+    func createnotification(title: String, description: String, createdTime: Int, seenTime: Int) {
        notificationsCollection.document().setData([
            "title": title,
            "description": description,
-           "createdDate": createdDate,
-           "seenDate": seenDate
+           "createdTime": createdTime,
+           "seenTime": seenTime
        ])
    }
     

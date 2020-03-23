@@ -13,13 +13,16 @@ let firebaseSession = FirebaseSession() // singleton
 class FirebaseSession: ObservableObject {
     @Published var categories = [Category]()
     @Published var products = [Product]()
+    @Published var notifications = [Notification]()
     
     private let categoriesCollection = Firestore.firestore().collection("categories")
     private let productsCollection = Firestore.firestore().collection("products")
+    private let notificationsCollection = Firestore.firestore().collection("notifications")
         
     init() {
         listenForCategoryChanges()
         listenForProductChanges()
+        listenForNotificationChanges()
     }
     
     // Reference link : https://firebase.google.com/docs/firestore/query-data/listen
@@ -77,7 +80,7 @@ class FirebaseSession: ObservableObject {
         }
     }
     
-    // listening for chnages in product addition or just reading the products
+    // listening for changes in product addition or just reading the products
     func listenForProductChanges(){
         productsCollection.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
@@ -163,6 +166,65 @@ class FirebaseSession: ObservableObject {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
+            }
+        }
+    }
+    
+    // listening for notifications changes
+    func listenForNotificationChanges() {
+        notificationsCollection.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshots: \(error!)")
+                return
+            }
+            
+            snapshot.documentChanges.forEach { diff in
+                if (diff.type == .added) {
+                    print("notification added: \(diff.document.data())")
+                    let notification = Notification(id: diff.document.documentID,
+                                            title: diff.document.get("title") as! String,
+                                            description: diff.document.get("description") as! String,
+                                            createdTime: diff.document.get("createdTime") as! Int,
+                                            seenTime: diff.document.get("seenTime") as! Int)
+                    self.notifications.append(notification)
+                }
+                if (diff.type == .modified) {
+                    print("notification modified: \(diff.document.data())")
+                    guard let modifiedIndex = self.notifications.firstIndex(where: { $0.id == diff.document.documentID }) else {
+                        print("Could not find modified notification in data model")
+                        return
+                    }
+                    self.notifications[modifiedIndex].title = diff.document.get("title") as! String
+                }
+                if (diff.type == .removed) {
+                    print("notification removed: \(diff.document.data())")
+                    guard let removedIndex = self.notifications.firstIndex(where: { $0.id == diff.document.documentID }) else {
+                        print("Could not find removed notification in data model")
+                        return
+                    }
+                    self.notifications.remove(at: removedIndex)
+                }
+            }
+        }
+    }
+    
+    //adding notification item
+    func createnotification(title: String, description: String, createdTime: Int, seenTime: Int) {
+       notificationsCollection.document().setData([
+           "title": title,
+           "description": description,
+           "createdTime": createdTime,
+           "seenTime": seenTime
+       ])
+   }
+    
+    func deletenotification(id: String) {
+        print("Deleting notification")
+        notificationsCollection.document(id).delete() { err in
+            if let err = err {
+                print("Error removing notification: \(err)")
+            } else {
+                print("notification successfully removed!")
             }
         }
     }

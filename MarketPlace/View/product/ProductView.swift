@@ -15,11 +15,11 @@ struct ProductView: View {
         VStack() {
             HStack(alignment: .center){
                 Image(self.product.imageName)
-                .renderingMode(.original)
-                .resizable()
-                .layoutPriority(97)
-                .aspectRatio(contentMode: .fit)
-                .clipped()
+                    .renderingMode(.original)
+                    .resizable()
+                    .layoutPriority(97)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
             }.padding()
             HStack() {
                 VStack(alignment: .leading) {
@@ -35,6 +35,11 @@ struct ProductView: View {
                         .layoutPriority(99)
                 }
                 Spacer()
+                if product.isFavorite {
+                    Image(systemName: "heart.fill")
+                        .imageScale(.medium)
+                        .foregroundColor(.red)
+                }
             }
             .padding()
             .background(Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)))

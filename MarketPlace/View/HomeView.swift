@@ -73,7 +73,7 @@ struct HomeView: View {
                 self.isNavigationBarHidden = false
             }
         }
-        .background(Color.red)
+       // .background(Color.red)
     }
 }
 

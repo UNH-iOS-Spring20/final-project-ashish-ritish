@@ -89,7 +89,6 @@ class FirebaseSession: ObservableObject {
             }
             
             snapshot.documentChanges.forEach { diff in
-                
                 // for new add and read
                 if (diff.type == .added) {
                     print("product added: \(diff.document.data())")
@@ -181,12 +180,21 @@ class FirebaseSession: ObservableObject {
             snapshot.documentChanges.forEach { diff in
                 if (diff.type == .added) {
                     print("notification added: \(diff.document.data())")
-                    let notification = Notification(id: diff.document.documentID,
-                                            title: diff.document.get("title") as! String,
-                                            description: diff.document.get("description") as! String,
-                                            createdTime: diff.document.get("createdTime") as! Int,
-                                            seenTime: diff.document.get("seenTime") as! Int)
-                    self.notifications.append(notification)
+                    let title = diff.document.get("title") as? String
+                    let description = diff.document.get("description") as? String
+                    let createdTime = diff.document.get("createdTime") as? Int
+                    let seenTime = diff.document.get("seenTime") as? Int
+                    
+                    if title != nil || description != nil || createdTime != nil {
+                        let notification = Notification(id: diff.document.documentID,
+                                                title: title ?? "",
+                                                description: description ?? "",
+                                                createdTime:createdTime ?? 0,
+                                                seenTime: seenTime ?? 0
+                                            )
+                        self.notifications.append(notification)
+                    }
+                    
                 }
                 if (diff.type == .modified) {
                     print("notification modified: \(diff.document.data())")
@@ -229,3 +237,7 @@ class FirebaseSession: ObservableObject {
         }
     }
 }
+
+
+
+

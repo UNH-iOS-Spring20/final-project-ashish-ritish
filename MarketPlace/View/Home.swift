@@ -17,6 +17,7 @@ struct Home: View {
     }
   
     var body: some View {
+        ZStack{
         TabView {
             HomeView()
                 .tabItem {
@@ -47,6 +48,7 @@ struct Home: View {
             }
         }
         .padding(.bottom, 0)
+        }
     }
     
 }

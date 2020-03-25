@@ -13,15 +13,22 @@ struct CategoryRow: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: -5) {
-                ForEach(items, id: \.self.id) { category in
-                    VStack{
-                        CategoryImage(picture: category.name)
-                        Text(category.name)
-                            .foregroundColor(.primary)
-                            .font(.caption)
-                    }.padding()
+                ForEach(items) { category in
+                    
+                    NavigationLink(
+                        destination: CategoryList(categoryName: category.name)
+                    ) {
+                        VStack{
+                            CategoryImage(picture: category.name)
+                            Text(category.name)
+                                .foregroundColor(.primary)
+                                .font(.caption)
+                        }.padding()
+                    }
+                    
                 }
-            }.frame(height: 100)
+            }
+            .frame(height: 100)
         }
     }
 }

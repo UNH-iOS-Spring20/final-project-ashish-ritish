@@ -65,10 +65,11 @@ struct NotificationView: View {
                         
                     }
                     
-                }.padding(10)
-                    .navigationBarTitle(Text("Notifications"), displayMode: .inline)
+                }
+                .padding(10)
             }
         }
+        .navigationBarTitle(Text("Notifications"), displayMode: .inline)
     }
 }
 

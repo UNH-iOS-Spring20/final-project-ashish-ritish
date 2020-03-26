@@ -17,7 +17,6 @@ struct Home: View {
     }
   
     var body: some View {
-        ZStack{
         TabView {
             HomeView()
                 .tabItem {
@@ -26,7 +25,7 @@ struct Home: View {
             }
             NavigationView{
             NotificationView()
-            }.edgesIgnoringSafeArea(.top)
+            }
                 .tabItem {
                     Image(systemName: "bell.fill")
                     Text("Notification")
@@ -46,8 +45,6 @@ struct Home: View {
                 Text("List")
             
             }
-        }
-        .padding(.bottom, 0)
         }
     }
     

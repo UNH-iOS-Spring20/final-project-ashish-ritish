@@ -14,6 +14,7 @@ struct NotificationView: View {
     @State private var notificationId = ""
     
     @ObservedObject private var session = firebaseSession
+    
     var actionSheet: ActionSheet{
         ActionSheet(title: Text(""), message: Text(actionTitle), buttons: [
             .destructive(Text("Delete"), action: {
@@ -26,9 +27,8 @@ struct NotificationView: View {
             })
         ])
     }
+    
     var body: some View {
-        
-        
         List{
             ForEach(session.notifications, id: \.self.id) { notification in
                 HStack(){

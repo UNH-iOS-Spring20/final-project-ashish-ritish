@@ -13,7 +13,7 @@ struct ProductDetails: View {
     
     var body: some View {
         VStack{
-            ProductImage(picture: product.imageName)
+            ProductImage(picture: product.imageUrls[0])
             VStack (alignment: .leading){
                 HStack{
                     Text("Name:")

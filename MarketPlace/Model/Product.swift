@@ -21,4 +21,5 @@ struct Product: Hashable, Codable, Identifiable {
     var longitude: Double
     var description: String
     var isFavorite: Bool
+    var imageUrls: Array<String>
 }

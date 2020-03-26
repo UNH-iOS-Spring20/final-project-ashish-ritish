@@ -14,12 +14,7 @@ struct ProductView: View {
     var body: some View {
         VStack() {
             HStack(alignment: .center){
-                Image(self.product.imageName)
-                    .renderingMode(.original)
-                    .resizable()
-                    .layoutPriority(97)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
+                ProductImage(picture: self.product.imageUrls[0])
             }.padding()
             HStack() {
                 VStack(alignment: .leading) {

@@ -12,6 +12,7 @@ struct ProductDetails: View {
     var product: Product
     
     var body: some View {
+       // ScrollView(.vertical, showsIndicators: false) {
         VStack{
             ProductImage(picture: product.imageName)
             VStack (alignment: .leading){
@@ -72,9 +73,11 @@ struct ProductDetails: View {
             .padding()
             
             MapView(location: [product.latitude, product.longitude])
-                .frame(height: 300)
+                .frame(height: 250)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
+        .padding(.top, 10)
+     //    }
     }
 }
 

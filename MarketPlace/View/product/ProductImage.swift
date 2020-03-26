@@ -13,9 +13,11 @@ struct ProductImage: View {
     
     var body: some View {
         Image(picture)
+           .renderingMode(.original)
             .resizable()
+           // .frame(width: 200, height: 200, alignment: .center)
             .aspectRatio(contentMode: .fit)
-           // .frame(width: 250, height: 250, alignment: .center)
+            
     }
 }
 

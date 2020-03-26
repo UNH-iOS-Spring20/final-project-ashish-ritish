@@ -36,7 +36,7 @@ struct CategoryList: View {
                 )
             }.navigationBarTitle(categoryName)
             
-        }.padding(.top, 10)
+        }.padding(.top, 20)
     }
 }
 

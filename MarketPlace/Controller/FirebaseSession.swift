@@ -92,19 +92,36 @@ class FirebaseSession: ObservableObject {
                 // for new add and read
                 if (diff.type == .added) {
                     print("product added: \(diff.document.data())")
-                    let product = Product(id: diff.document.documentID,
-                                          name: diff.document.get("name") as! String,
-                                          price: diff.document.get("price") as! Double,
-                                          email: diff.document.get("email") as! String,
-                                          category: diff.document.get("category") as! String,
-                                          condition: diff.document.get("condition") as! String,
-                                          imageName: diff.document.get("imageName") as! String,
-                                          latitude: diff.document.get("latitude") as! Double,
-                                          longitude: diff.document.get("longitude") as! Double,
-                                          description: diff.document.get("description") as! String,
-                                          isFavorite: diff.document.get("isFavorite") as! Bool)
                     
-                    self.products.append(product)
+                    let name = diff.document.get("name") as! String
+                    let price = diff.document.get("price") as! Double
+                    let email = diff.document.get("email") as! String
+                    let category = diff.document.get("category") as! String
+                    let condition = diff.document.get("condition") as! String
+                    let imageName = diff.document.get("imageName") as! String
+                    let latitude = diff.document.get("latitude") as! Double
+                    let longitude = diff.document.get("longitude") as! Double
+                    let description = diff.document.get("description") as! String
+                    let isFavorite = diff.document.get("isFavorite") as! Bool
+                    let imageUrls = diff.document.get("imageUrls") as! Array<String>
+                    
+                    if name != nil || price != nil || email != nil || category != nil || imageUrls != nil {
+
+                        let product = Product(id: diff.document.documentID,
+                         name: name,
+                         price: price,
+                         email: email,
+                         category: category,
+                         condition: condition,
+                         imageName: imageName,
+                         latitude: latitude,
+                         longitude: longitude,
+                         description: description,
+                         isFavorite: isFavorite,
+                         imageUrls: imageUrls)
+   
+                        self.products.append(product)
+                    }
                 }
                 
                 // for new modifications the products value
@@ -125,6 +142,7 @@ class FirebaseSession: ObservableObject {
                     self.products[modifiedIndex].longitude = diff.document.get("longitude") as! Double
                     self.products[modifiedIndex].description = diff.document.get("description") as! String
                     self.products[modifiedIndex].isFavorite = diff.document.get("isFavorite") as! Bool
+                    self.products[modifiedIndex].imageUrls =  diff.document.get("imageUrls") as! Array<String>
                 }
                 
                 // for product items that are to be removed
@@ -141,7 +159,7 @@ class FirebaseSession: ObservableObject {
     }
     
     // Adding product item
-    func createProduct(name: String, price: Double, email: String, category: String, condition: String, imageName: String, latitude: Double, longitude: Double, description: String, isFavorite: Bool) {
+    func createProduct(name: String, price: Double, email: String, category: String, condition: String, imageName: String, latitude: Double, longitude: Double, description: String, isFavorite: Bool, imageUrls: Array<String>) {
         productsCollection.document().setData([
             "name": name,
             "price": price,
@@ -152,7 +170,8 @@ class FirebaseSession: ObservableObject {
             "latitude": latitude,
             "longitude": longitude,
             "description": description,
-            "isFavorite": isFavorite
+            "isFavorite": isFavorite,
+            "imageUrls": imageUrls
         ])
     }
     
@@ -237,7 +256,3 @@ class FirebaseSession: ObservableObject {
         }
     }
 }
-
-
-
-

@@ -14,7 +14,7 @@ struct ProductDetails: View {
     var body: some View {
        // ScrollView(.vertical, showsIndicators: false) {
         VStack{
-            ProductImage(picture: product.imageName)
+            ProductImage(picture: product.imageUrls[0])
             VStack (alignment: .leading){
                 HStack{
                     Text("Name:")

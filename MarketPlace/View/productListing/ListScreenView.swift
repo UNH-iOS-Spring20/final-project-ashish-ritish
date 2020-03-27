@@ -25,30 +25,33 @@ struct ListScreenView: View {
         let font1 = UIFont.systemFont(ofSize: 16,weight: UIFont.Weight.medium)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font1], for: .normal)
         
-        UISegmentedControl.appearance().backgroundColor = .clear
-        UISegmentedControl.appearance().tintColor = .clear
         
     }
     
     var body: some View {
-        VStack{
-            Picker(selection: $selected, label: Text(""), content: {
-                ForEach(0 ..< lists.count) {
-                    Text(self.lists[$0]).foregroundColor(Color.red)
-                }
+        NavigationView{
+            VStack{
+                Picker(selection: $selected, label: Text(""), content: {
+                    ForEach(0 ..< lists.count) {
+                        Text(self.lists[$0]).foregroundColor(Color.red)
+                    }
+                    
+                    
+                }).pickerStyle(SegmentedPickerStyle())
+                //   .frame(height: 50)
                 
+                Spacer()
+                Text(lists[selected])
+                    .font(.headline)
+                    .padding(.bottom, 30)
                 
-            }).pickerStyle(SegmentedPickerStyle())
-            //   .frame(height: 50)
-            
-            Spacer()
-            Text(lists[selected])
-                .font(.headline)
-                .padding(.bottom, 30)
-            
+                 .navigationBarTitle(Text("Listing"), displayMode: .inline)
+                
+            }
+             
         }
             //.padding()
-            .navigationBarTitle(Text("Listing"), displayMode: .inline)
+          
         
     }
 }

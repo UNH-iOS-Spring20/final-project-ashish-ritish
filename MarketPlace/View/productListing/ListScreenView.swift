@@ -9,50 +9,82 @@
 import SwiftUI
 
 struct ListScreenView: View {
-    @State var selected = 0
-    var lists = ["Favorite", "Selling", "Sold", "Brought"]
+    @State var itemColor = "favorite"
     
-    init() {
-        //  UISegmentedControl.appearance().apportionsSegmentWidthsByContent = true
-        
-        
-        UISegmentedControl.appearance().selectedSegmentTintColor = .clear
-        
-        let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor:
-            UIColor.black, NSAttributedString.Key.font: font], for: .selected)
-        
-        let font1 = UIFont.systemFont(ofSize: 16,weight: UIFont.Weight.medium)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font1], for: .normal)
-        
-        
-    }
     
     var body: some View {
-        NavigationView{
-            VStack{
-                Picker(selection: $selected, label: Text(""), content: {
-                    ForEach(0 ..< lists.count) {
-                        Text(self.lists[$0]).foregroundColor(Color.red)
+       NavigationView{
+        GeometryReader{ geometry in
+            VStack(spacing: -4){
+                HStack(spacing: 0){
+                    
+                    VStack(spacing: 5){
+                        Text("Favorite")
+                            .font(.system(size: 18))
+                            .foregroundColor(self.itemColor == "favorite" ? .blue : .gray)
+                        Image(systemName: "minus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 10)
+                            .foregroundColor(self.itemColor == "favorite" ? .blue : .clear)
+                    }
+                    .onTapGesture {
+                            self.itemColor = "favorite"
                     }
                     
+                    VStack(spacing: 5){
+                        Text("Selling")
+                            .font(.system(size: 18))
+                            .foregroundColor(self.itemColor == "selling" ? .blue : .gray)
+                        Image(systemName: "minus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 10)
+                            .foregroundColor(self.itemColor == "selling" ? .blue : .clear)
+                    }
+                    .onTapGesture {
+                            self.itemColor = "selling"
+                    }
                     
-                }).pickerStyle(SegmentedPickerStyle())
-                //   .frame(height: 50)
-                
+                    VStack(spacing: 5){
+                        Text("Sold")
+                            .font(.system(size: 18))
+                            .foregroundColor(self.itemColor == "sold" ? .blue : .gray)
+                        Image(systemName: "minus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 10)
+                            .foregroundColor(self.itemColor == "sold" ? .blue : .clear)
+                    }
+                        
+                    .onTapGesture {
+                            self.itemColor = "sold"
+                    }
+                    
+                    VStack(spacing: 5){
+                        Text("Brought")
+                            .font(.system(size: 18))
+                            .foregroundColor(self.itemColor == "brought" ? .blue : .gray)
+                        Image(systemName: "minus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 10)
+                            .foregroundColor(self.itemColor == "brought" ? .blue : .clear)
+                    }
+                        
+                    .onTapGesture {
+                            self.itemColor = "brought"
+                    }
+                    
+                } .frame(width: geometry.size.width, height: geometry.size.height/15)
+                    .background(Color.white)
+                    .padding(.top, 5)
                 Spacer()
-                Text(lists[selected])
-                    .font(.headline)
-                    .padding(.bottom, 30)
-                
-                 .navigationBarTitle(Text("Listing"), displayMode: .inline)
-                
+                Color.red
             }
-             
         }
-            //.padding()
-          
-        
+       .navigationBarTitle(Text("Listing"), displayMode: .inline)
+        }
     }
 }
 

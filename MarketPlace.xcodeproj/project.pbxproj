@@ -13,11 +13,9 @@
 		774EE22C2424983D00CC46DC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774EE22B2424983D00CC46DC /* UserProfileView.swift */; };
 		7755C15B242165F000AAB4BE /* FirebaseSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755C15A242165F000AAB4BE /* FirebaseSession.swift */; };
 		778CC0A12425B79C00E73EED /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778CC0A02425B79C00E73EED /* RatingView.swift */; };
+		7792830D242FD8A900117034 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7792830C242FD8A900117034 /* GoogleService-Info.plist */; };
 		8521C8254F3D6349344B6467 /* Pods_MarketPlaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0EC1AAECEF7B6E4A692DE2 /* Pods_MarketPlaceTests.framework */; };
 		E92FFFAE240F395D00BB2822 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FFFAD240F395D00BB2822 /* Home.swift */; };
-		E93F2FF82405DE0300A7E661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */; };
-		E93F2FF92405DE0300A7E661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */; };
-		E93F2FFA2405DE0300A7E661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */; };
 		E94C1A1B24101761008D668E /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1A24101761008D668E /* ProductImage.swift */; };
 		E94C1A1D241019EC008D668E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1C241019EC008D668E /* MapView.swift */; };
 		E94C1A1F24101CB3008D668E /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1E24101CB3008D668E /* ProductDetails.swift */; };
@@ -79,6 +77,7 @@
 		7755C15A242165F000AAB4BE /* FirebaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSession.swift; sourceTree = "<group>"; };
 		7755C15C24216AE900AAB4BE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		778CC0A02425B79C00E73EED /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		7792830C242FD8A900117034 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		77A54958EDFAAA968D090E38 /* Pods-MarketPlace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlace/Pods-MarketPlace.debug.xcconfig"; sourceTree = "<group>"; };
 		82C08D9306D474535F3E8527 /* Pods-MarketPlace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace.release.xcconfig"; path = "Target Support Files/Pods-MarketPlace/Pods-MarketPlace.release.xcconfig"; sourceTree = "<group>"; };
 		8ACE68C0C9112C9B15F9B129 /* Pods-MarketPlaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlaceTests.release.xcconfig"; path = "Target Support Files/Pods-MarketPlaceTests/Pods-MarketPlaceTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,7 +88,6 @@
 		E92FFF95240EC18C00BB2822 /* MarketPlaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92FFFAD240F395D00BB2822 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E93F2FF42405DD5100A7E661 /* MarketPlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E94C1A1A24101761008D668E /* ProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImage.swift; sourceTree = "<group>"; };
 		E94C1A1C241019EC008D668E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E94C1A1E24101CB3008D668E /* ProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetails.swift; sourceTree = "<group>"; };
@@ -276,7 +274,7 @@
 				E98D1F6623FB202E00F98CD6 /* ContentView.swift */,
 				E98D1F6D23FB202F00F98CD6 /* LaunchScreen.storyboard */,
 				E98D1F7023FB202F00F98CD6 /* Info.plist */,
-				E93F2FF72405DE0300A7E661 /* GoogleService-Info.plist */,
+				7792830C242FD8A900117034 /* GoogleService-Info.plist */,
 				E98D1F6A23FB202F00F98CD6 /* Preview Content */,
 			);
 			path = MarketPlace;
@@ -445,7 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E98D1F6F23FB202F00F98CD6 /* LaunchScreen.storyboard in Resources */,
-				E93F2FF82405DE0300A7E661 /* GoogleService-Info.plist in Resources */,
+				7792830D242FD8A900117034 /* GoogleService-Info.plist in Resources */,
 				E9CF5F18241074B8008FA082 /* Assets.xcassets in Resources */,
 				E98D1F6C23FB202F00F98CD6 /* Preview Assets.xcassets in Resources */,
 			);
@@ -455,7 +453,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E93F2FF92405DE0300A7E661 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +460,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E93F2FFA2405DE0300A7E661 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

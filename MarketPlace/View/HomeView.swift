@@ -26,6 +26,7 @@ struct HomeView: View {
                 .padding()
         }
     }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0){
@@ -37,7 +38,6 @@ struct HomeView: View {
                 
                 // stack for category slider
                 CategoryRow(items: fbSession.categories)
-                
                 
                 
                 //list of products displayed in grid style suing waterfall grid
@@ -60,6 +60,7 @@ struct HomeView: View {
                         direction: .vertical,
                         showsIndicators: true
                 )
+                    
                 .sheet(isPresented: $showingprofile){
                     UserProfileView()
                 }

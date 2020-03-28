@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct SellView: View {
+    //  @State private var isNavigationBarHidden = true
     var body: some View {
-     //   Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/
-        Color.purple
-       .navigationBarTitle(Text("Sells"), displayMode: .inline)
+        NavigationView{
+            Color.purple
+                .navigationBarTitle(Text("Sell"), displayMode: .inline)
+        }
     }
 }
 

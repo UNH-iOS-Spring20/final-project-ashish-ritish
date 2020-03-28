@@ -7,6 +7,9 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+
+let notificationsCollectionRef = Firestore.firestore().collection("notifications")
 
 struct NotificationView: View {
     @State private var showingSheet = false
@@ -14,6 +17,7 @@ struct NotificationView: View {
     @State private var notificationId = ""
     
     @ObservedObject private var session = firebaseSession
+    @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
     
     var actionSheet: ActionSheet{
         ActionSheet(title: Text(""), message: Text(actionTitle), buttons: [
@@ -31,7 +35,7 @@ struct NotificationView: View {
     var body: some View {
         NavigationView{
             List{
-                ForEach(session.notifications, id: \.self.id) { notification in
+                ForEach(notifications.items, id: \.self.id) { notification in
                     HStack(){
                         Image("AppLogo")
                             .clipShape(Circle())

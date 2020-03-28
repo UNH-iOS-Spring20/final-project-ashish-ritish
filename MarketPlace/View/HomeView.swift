@@ -8,12 +8,18 @@
 
 import SwiftUI
 import WaterfallGrid
+import FirebaseFirestore
+
+let productsCollectionRef = Firestore.firestore().collection("products")
+
 
 struct HomeView: View {
     @ObservedObject private var fbSession = firebaseSession
     @State var showingprofile = false
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
+    
+    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     var userdata = " Name: Ritish Karki\n\n Email: rkark1@unh.newhaven.edu " + "\n\n Contact: +2034353851\n\n Address: 2 Andrew Street Apt 1B\n\n City: West Haven"
         + "\n\n State: CT\n\n ZipCode: 06516"
@@ -41,7 +47,7 @@ struct HomeView: View {
                 
                 
                 //list of products displayed in grid style suing waterfall grid
-                WaterfallGrid(self.fbSession.products.filter {
+                WaterfallGrid(self.products.items.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.id) { productData in
                     NavigationLink(destination: ProductDetails(product: productData)){

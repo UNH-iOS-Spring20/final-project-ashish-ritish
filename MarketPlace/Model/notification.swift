@@ -13,3 +13,22 @@ struct Notification: Identifiable {
     var createdTime: Int
     var seenTime: Int
 }
+
+extension Notification: FirebaseCodable {
+    init?(id: String, dictionary: [String : Any]) {
+        
+        guard let title = dictionary["title"] as? String,
+            let description = dictionary["description"] as? String,
+            let createdTime = dictionary["createdTime"] as? Int,
+            let seenTime = dictionary["seenTime"] as? Int
+        else {
+            return nil
+        }
+        
+        self.init(id: id,
+                  title:title,
+                  description:description,
+                  createdTime:createdTime,
+                  seenTime:seenTime)
+    }
+}

@@ -11,7 +11,7 @@ import WaterfallGrid
 import FirebaseFirestore
 
 let productsCollectionRef = Firestore.firestore().collection("products")
-
+let categoriesCollectionRef = Firestore.firestore().collection("categories")
 
 struct HomeView: View {
     @ObservedObject private var fbSession = firebaseSession
@@ -20,6 +20,7 @@ struct HomeView: View {
     @State private var isNavigationBarHidden = true
     
     @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
+    @ObservedObject private var categories = FirebaseCollection<Category>(collectionRef: categoriesCollectionRef)
     
     var userdata = " Name: Ritish Karki\n\n Email: rkark1@unh.newhaven.edu " + "\n\n Contact: +2034353851\n\n Address: 2 Andrew Street Apt 1B\n\n City: West Haven"
         + "\n\n State: CT\n\n ZipCode: 06516"
@@ -43,7 +44,7 @@ struct HomeView: View {
                 }
                 
                 // stack for category slider
-                CategoryRow(items: fbSession.categories)
+                CategoryRow(items: categories.items)
                 
                 
                 //list of products displayed in grid style suing waterfall grid
@@ -80,7 +81,6 @@ struct HomeView: View {
                 self.isNavigationBarHidden = false
             }
         }
-       // .background(Color.red)
     }
 }
 

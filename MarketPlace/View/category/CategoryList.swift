@@ -42,6 +42,6 @@ struct CategoryList: View {
 
 struct CategoryList_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryList(categoryName: firebaseSession.categories[0].name)
+        CategoryList(categoryName: "Auto Motive")
     }
 }

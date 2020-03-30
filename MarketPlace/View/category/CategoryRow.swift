@@ -36,7 +36,7 @@ struct CategoryRow: View {
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRow(
-            items: Array(firebaseSession.categories.prefix(5))
+            items: Array(arrayLiteral: Category(id: "1",name: "Music"), Category(id:"2",name:"Computers"))
         )
     }
 }

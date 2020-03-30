@@ -15,15 +15,19 @@ struct NotificationView: View {
     @State private var showingSheet = false
     @State private var actionTitle = ""
     @State private var notificationId = ""
-    
-    @ObservedObject private var session = firebaseSession
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
     
     var actionSheet: ActionSheet{
         ActionSheet(title: Text(""), message: Text(actionTitle), buttons: [
             .destructive(Text("Delete"), action: {
-                print("Delete")
-                self.session.deletenotification(id: self.notificationId)
+                let id = self.notificationId
+                notificationsCollectionRef.document(id).delete() { error in
+                    if let error = error {
+                        print("Error removing document: \(error)")
+                    } else {
+                        print("Document successfully removed")
+                    }
+                }
             }),
             .cancel(Text("Cancel"), action:{
                 self.actionTitle = ""

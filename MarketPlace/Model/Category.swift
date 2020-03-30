@@ -11,3 +11,14 @@ struct Category: Identifiable {
     var name: String
 }
 
+extension Category: FirebaseCodable {
+    init?(id: String, dictionary: [String : Any]) {
+        
+        guard let name = dictionary["name"] as? String
+        else {
+            return nil
+        }
+        
+        self.init(id: id,name:name)
+    }
+}

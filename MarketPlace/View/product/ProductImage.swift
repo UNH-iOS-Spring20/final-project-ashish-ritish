@@ -13,7 +13,6 @@ struct ProductImage: View {
     var picture: String
     
     var body: some View {
-           // .frame(width: 250, height: 250, alignment: .center)
         WebImage(url: URL(string: picture))
                .onSuccess { image, cacheType in
                    // Success
@@ -29,18 +28,13 @@ struct ProductImage: View {
                .animation(.easeInOut(duration: 0.5)) // Animation Duration
                .transition(.fade) // Fade Transition
                .scaledToFit()
-               .frame(alignment: .center)        
-//        .renderingMode(.original)
-//        .resizable()
-//        .layoutPriority(97)
-//        .aspectRatio(contentMode: .fit)
-//        .clipped()
+               .frame(alignment: .center)
     }
 }
 
 struct ProductImage_Previews: PreviewProvider {
     static var previews: some View {
-        ProductImage(picture: firebaseSession.products[0].imageName)
+        ProductImage(picture: "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/BMW.png?alt=media&token=aca57096-47ee-46d9-86e2-f81c81cb0c14")
     }
 }
 

@@ -9,15 +9,14 @@
 import SwiftUI
 import WaterfallGrid
 
+
 struct CategoryList: View {
     var categoryName: String
-    var products = firebaseSession.products
-    
-    
+    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     var body: some View {
         VStack{
             NavigationView {
-                WaterfallGrid(products.filter{$0.category == categoryName}) { productData in
+                WaterfallGrid(products.items.filter{$0.category == categoryName}) { productData in
                     //     if(productData.category == self.categoryName){
                     NavigationLink(destination: ProductDetails(product: productData)){
                         ProductView(product: productData)

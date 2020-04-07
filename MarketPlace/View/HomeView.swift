@@ -14,7 +14,6 @@ let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
 
 struct HomeView: View {
-    @ObservedObject private var fbSession = firebaseSession
     @State var showingprofile = false
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true

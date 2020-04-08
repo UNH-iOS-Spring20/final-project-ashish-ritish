@@ -5,24 +5,43 @@
 //  Created by Ashish Shrestha on 2/19/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
+import FirebaseFirestore
 
-class UserProfile{
-    var name: String
-    var email: String
-    var contactNumber: String
-    var zipCode: String
-    var address: String
+class UserProfile: FirebaseCodable{
+    var id: String
+    @Published var name: String
+    @Published var email: String
+    @Published var contactNumber: String
+    @Published var zipCode: String
+    @Published var address: String
+    
+    var data: [String: Any]{
+        return[
+            "name": name,
+            "email": email,
+            "contactNumber": contactNumber,
+            "zipCode": zipCode,
+            "address": address
+        ]
+    }
+    
 
-    init?(name: String, email: String, contactNumber: String, zipCode: String, address: String) {
-        if name.isEmpty || email.isEmpty || contactNumber.isEmpty{
-            return nil
+    required init?(id: String, data: [String: Any]) {
+        guard let name = data["name"] as? String,
+        let email = data["email"] as? String,
+        let contactNumber = data["contactNumber"] as? String,
+        let zipCode = data["zipCode"] as? String,
+        let address = data["address"] as? String
+            else{
+                return nil
         }
         
-        self.name = "Ritish Karki"
-        self.email = "rkark1@unh.newhaven,edu"
-        self.contactNumber = "2034353851"
-        self.zipCode = "06516"
-        self.address = "21 Andrew Street"
+        self.id = id
+        self.name = name
+        self.email = email
+        self.contactNumber = contactNumber
+        self.zipCode = zipCode
+        self.address = address
         
     }
 }

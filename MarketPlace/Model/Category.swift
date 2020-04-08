@@ -2,23 +2,30 @@
 //  Category.swift
 //  MarketPlace
 //
-//  Created by ritish karki on 3/17/20.
+//  Created by Ashish Shrestha on 4/8/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
-struct Category: Identifiable {
-    var id: String
-    var name: String
-}
+import FirebaseFirestore
 
-extension Category: FirebaseCodable {
-    init?(id: String, dictionary: [String : Any]) {
+class Category: FirebaseCodable {
+    var id: String
+    @Published var name: String
+    
+    var data: [String: Any]{
+        return[
+            "name": name
+        ]
+    }
+
+    required init?(id: String, data: [String : Any]) {
         
-        guard let name = dictionary["name"] as? String
+        guard let name = data["name"] as? String
         else {
             return nil
         }
         
-        self.init(id: id,name:name)
+        self.id =  id
+        self.name = name
     }
 }

@@ -264,11 +264,11 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
-  - SDWebImage (5.6.1):
-    - SDWebImage/Core (= 5.6.1)
-  - SDWebImage/Core (5.6.1)
-  - SDWebImageSwiftUI (1.1.0):
-    - SDWebImage (~> 5.3)
+  - SDWebImage (5.7.0):
+    - SDWebImage/Core (= 5.7.0)
+  - SDWebImage/Core (5.7.0)
+  - SDWebImageSwiftUI (1.3.0):
+    - SDWebImage (~> 5.7)
   - WaterfallGrid (0.4.0)
 
 DEPENDENCIES:
@@ -322,10 +322,10 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
-  SDWebImageSwiftUI: cb319bb79973f3b30602c2c1b5c5356af5b3ad32
+  SDWebImage: a99471f452bdfa0ca52ddf5b1adf2b61cab1d1eb
+  SDWebImageSwiftUI: b2c4f305cdf8e083aaf21e8617df133e6ea74dbb
   WaterfallGrid: 568881d69470c0ffe635732dfafd859db1365989
 
 PODFILE CHECKSUM: 118be2ca2d8ac68994ee2208031d641756a72eb0
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

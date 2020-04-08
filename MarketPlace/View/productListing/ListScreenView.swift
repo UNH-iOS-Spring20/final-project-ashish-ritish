@@ -78,7 +78,13 @@ struct ListScreenView: View {
                 VStack{
                     HStack{
                         
-                        Text(self.selectedTab)                    }
+                        if self.selectedTab == "favorite" {
+                            FavoriteList()
+                        }else if self.selectedTab == "selling"{
+                            SellingList()
+                        }
+                        
+                    }
                 }
                 Spacer()
             }

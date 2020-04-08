@@ -36,7 +36,7 @@ struct CategoryRow: View {
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
         CategoryRow(
-            items: Array(arrayLiteral: Category(id: "1",name: "Music"), Category(id:"2",name:"Computers"))
+            items: Array(arrayLiteral: Category(id: "1", data: ["name": "Music"])!, Category(id:"2",data: ["name":"Computers"])!)
         )
     }
 }

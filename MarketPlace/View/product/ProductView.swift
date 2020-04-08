@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ProductView: View {
+   //  @EnvironmentObject var userData: UserData
     var product: Product
     
     var body: some View {

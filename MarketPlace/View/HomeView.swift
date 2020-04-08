@@ -50,7 +50,7 @@ struct HomeView: View {
                 WaterfallGrid(self.products.items.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.id) { productData in
-                    NavigationLink(destination: ProductDetails(product: productData)){
+                    NavigationLink(destination: ProductDetails(product: productData, fav: productData.isFavorite)){
                         ProductView(product: productData)
                     }
                     

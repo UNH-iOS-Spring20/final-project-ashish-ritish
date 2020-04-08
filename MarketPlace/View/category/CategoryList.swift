@@ -18,7 +18,7 @@ struct CategoryList: View {
             NavigationView {
                 WaterfallGrid(products.items.filter{$0.category == categoryName}) { productData in
                     //     if(productData.category == self.categoryName){
-                    NavigationLink(destination: ProductDetails(product: productData)){
+                    NavigationLink(destination: ProductDetails(product: productData, fav: productData.isFavorite)){
                         ProductView(product: productData)
                     }
                 }

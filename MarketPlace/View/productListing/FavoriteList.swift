@@ -16,7 +16,7 @@ struct FavoriteList: View {
     
     var body: some View {
         WaterfallGrid(userData.products.items.filter{!self.userData.showFavoriteOnly || $0.isFavorite}) { productData in
-            NavigationLink(destination: ProductDetails(product: productData)){
+            NavigationLink(destination: ProductDetails(product: productData, fav: productData.isFavorite)){
                 ProductView(product: productData)
             }
         }

@@ -11,11 +11,22 @@ import SwiftUI
 struct ProductDetails: View {
     @EnvironmentObject var userData: UserData
     var product: Product
-    
+    @State var favorite: Bool = false
     var productIndex: Int {
         userData.products.items.firstIndex(where: { $0.id == product.id })!
     }
-        
+    
+    
+    init(product: Product, fav: Bool){
+        self.product = product
+        _favorite = State(initialValue: fav)
+         
+    }
+
+    func change(){
+        self.userData.products.items[self.productIndex].isFavorite.toggle()
+        self.favorite = self.userData.products.items[self.productIndex].isFavorite
+    }
     
     var body: some View {
         // ScrollView(.vertical, showsIndicators: false) {
@@ -23,22 +34,21 @@ struct ProductDetails: View {
             ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0) }).frame(height: 250)
             VStack (alignment: .leading){
                 HStack{
+                 
                     Spacer()
-
                     Button(action: {
-                        
+                        self.change()
+
                     }){
-                        if self.userData.products.items[self.productIndex].isFavorite {
+                        if  favorite{
                             Image(systemName: "heart.fill")
-                                .imageScale(.medium)
-                                .foregroundColor(.red)
+                                .foregroundColor(Color.red)
+                            // .imageScale(.medium)
                         }else{
                             Image(systemName: "heart")
-                                .imageScale(.medium)
-                                .foregroundColor(.gray)
-
+                                .foregroundColor(Color.gray)
+                            //  .imageScale(.medium)
                         }
-
                     }
                 }
                 
@@ -110,7 +120,7 @@ var sampleProudct = Product(id: "1234", data: [ "name": "Iphone8", "price": 622.
 
 struct ProductDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetails(product: sampleProudct!)
+        ProductDetails(product: sampleProudct!, fav: false)
     }
 }
 

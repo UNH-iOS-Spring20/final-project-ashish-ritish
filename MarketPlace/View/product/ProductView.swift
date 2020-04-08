@@ -47,7 +47,7 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(product: sampleProudct)
+        ProductView(product: sampleProudct!)
             .padding()
             .previewLayout(.sizeThatFits)
     }

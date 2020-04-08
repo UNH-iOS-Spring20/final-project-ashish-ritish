@@ -5,30 +5,38 @@
 //  Created by ritish karki on 3/22/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
+import FirebaseFirestore
 
-struct Notification: Identifiable {
+class Notification: FirebaseCodable{
     var id: String
-    var title: String
-    var description: String
-    var createdTime: Int
-    var seenTime: Int
-}
-
-extension Notification: FirebaseCodable {
-    init?(id: String, dictionary: [String : Any]) {
+    @Published var title: String
+    @Published var description: String
+    @Published var createdTime: Int
+    @Published var seenTime: Int
+    
+    var data: [String: Any]{
+        return[
+            "title": title,
+            "description": description,
+            "createdTime": createdTime,
+            "seenTime": seenTime
+        ]
+    }
+    
+    required init?(id: String, data: [String : Any]) {
         
-        guard let title = dictionary["title"] as? String,
-            let description = dictionary["description"] as? String,
-            let createdTime = dictionary["createdTime"] as? Int,
-            let seenTime = dictionary["seenTime"] as? Int
-        else {
-            return nil
+        guard let title = data["title"] as? String,
+            let description = data["description"] as? String,
+            let createdTime = data["createdTime"] as? Int,
+            let seenTime = data["seenTime"] as? Int
+            else {
+                return nil
         }
         
-        self.init(id: id,
-                  title:title,
-                  description:description,
-                  createdTime:createdTime,
-                  seenTime:seenTime)
+        self.id = id
+        self.title = title
+        self.description = description
+        self.createdTime = createdTime
+        self.seenTime = seenTime
     }
 }

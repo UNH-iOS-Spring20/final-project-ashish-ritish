@@ -9,8 +9,8 @@
 import FirebaseFirestore
 
 // A type that can be initialized from a Firestore document.
-protocol FirebaseCodable: Identifiable {
-    init?(id: String, dictionary: [String: Any])
+protocol FirebaseCodable: Identifiable, ObservableObject {
+    init?(id: String, data: [String: Any])
 }
 
 class FirebaseCollection<T: FirebaseCodable>: ObservableObject {
@@ -29,7 +29,7 @@ class FirebaseCollection<T: FirebaseCodable>: ObservableObject {
             }
             let models = snapshot.documents.map { (document) -> T in
                 if let model = T(id: document.documentID,
-                                 dictionary: document.data()) {
+                                 data: document.data()) {
                     return model
                 } else {
                     fatalError("Unable to initialize type \(T.self) with dictionary \(document.data())")

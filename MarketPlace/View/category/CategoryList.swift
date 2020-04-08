@@ -36,7 +36,7 @@ struct CategoryList: View {
                             showsIndicators: true
                     )
                 }else{
-                    noProduct()
+                    noProduct(message: "Oops!!! Looks like there were no products in " + categoryName + " .")
                 }
             }.navigationBarTitle(categoryName)
         }.padding(.top, 20)

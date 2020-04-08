@@ -9,17 +9,21 @@
 import SwiftUI
 
 struct noProduct: View {
+    var message: String
+    
     var body: some View {
-        VStack{
-            Text("Oops!! Looks like there were no products in this category.")
+        VStack(alignment: .leading){
+            Text(message)
+                .font(.system(size: 20))
+                .fontWeight(.light)
+                .foregroundColor(.blue)
             Image("cart").resizable().aspectRatio(contentMode: .fit)
-        }
-
+        }.padding()
     }
 }
 
 struct noProduct_Previews: PreviewProvider {
     static var previews: some View {
-        noProduct()
+        noProduct(message: "Looks like there were no products in this category.")
     }
 }

@@ -74,7 +74,7 @@ struct Home: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding(0)
-                                .frame(width: geometry.size.width/6, height: 23)
+                                .frame(height: 23)
                             Text("Home")
                                 .font(.system(size: 12))
                             
@@ -95,7 +95,7 @@ struct Home: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding(0)
-                                .frame(width: geometry.size.width/6, height: 23)
+                                .frame(height: 23)
                             Text("Notification")
                                 .font(.system(size: 12))
                         }.frame(width: geometry.size.width/5, height: 75)
@@ -146,11 +146,11 @@ struct Home: View {
                             }
                         }
                         VStack(){
-                            Image(systemName: "list.dash")
+                            Image(systemName: "line.horizontal.3")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding(0)
-                                .frame(width: geometry.size.width/6, height: 23)
+                                .frame(width: 27)
                             Text("List")
                                 .font(.system(size: 12))
                         }

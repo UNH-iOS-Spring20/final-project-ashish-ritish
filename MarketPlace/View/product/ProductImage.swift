@@ -29,6 +29,7 @@ struct ProductImage: View {
                .transition(.fade) // Fade Transition
                .scaledToFit()
                .frame(alignment: .center)
+                .aspectRatio(contentMode: .fit)
     }
 }
 

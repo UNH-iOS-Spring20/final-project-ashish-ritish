@@ -50,7 +50,7 @@ struct HomeView: View {
                 WaterfallGrid(self.products.items.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.id) { productData in
-                    NavigationLink(destination: ProductDetails(product: productData, fav: productData.isFavorite)){
+                    NavigationLink(destination: ProductDetails(product: productData)){
                         ProductView(product: productData)
                     }
                     
@@ -72,7 +72,7 @@ struct HomeView: View {
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)
-            .navigationBarTitle("Back", displayMode: .inline)
+            .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
                     self.isNavigationBarHidden = true
             }

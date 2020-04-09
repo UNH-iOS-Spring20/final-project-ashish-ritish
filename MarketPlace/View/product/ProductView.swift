@@ -9,14 +9,13 @@
 import SwiftUI
 
 struct ProductView: View {
-   //  @EnvironmentObject var userData: UserData
-    var product: Product
+    @ObservedObject var product: Product
     
     var body: some View {
         VStack() {
             HStack(alignment: .center){
                 ProductImage(picture: self.product.imageUrls[0])
-            }.padding()
+            }.padding(0)
             HStack() {
                 VStack(alignment: .leading) {
                     Text(product.name)

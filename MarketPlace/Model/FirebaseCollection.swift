@@ -27,9 +27,7 @@ class FirebaseCollection<T: FirebaseCodable>: ObservableObject {
                 print("Error fetching snapshots: \(error!)")
                 return
             }
-            print("//////////////////////////////////////////////////")
-            print(snapshot.documents.map({ $0.data() }))
-            print("//////////////////////////////////////////////////")
+            
             let models = snapshot.documents.map { (document) -> T in
                 if let model = T(id: document.documentID,
                                  data: document.data()) {

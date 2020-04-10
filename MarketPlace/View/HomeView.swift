@@ -14,6 +14,7 @@ let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
 
 struct HomeView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State var showingprofile = false
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
@@ -26,12 +27,24 @@ struct HomeView: View {
     
     var profileButton: some View{
         Button(action: { self.showingprofile.toggle()}){
-            Image(systemName: "person.crop.circle")
-                .imageScale(.large)
+            Image("karki")
+                .renderingMode(.original)
+                .resizable()
+                .clipShape(Circle())
+                .overlay(
+                    Circle().stroke(Color.white, lineWidth: 2)
+                )
+                .frame(width: 40, height: 40, alignment: .center)
+                .shadow(radius: 2)
+                .aspectRatio(contentMode: .fit)
                 .accessibility(label: Text("User Profile"))
-                .padding()
+              .padding(5)
         }
     }
+    
+    func dismiss() {
+           presentationMode.wrappedValue.dismiss()
+       }
     
     var body: some View {
         NavigationView {
@@ -62,19 +75,19 @@ struct HomeView: View {
                     padding: EdgeInsets(top: 7.5, leading: 15, bottom: 7.5, trailing: 15),
                     animation: .easeInOut(duration: 0.5)
                 )
-                .scrollOptions(
+                    .scrollOptions(
                         direction: .vertical,
                         showsIndicators: true
                 )
                     
-                .sheet(isPresented: $showingprofile){
-                    UserProfileView()
+                    .sheet(isPresented: $showingprofile){
+                        UserProfileView()
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
-                    self.isNavigationBarHidden = true
+                self.isNavigationBarHidden = true
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

@@ -42,7 +42,7 @@ struct ProductDetails: View {
                             Image(systemName: "heart")
                                 .foregroundColor(Color.gray)
                         }
-                    }
+                    }//.buttonStyle(BorderlessButtonStyle())
                 }
                 
                 HStack{

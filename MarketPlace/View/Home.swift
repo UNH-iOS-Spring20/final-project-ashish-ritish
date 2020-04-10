@@ -19,13 +19,15 @@ struct Home: View {
         UINavigationBar.appearance().titleTextAttributes = [
             .foregroundColor: UIColor.darkGray,
             .font : UIFont(name: "Arial", size: 22)!]
+        print(viewRouter.currentView)
     }
-    
+
     
     var body: some View {
         GeometryReader{ geometry in
             VStack{
                 Spacer()
+                
                 if self.viewRouter.currentView == "home" {
                     HomeView()
                 } else if self.viewRouter.currentView == "notification" {

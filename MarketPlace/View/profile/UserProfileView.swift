@@ -10,18 +10,27 @@ import SwiftUI
 
 struct UserProfileView: View {
     // MARK: - Propertiers
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewRouter = ViewRouter()
     @State private var email = ""
     @State private var password = ""
     @State private var userRating = 4
+    
+    
+    func dismiss() {
+           presentationMode.wrappedValue.dismiss()
+       }
+
+    
     var body: some View {
         VStack{
             VStack{
                 GeometryReader { geometry in
                     HStack{
+                        
                         Image("karki")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .edgesIgnoringSafeArea(.top)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
                             .shadow(radius: 10)
@@ -40,23 +49,26 @@ struct UserProfileView: View {
                     }
                     .frame(width: geometry.size.width)
                 }
-               
+                
                 HStack(spacing: 40){
-                        Button(action: { print("Hello")
-                        }) {
-                            HStack {
-                                Image(systemName: "bell.fill")
-                                Text("Notification")
-                            }.padding(10.0)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10.0)
-                                        .stroke(lineWidth: 2.0)
-                            )
-                                .foregroundColor(Color.gray)
-                                .frame(minWidth: 120)
-                        }
+                    Button(action: {
+                      //  self.viewRouter.currentView = "notification
+                        self.dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "bell.fill")
+                            Text("Notification")
+                        }.padding(10.0)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .stroke(lineWidth: 2.0)
+                        )
+                            .foregroundColor(Color.gray)
+                            .frame(minWidth: 120)
+                    }
                     
                     Button(action: {
+        
                     }) {
                         HStack {
                             Image(systemName: "list.dash")

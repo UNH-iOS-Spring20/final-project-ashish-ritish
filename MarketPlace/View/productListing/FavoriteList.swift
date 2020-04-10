@@ -10,14 +10,13 @@ import SwiftUI
 import WaterfallGrid
 
 struct FavoriteList: View {
-    @EnvironmentObject var userData: UserData
- //   @State var showFavoriteOnly = true
-   // @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
+    @State var showFavoriteOnly = true
+    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     var body: some View {
         VStack{
-            if(userData.products.items.filter{!self.userData.showFavoriteOnly || $0.isFavorite}.count > 0){
-                WaterfallGrid(userData.products.items.filter{!self.userData.showFavoriteOnly || $0.isFavorite}) { productData in
+            if(products.items.filter{!self.showFavoriteOnly || $0.isFavorite}.count > 0){
+                WaterfallGrid(products.items.filter{!self.showFavoriteOnly || $0.isFavorite}) { productData in
                     NavigationLink(destination: ProductDetails(product: productData)){
                         ProductView(product: productData)
                     }

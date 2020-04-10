@@ -9,36 +9,39 @@
 import SwiftUI
 
 struct ProductDetails: View {
-    @EnvironmentObject var userData: UserData
-    var product: Product
+    @ObservedObject var product: Product
     
-    var productIndex: Int {
-        userData.products.items.firstIndex(where: { $0.id == product.id })!
-    }
+    func updateFavorite() {
+        if !product.name.isEmpty && !product.category.isEmpty && !product.condition.isEmpty && !product.description.isEmpty &&
+        !product.email.isEmpty && !product.imageUrls.isEmpty && !product.imageName.isEmpty && !String(product.isFavorite).isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
         
+            productsCollectionRef.document(self.product.id).setData(self.product.data)
+            print(self.product.data)
+        }
+        else{
+            print("Cannot update Sorry")
+        }
+    }
     
     var body: some View {
-        // ScrollView(.vertical, showsIndicators: false) {
         VStack{
-            ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0) }).frame(height: 250)
+            ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0) })//.frame(height: 250)
+                .aspectRatio(contentMode: .fit)
             VStack (alignment: .leading){
                 HStack{
+                    
                     Spacer()
-
                     Button(action: {
-                        
+                        self.product.isFavorite.toggle()
+                        self.updateFavorite()
                     }){
-                        if self.userData.products.items[self.productIndex].isFavorite {
+                        if  product.isFavorite {
                             Image(systemName: "heart.fill")
-                                .imageScale(.medium)
-                                .foregroundColor(.red)
+                                .foregroundColor(Color.red)
                         }else{
                             Image(systemName: "heart")
-                                .imageScale(.medium)
-                                .foregroundColor(.gray)
-
+                                .foregroundColor(Color.gray)
                         }
-
                     }
                 }
                 
@@ -49,7 +52,6 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.name)
                         .font(.headline)
-                    //     .padding(.trailing, 50)
                 }
                 .padding(10)
                 HStack{
@@ -59,7 +61,6 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.category)
                         .font(.headline)
-                    //   .padding(.trailing, 50)
                     
                 }.padding(10)
                 HStack{
@@ -69,7 +70,6 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.condition)
                         .font(.headline)
-                    //   .padding(.trailing, 50)
                     
                 }
                 .padding(10)
@@ -80,7 +80,6 @@ struct ProductDetails: View {
                     Spacer()
                     Text(product.email)
                         .font(.headline)
-                    //    .padding(.leading,50)
                 }
                 .padding(10)
                 HStack{
@@ -93,13 +92,11 @@ struct ProductDetails: View {
                         .padding(.leading,50)
                 }
                 .padding(10)
-                
-                
             }
             .padding()
             
             MapView(location: [product.latitude, product.longitude])
-                .frame(height: 250)
+                .frame(height: 200)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
         .padding(.top, 10)

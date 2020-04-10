@@ -23,30 +23,6 @@ struct Home: View {
     
     
     var body: some View {
-        /*    TabView {
-         HomeView()
-         .tabItem {
-         Image(systemName: "house.fill")
-         Text("Home")
-         }
-         NotificationView()
-         .tabItem {
-         Image(systemName: "bell.fill")
-         Text("Notification")
-         }
-         SellView()
-         .tabItem {
-         Image(systemName: "camera.fill")
-         Text("Sell")
-         }
-         ListScreenView()
-         .tabItem {
-         Image(systemName: "list.dash")
-         Text("List")
-         
-         }
-         
-         } */
         GeometryReader{ geometry in
             VStack{
                 Spacer()

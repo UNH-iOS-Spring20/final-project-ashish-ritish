@@ -27,14 +27,16 @@ class FirebaseCollection<T: FirebaseCodable>: ObservableObject {
                 print("Error fetching snapshots: \(error!)")
                 return
             }
+            
             let models = snapshot.documents.map { (document) -> T in
                 if let model = T(id: document.documentID,
                                  data: document.data()) {
                     return model
                 } else {
-                    fatalError("Unable to initialize type \(T.self) with dictionary \(document.data())")
+                    fatalError("Unable to initialize type \(T.self) with data \(document.data())")
                 }
             }
+           
             self.items = models
         }
     }

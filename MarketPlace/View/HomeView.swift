@@ -72,7 +72,7 @@ struct HomeView: View {
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)
-            .navigationBarTitle("Back", displayMode: .inline)
+            .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
                     self.isNavigationBarHidden = true
             }

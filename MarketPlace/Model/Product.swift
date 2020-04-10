@@ -30,7 +30,7 @@ class Product: FirebaseCodable {
             "price": price,
             "email": email,
             "category": category,
-            "condtion": condition,
+            "condition": condition,
             "imageName": imageName,
             "latitude": latitude,
             "longitude": longitude,

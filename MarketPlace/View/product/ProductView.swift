@@ -12,10 +12,15 @@ struct ProductView: View {
     @ObservedObject var product: Product
     
     var body: some View {
-        VStack() {
+        VStack(spacing:0) {
             HStack(alignment: .center){
                 ProductImage(picture: self.product.imageUrls[0])
+<<<<<<< HEAD
+            }
+
+=======
             }.padding(0)
+>>>>>>> master
             HStack() {
                 VStack(alignment: .leading) {
                     Text(product.name)

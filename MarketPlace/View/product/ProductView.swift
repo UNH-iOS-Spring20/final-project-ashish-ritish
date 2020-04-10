@@ -12,10 +12,11 @@ struct ProductView: View {
     var product: Product
     
     var body: some View {
-        VStack() {
+        VStack(spacing:0) {
             HStack(alignment: .center){
                 ProductImage(picture: self.product.imageUrls[0])
-            }.padding()
+            }
+
             HStack() {
                 VStack(alignment: .leading) {
                     Text(product.name)

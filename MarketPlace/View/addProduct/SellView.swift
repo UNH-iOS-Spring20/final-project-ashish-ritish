@@ -12,8 +12,8 @@ struct SellView: View {
     //  @State private var isNavigationBarHidden = true
     var body: some View {
         NavigationView{
-            Color.purple
-                .navigationBarTitle(Text("Sell"), displayMode: .inline)
+        Color.red
+        .navigationBarTitle(Text("Chat"), displayMode: .inline)
         }
     }
 }

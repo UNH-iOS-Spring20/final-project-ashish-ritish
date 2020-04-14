@@ -78,7 +78,7 @@ struct HomeView: View {
                 )
                     
                     .sheet(isPresented: $showingProfile){
-                        UserProfileView(viewRouter: self.viewRouter)
+                        UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile)
                 }
             }
                 

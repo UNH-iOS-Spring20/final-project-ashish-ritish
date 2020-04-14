@@ -16,6 +16,9 @@ struct UserProfileView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var userRating = 4
+    @Binding var isPresented: Bool
+    @State var flag = 0
+    
     
     
     func dismiss() {
@@ -57,12 +60,13 @@ struct UserProfileView: View {
                         .frame(width: geometry.size.width)
                     }
                     
-                    HStack(spacing: 40){
+                    HStack(spacing: 10){
                         //   Spacer()
                         NavigationLink(destination: EditProfile()){
                             HStack {
+                                Text("    ")
                                 Image(systemName: "bell.fill")
-                                Text("Edit")
+                                Text("Edit     ")
                             }.padding(10.0)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10.0)
@@ -73,9 +77,12 @@ struct UserProfileView: View {
                             
                         }
                         Button(action: {
+                         //   self.navigate(place: "notification")
+                         //   self.isNavigationBarHidden = true
+                           // self.viewRouter.currentPage = "loginPage"
                             self.dismiss()
-                            self.navigate(place: "notification")
-                         
+//                            self.isPresented = false
+                            self.flag = 1
                         }) {
                             HStack {
                                 Image(systemName: "bell.fill")
@@ -89,25 +96,26 @@ struct UserProfileView: View {
                                 .frame(minWidth: 120)
                         }
                         
-                        //                        Button(action: {
-                        //
-                        //                        }) {
-                        //                            HStack {
-                        //                                Image(systemName: "list.dash")
-                        //                                Text("List")
-                        //                            }.padding(10.0)
-                        //                                .frame(minWidth: 120)
-                        //                                .overlay(
-                        //                                    RoundedRectangle(cornerRadius: 10.0)
-                        //                                        .stroke(lineWidth: 2.0)
-                        //                            )
-                        //                                .foregroundColor(Color.gray)
-                        //                       }
+                        Button(action: {
+                            self.isPresented = false
+                            self.flag = 2
+                        }) {
+                            HStack {
+                                Image(systemName: "list.dash")
+                                Text("List")
+                            }.padding(10.0)
+                                .frame(minWidth: 120)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10.0)
+                                        .stroke(lineWidth: 2.0)
+                            )
+                                .foregroundColor(Color.gray)
+                        }
                     }.padding(.bottom, 10)
                     
                 }
                 .background(Color(UIColor(red:0, green: 0, blue: 0, alpha: 0.05)))
-                .frame(height:180)
+                .frame(height:200)
                 Spacer()
                 
                 HStack(spacing: 0) {
@@ -115,8 +123,16 @@ struct UserProfileView: View {
                         self.viewRouter.currentPage = "loginPage"
                         self.dismiss()
                     }) {
-                        Text("Log Out")
-                            .foregroundColor(.black)
+                        HStack {
+                            Image(systemName: "bell.fill")
+                            Text(" Logout ")
+                        }.padding(10.0)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .stroke(lineWidth: 2.0)
+                        )
+                            .foregroundColor(Color.gray)
+                            .frame(minWidth: 120)
                     }
                 }
             }
@@ -127,6 +143,12 @@ struct UserProfileView: View {
             }
             .onDisappear {
                 self.isNavigationBarHidden = false
+                if self.flag == 2 {
+                    self.navigate(place: "list")
+                }else if self.flag == 1 {
+                    self.navigate(place: "notification")
+                }
+                
             }
         }
     }
@@ -134,7 +156,7 @@ struct UserProfileView: View {
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView(viewRouter: ViewRouter())
+        UserProfileView(viewRouter: ViewRouter(), isPresented: .constant(false))
     }
 }
 

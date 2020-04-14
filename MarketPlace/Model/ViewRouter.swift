@@ -12,6 +12,20 @@ import Combine
 
 class ViewRouter: ObservableObject {
     
-    @Published var currentView = "home"
+    let objectWillChange = PassthroughSubject<ViewRouter, Never>()
+    
+    @Published var itemColor = "home"
+    
+    var currentView = "home" {
+        didSet{
+            objectWillChange.send(self)
+        }
+    }
+    
+    var currentPage: String = "loginPage"{
+        didSet{
+            objectWillChange.send(self)
+        }
+    }
     
 }

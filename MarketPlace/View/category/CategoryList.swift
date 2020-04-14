@@ -16,7 +16,6 @@ struct CategoryList: View {
     
     var body: some View {
         VStack{
-            NavigationView {
                 if(products.items.filter{$0.category == categoryName}.count > 0){
                     WaterfallGrid(products.items.filter{$0.category == categoryName}) { productData in
                         //     if(productData.category == self.categoryName){
@@ -38,8 +37,9 @@ struct CategoryList: View {
                 }else{
                     noProduct(message: "Oops!!! Looks like there were no products in " + categoryName + " .")
                 }
-            }.navigationBarTitle(categoryName)
-        }.padding(.top, 20)
+           
+        }.padding(.top, 50)
+        .navigationBarTitle(Text(categoryName), displayMode: .inline)
     }
 }
 

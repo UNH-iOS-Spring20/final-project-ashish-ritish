@@ -9,14 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewRouter: ViewRouter
+    
     var body: some View {
-        Home()
-
+        VStack{
+            if self.viewRouter.currentPage == "homePage"{
+                HomePage(viewRouter: viewRouter)
+            }else if self.viewRouter.currentPage == "loginPage"{
+                LoginPage(viewRouter: viewRouter)
+            }
+            
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewRouter: ViewRouter())
     }
 }

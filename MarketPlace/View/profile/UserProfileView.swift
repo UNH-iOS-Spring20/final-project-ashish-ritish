@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 struct UserProfileView: View {
     // MARK: - Propertiers
@@ -121,6 +123,10 @@ struct UserProfileView: View {
                 HStack(spacing: 0) {
                     Button(action: {
                         self.viewRouter.currentPage = "loginPage"
+                        try! Auth.auth().signOut()
+                           GIDSignIn.sharedInstance()?.signOut()
+                           UserDefaults.standard.set(false, forKey: "status")
+                           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                         self.dismiss()
                     }) {
                         HStack {

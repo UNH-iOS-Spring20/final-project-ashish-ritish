@@ -12,6 +12,8 @@ struct logInView: View {
     @ObservedObject var viewRouter: ViewRouter
     @State var user = ""
     @State var pass = ""
+    @State var msg = ""
+    @State var alert = false
     
     var body: some View {
         VStack{
@@ -24,11 +26,11 @@ struct logInView: View {
                 
                 VStack(alignment: .leading){
                     
-                    Text("Username").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                    Text("Email").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                     
                     HStack{
                         
-                        TextField("Enter Your Username", text: $user)
+                        TextField("Enter Your email", text: $user)
                         
                         if user != ""{
                             Image(systemName: "checkmark")
@@ -67,10 +69,42 @@ struct logInView: View {
 
             }.padding(.horizontal, 6)
             
+            Button(action: {
+                           
+                           signInWithEmail(email: self.user, password: self.pass) { (verified, status) in
+                               
+                               if !verified{
+                                   
+                                   self.msg = status
+                                   self.alert.toggle()
+                               }
+                               else{
+                                   
+                                   UserDefaults.standard.set(true, forKey: "status")
+                                   NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                               }
+                           }
+                           
+                       }) {
+                           
+                           Text("Sign In").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
+                           
+                           
+                       }.background(Color("appBlue"))
+                       .clipShape(Capsule())
+                       .padding(.top, 45)
             
             socialLogin(viewRouter: viewRouter)
             
         }.padding()
+        .alert(isPresented: $alert) {
+            Alert(title: Text("Login Error"),
+                message: Text(self.msg),
+                dismissButton: Alert.Button.default(
+                    Text("Ok"), action: { self.user = ""; self.pass = "" }
+                )
+            )
+        }
     }
 }
 

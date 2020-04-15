@@ -15,12 +15,7 @@ struct ProductView: View {
         VStack(spacing:0) {
             HStack(alignment: .center){
                 ProductImage(picture: self.product.imageUrls[0])
-<<<<<<< HEAD
-            }
-
-=======
             }.padding(0)
->>>>>>> master
             HStack() {
                 VStack(alignment: .leading) {
                     Text(product.name)

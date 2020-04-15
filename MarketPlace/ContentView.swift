@@ -17,7 +17,9 @@ struct ContentView: View {
             if self.viewRouter.currentPage == "homePage"{
                 HomePage(viewRouter: viewRouter)
             }else if self.viewRouter.currentPage == "loginPage"{
-                LoginPage(viewRouter: viewRouter)
+                logInView(viewRouter: viewRouter)
+            }else if self.viewRouter.currentPage == "signupPage"{
+                signUpView(viewRouter: viewRouter)
             }
             
         }

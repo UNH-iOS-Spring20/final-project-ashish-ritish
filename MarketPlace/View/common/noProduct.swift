@@ -16,7 +16,7 @@ struct noProduct: View {
             Text(message)
                 .font(.system(size: 20))
                 .fontWeight(.light)
-                .foregroundColor(.blue)
+                .foregroundColor(Color("appBlue"))
             Image("cart").resizable().aspectRatio(contentMode: .fit)
         }.padding()
     }

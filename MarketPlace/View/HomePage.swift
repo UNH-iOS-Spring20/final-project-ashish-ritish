@@ -56,7 +56,7 @@ struct HomePage: View {
                         }
                         .frame(width: geometry.size.width/5, height: 75)
                             
-                        .foregroundColor(self.viewRouter.itemColor == "home" ? .blue : .gray)
+                        .foregroundColor(self.viewRouter.itemColor == "home" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "home"
                             self.viewRouter.itemColor = "home"
@@ -72,7 +72,7 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "notification" ? .blue : .gray)
+                        .foregroundColor(self.viewRouter.itemColor == "notification" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "notification"
                             self.viewRouter.itemColor = "notification"
@@ -86,7 +86,7 @@ struct HomePage: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 65, height: 65)
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color("appBlue"))
                                 .overlay(Circle().stroke(Color.white, lineWidth: 3))
                                 .shadow(radius: 3)
                                 .rotationEffect(Angle(degrees: self.showPopUp ? 180 : 0))
@@ -114,7 +114,7 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "sell" ? .blue : .gray)
+                        .foregroundColor(self.viewRouter.itemColor == "sell" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "sell"
                             self.viewRouter.itemColor = "sell"
@@ -130,7 +130,7 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "list" ? .blue : .gray)
+                        .foregroundColor(self.viewRouter.itemColor == "list" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "list"
                             self.viewRouter.itemColor = "list"

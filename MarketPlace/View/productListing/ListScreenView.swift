@@ -19,10 +19,10 @@ struct ListScreenView: View {
                         VStack(spacing: 5){
                             Text("Favorite")
                                 .font(.system(size: 18))
-                                .foregroundColor(self.selectedTab == "favorite" ? .blue : .gray)
+                                .foregroundColor(self.selectedTab == "favorite" ? Color("appBlue") : .gray)
                             GeometryReader { g in
                                 Rectangle()
-                                    .fill(self.selectedTab == "favorite" ? Color.blue : Color.clear)
+                                    .fill(self.selectedTab == "favorite" ? Color("appBlue") : Color.clear)
                                     .frame(width: g.size.width, height: 2)
                             }
                         }
@@ -33,10 +33,10 @@ struct ListScreenView: View {
                         VStack(spacing: 5){
                             Text("Selling")
                                 .font(.system(size: 18))
-                                .foregroundColor(self.selectedTab == "selling" ? .blue : .gray)
+                                .foregroundColor(self.selectedTab == "selling" ? Color("appBlue") : .gray)
                             GeometryReader { g in
                                 Rectangle()
-                                    .fill(self.selectedTab == "selling" ? Color.blue : Color.clear)
+                                    .fill(self.selectedTab == "selling" ? Color("appBlue") : Color.clear)
                                     .frame(width: g.size.width, height: 2)
                             }
                         }
@@ -47,10 +47,10 @@ struct ListScreenView: View {
                         VStack(spacing: 5){
                             Text("Sold")
                                 .font(.system(size: 18))
-                                .foregroundColor(self.selectedTab == "sold" ? .blue : .gray)
+                                .foregroundColor(self.selectedTab == "sold" ? Color("appBlue") : .gray)
                             GeometryReader { g in
                                 Rectangle()
-                                    .fill(self.selectedTab == "sold" ? Color.blue : Color.clear)
+                                    .fill(self.selectedTab == "sold" ? Color("appBlue") : Color.clear)
                                     .frame(width: g.size.width, height: 2)
                             }
                         }
@@ -61,10 +61,10 @@ struct ListScreenView: View {
                         VStack(spacing: 5){
                             Text("Bought")
                                 .font(.system(size: 18))
-                                .foregroundColor(self.selectedTab == "bought" ? .blue : .gray)
+                                .foregroundColor(self.selectedTab == "bought" ? Color("appBlue") : .gray)
                             GeometryReader { g in
                                 Rectangle()
-                                    .fill(self.selectedTab == "bought" ? Color.blue : Color.clear)
+                                    .fill(self.selectedTab == "bought" ? Color("appBlue") : Color.clear)
                                     .frame(width: g.size.width, height: 2)
                             }
                         }

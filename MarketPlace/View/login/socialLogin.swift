@@ -10,43 +10,18 @@ import SwiftUI
 
 struct socialLogin: View {
     @ObservedObject var viewRouter: ViewRouter
+    @State var show = false
     
     var body: some View {
         VStack{
-            
-            Button(action: {
-                self.viewRouter.currentPage = "homePage"
-            }) {
-                
-                Text("Sign In").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
-                
-                
-            }.background(Color("appBlue"))
-            .clipShape(Capsule())
-            .padding(.top, 45)
-            
             Text("(or)").foregroundColor(Color.gray.opacity(0.5)).padding(.top,30)
-            
-            HStack{
-                
-                Button(action: {
-                    
-                }) {
-                    
-                    Image("google").renderingMode(.original).padding()
-                    
-                    
-                }.background(Color("appBlue").opacity(0.2))
-                .clipShape(Circle())
-                
-            }.padding(.top, 25)
-            
+            GoogleSignView().frame(width:150, height:55)
             HStack(spacing: 8){
                 
                 Text("Don't Have An Account ?").foregroundColor(Color.gray)
                 
                 Button(action: {
-                    self.viewRouter.currentPage = "signupPage"
+                    self.show.toggle()
                 }) {
                     
                    Text("Sign Up")
@@ -54,6 +29,9 @@ struct socialLogin: View {
                 }.foregroundColor(Color("appBlue"))
                 
             }.padding(.top, 25)
+        }
+        .sheet(isPresented: $show) {
+            signUpView(show: self.$show)
         }
     }
 }

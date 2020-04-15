@@ -11,6 +11,8 @@ target 'MarketPlace' do
   # https://firebase.google.com/docs/ios/setup#available-pods
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   #pod for waterfall grid layout
   pod 'WaterfallGrid', '~> 0.4.0'
   #pod for displaying image from web

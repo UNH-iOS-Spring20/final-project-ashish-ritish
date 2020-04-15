@@ -7,21 +7,29 @@
 //
 
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 struct ContentView: View {
     
     @ObservedObject var viewRouter: ViewRouter
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     var body: some View {
         VStack{
-            if self.viewRouter.currentPage == "homePage"{
+            if status{
                 HomePage(viewRouter: viewRouter)
-            }else if self.viewRouter.currentPage == "loginPage"{
+            }else{
                 logInView(viewRouter: viewRouter)
-            }else if self.viewRouter.currentPage == "signupPage"{
-                signUpView(viewRouter: viewRouter)
             }
-            
+        }.animation(.spring())
+        .onAppear {
+                
+            NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main) { (_) in
+                
+                let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                self.status = status
+            }
         }
     }
 }
@@ -29,5 +37,36 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewRouter: ViewRouter())
+    }
+}
+
+struct GoogleSignView : UIViewRepresentable {
+    
+    func makeUIView(context: UIViewRepresentableContext<GoogleSignView>) -> GIDSignInButton {
+        
+        let button = GIDSignInButton()
+        button.colorScheme = .dark
+        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
+        return button
+        
+    }
+    
+    func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<GoogleSignView>) {
+        
+        
+    }
+}
+
+func signInWithEmail(email: String,password : String,completion: @escaping (Bool,String)->Void){
+    
+    Auth.auth().signIn(withEmail: email, password: password) { (res, err) in
+        
+        if err != nil{
+            
+            completion(false,(err?.localizedDescription)!)
+            return
+        }
+        
+        completion(true,(res?.user.email)!)
     }
 }

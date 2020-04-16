@@ -14,22 +14,22 @@ struct ProductImage: View {
     
     var body: some View {
         WebImage(url: URL(string: picture))
-               .onSuccess { image, cacheType in
-                   // Success
-               }
-               .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
-               .placeholder(Image(systemName: "photo")) // Placeholder Image
-               // Supports ViewBuilder as well
-               .placeholder {
-                   Rectangle().foregroundColor(.gray)
-               }
-               .renderingMode(.original)
-               .indicator(.activity) // Activity Indicator
-               .animation(.easeInOut(duration: 0.5)) // Animation Duration
-               .transition(.fade) // Fade Transition
-               .scaledToFit()
-               .frame(alignment: .center)
-                .aspectRatio(contentMode: .fit)
+            .onSuccess { image, cacheType in
+                // Success
+        }
+            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+            .placeholder(Image(systemName: "photo")) // Placeholder Image
+            // Supports ViewBuilder as well
+            .placeholder {
+                Rectangle().foregroundColor(.gray)
+        }
+        .renderingMode(.original)
+            .indicator(.activity) // Activity Indicator
+            .animation(.easeInOut(duration: 0.5)) // Animation Duration
+            .transition(.fade) // Fade Transition
+            .scaledToFit()
+            .frame(alignment: .center)
+          //  .aspectRatio(contentMode: .fit)
     }
 }
 

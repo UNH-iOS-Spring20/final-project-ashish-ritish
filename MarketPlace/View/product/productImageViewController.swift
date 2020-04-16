@@ -1,10 +1,10 @@
-//
+
 //  productImageViewController.swift
 //  MarketPlace
 //
 //  Created by ritish karki on 4/7/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
-//
+
 
 import SwiftUI
 import UIKit
@@ -22,22 +22,21 @@ struct ProductImageViewController: UIViewControllerRepresentable {
         let productImageViewController = UIPageViewController(
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
-        
         productImageViewController.dataSource = context.coordinator
-
+        productImageViewController.delegate = context.coordinator
+        
         return productImageViewController
     }
     
     func updateUIViewController(_ productImageViewController: UIPageViewController, context: Context) {
         productImageViewController.setViewControllers(
-           [controllers[currentPage]], direction: .forward, animated: true)
+            [controllers[currentPage]], direction: .forward, animated: true)
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         
-        
         var parent: ProductImageViewController
-
+        
         init(_ productImageViewController: ProductImageViewController) {
             self.parent = productImageViewController
         }
@@ -54,7 +53,7 @@ struct ProductImageViewController: UIViewControllerRepresentable {
             }
             return parent.controllers[index - 1]
         }
-
+        
         func pageViewController(
             _ productImageViewController: UIPageViewController,
             viewControllerAfter viewController: UIViewController) -> UIViewController?
@@ -77,4 +76,5 @@ struct ProductImageViewController: UIViewControllerRepresentable {
             }
         }
     }
+    
 }

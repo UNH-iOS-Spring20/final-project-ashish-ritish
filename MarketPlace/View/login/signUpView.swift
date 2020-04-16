@@ -104,3 +104,10 @@ func signIupWithEmail(email: String,password : String,completion: @escaping (Boo
         completion(true,(res?.user.email)!)
     }
 }
+
+
+struct signUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        signUpView(show: .constant(false))
+    }
+}

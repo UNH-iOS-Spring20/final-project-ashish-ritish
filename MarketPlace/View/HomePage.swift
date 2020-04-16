@@ -19,7 +19,6 @@ struct HomePage: View {
             .foregroundColor: UIColor.darkGray,
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
-        print ("new user existance", newUser)
     }
     
     var body: some View {
@@ -153,8 +152,24 @@ struct HomePage: View {
             .sheet(isPresented: self.$newUser) {
                CreateAccount(show: self.$newUser)
             }
+        }.onAppear(){
+            checkForUserExistence()
         }
     }
+}
+
+func checkForUserExistence(){
+    checkUser { (exists, user) in
+       if exists{
+           UserDefaults.standard.set(false, forKey: "NewUser")
+           UserDefaults.standard.set(user, forKey: "UserName")
+           
+           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+       } else{
+           UserDefaults.standard.set(true, forKey: "NewUser")
+           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+       }
+   }
 }
 
 

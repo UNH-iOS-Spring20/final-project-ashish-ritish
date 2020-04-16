@@ -11,17 +11,21 @@ class UserProfile: FirebaseCodable{
     var id: String
     @Published var name: String
     @Published var email: String
-    @Published var contactNumber: String
+    @Published var phoneNumber: String
     @Published var zipCode: String
     @Published var address: String
+    @Published var photoUrl: String
+    @Published var about: String
     
     var data: [String: Any]{
         return[
             "name": name,
             "email": email,
-            "contactNumber": contactNumber,
+            "phoneNumber": phoneNumber,
             "zipCode": zipCode,
-            "address": address
+            "address": address,
+            "about": about,
+            "photoUrl": photoUrl
         ]
     }
     
@@ -29,9 +33,11 @@ class UserProfile: FirebaseCodable{
     required init?(id: String, data: [String: Any]) {
         guard let name = data["name"] as? String,
         let email = data["email"] as? String,
-        let contactNumber = data["contactNumber"] as? String,
+        let phoneNumber = data["phoneNumber"] as? String,
         let zipCode = data["zipCode"] as? String,
-        let address = data["address"] as? String
+        let address = data["address"] as? String,
+        let about = data["about"] as? String,
+        let photoUrl = data["photoUrl"] as? String
             else{
                 return nil
         }
@@ -39,9 +45,10 @@ class UserProfile: FirebaseCodable{
         self.id = id
         self.name = name
         self.email = email
-        self.contactNumber = contactNumber
+        self.phoneNumber = phoneNumber
         self.zipCode = zipCode
         self.address = address
-        
+        self.photoUrl = photoUrl
+        self.about = about
     }
 }

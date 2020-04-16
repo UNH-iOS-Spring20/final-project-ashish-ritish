@@ -241,6 +241,7 @@
 			children = (
 				778CC0A02425B79C00E73EED /* RatingView.swift */,
 				E94C1A1C241019EC008D668E /* MapView.swift */,
+				E9FE36932421A8AD0080BA77 /* SearchUI.swift */,
 				77E40190243D6C5A00D8698B /* noProduct.swift */,
 				7799CB202447C27600ED7BD6 /* ImagePicker.swift */,
 				7799CB222447C55400ED7BD6 /* Indicator.swift */,
@@ -295,7 +296,6 @@
 				E9708C4023FDBA49009542A8 /* ListingCart.swift */,
 				E9708C4423FDBA84009542A8 /* UserProfile.swift */,
 				E94C1A2024102011008D668E /* Product.swift */,
-				E9FE36932421A8AD0080BA77 /* SearchUI.swift */,
 				770F3D9D24272BF200068BF0 /* notification.swift */,
 				7792830E242FEA7D00117034 /* FirebaseCollection.swift */,
 				E96D775B243E493E0069D52F /* Category.swift */,

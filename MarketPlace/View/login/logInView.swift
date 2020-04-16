@@ -82,19 +82,6 @@ struct logInView: View {
                                    
                                    UserDefaults.standard.set(true, forKey: "status")
                                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                                
-                                    checkUser { (exists, user) in
-                                        
-                                        if exists{
-                                            UserDefaults.standard.set(false, forKey: "NewUser")
-                                            UserDefaults.standard.set(user, forKey: "UserName")
-                                            
-                                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                                        } else{
-                                            UserDefaults.standard.set(true, forKey: "NewUser")
-                                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                                        }
-                                    }
                                }
                            }
                            

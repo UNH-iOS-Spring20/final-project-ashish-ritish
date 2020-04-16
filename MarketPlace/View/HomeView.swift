@@ -8,11 +8,11 @@
 
 import SwiftUI
 import WaterfallGrid
+import SDWebImageSwiftUI
 import FirebaseFirestore
 
 let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
-let usersCollectionRef = Firestore.firestore().collection("users")
 
 
 struct HomeView: View {
@@ -25,11 +25,31 @@ struct HomeView: View {
     @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     @ObservedObject private var categories = FirebaseCollection<Category>(collectionRef: categoriesCollectionRef)
     
+    @State var currentUser = UserDefaults.standard.value(forKey: "currentUser")
     
     var profileButton: some View{
         Button(action: {
             self.showingProfile.toggle()
         }){
+            
+//            WebImage(url: URL(string: (currentUser?.data.profileUrl)!))
+//            .onSuccess { image, cacheType in
+//                // Success
+//            }
+//            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+//            .placeholder(Image(systemName: "photo")) // Placeholder Image
+//            // Supports ViewBuilder as well
+//            .placeholder {
+//                Rectangle().foregroundColor(.gray)
+//            }
+//            .renderingMode(.original)
+//            .indicator(.activity) // Activity Indicator
+//            .animation(.easeInOut(duration: 0.5)) // Animation Duration
+//            .transition(.fade) // Fade Transition
+//            .scaledToFit()
+//            .frame(alignment: .center)
+//             .aspectRatio(contentMode: .fit)
+            
             Image("karki")
                 .renderingMode(.original)
                 .resizable()
@@ -42,6 +62,9 @@ struct HomeView: View {
                 .aspectRatio(contentMode: .fit)
                 .accessibility(label: Text("User Profile"))
                 .padding(5)
+        }
+        .onAppear {
+            print("photo", self.currentUser)
         }
     }
     

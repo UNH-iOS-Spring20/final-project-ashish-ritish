@@ -12,6 +12,10 @@ struct CreateAccount : View {
     @Binding var show : Bool
     @State var name = ""
     @State var about = ""
+    @State var countryCode = ""
+    @State var phoneNumber = ""
+    @State var zipCode = ""
+    @State var location = ""
     @State var picker = false
     @State var loading = false
     @State var imagedata : Data = .init(count: 0)
@@ -75,6 +79,48 @@ struct CreateAccount : View {
             }.padding(.bottom, 15)
             
             VStack(alignment: .leading){
+                Text("Phone Number").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+
+                HStack{
+                    TextField("+1", text: $countryCode)
+                        .keyboardType(.numberPad)
+                        .frame(width: 45)
+                       
+                    
+                    TextField("Number", text: $phoneNumber)
+                    .keyboardType(.numberPad)
+                    
+                }
+                
+                Divider()
+                
+            }.padding(.bottom, 15)
+            
+            VStack(alignment: .leading){
+                
+                Text("Zip Code").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                
+                HStack{
+                    TextField("Enter your area Zip code", text: $zipCode)
+                }
+                
+                Divider()
+                
+            }.padding(.bottom, 15)
+            
+            VStack(alignment: .leading){
+                
+                Text("Location").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                
+                HStack{
+                    TextField("Enter your location", text: $location)
+                }
+                
+                Divider()
+                
+            }.padding(.bottom, 15)
+            
+            VStack(alignment: .leading){
                 
                 Text("About You").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                 
@@ -112,11 +158,12 @@ struct CreateAccount : View {
                 
                 Button(action: {
                     
-                    if self.name != "" && self.about != "" && self.imagedata.count != 0{
+                    if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.countryCode != "" && self.phoneNumber != "" && self.location != ""{
                         
                         self.loading.toggle()
                         print( self.name, self.about)
-                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata) { (status) in
+                        let number = self.countryCode + self.phoneNumber
+                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status) in
                             
                             if status{
                                 
@@ -144,7 +191,6 @@ struct CreateAccount : View {
         }
         .padding()
         .sheet(isPresented: self.$picker, content: {
-            
             ImagePicker(picker: self.$picker, imagedata: self.$imagedata)
         })
         .alert(isPresented: self.$alert) {

@@ -7,7 +7,7 @@
 //
 import Firebase
 
-func CreateUser(name: String,about : String,imagedata : Data,completion : @escaping (Bool)-> Void){
+func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, phoneNumber: String, location: String, completion : @escaping (Bool)-> Void){
     
     let db = Firestore.firestore()
     
@@ -31,7 +31,7 @@ func CreateUser(name: String,about : String,imagedata : Data,completion : @escap
                 return
             }
             
-            db.collection("users").document(uid!).setData(["name":name,"about":about,"pic":"\(url!)","uid":uid!]) { (err) in
+            db.collection("users").document(uid!).setData(["name":name,"about":about,"pic":"\(url!)","uid":uid!, "zipCode":zipCode, "phoneNumber": phoneNumber, "location": location]) { (err) in
                 
                 if err != nil{
                     

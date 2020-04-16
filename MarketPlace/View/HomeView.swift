@@ -12,6 +12,8 @@ import FirebaseFirestore
 
 let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
+let usersCollectionRef = Firestore.firestore().collection("users")
+
 
 struct HomeView: View {
     @State private var searchText: String = ""

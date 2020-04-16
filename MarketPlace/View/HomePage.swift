@@ -11,12 +11,15 @@ import SwiftUI
 struct HomePage: View {
     @ObservedObject var viewRouter: ViewRouter
     @State var showPopUp = false
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
     
     init(viewRouter: ViewRouter) {
         UINavigationBar.appearance().titleTextAttributes = [
             .foregroundColor: UIColor.darkGray,
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
+        print ("new user existance", newUser)
     }
     
     var body: some View {
@@ -145,7 +148,11 @@ struct HomePage: View {
                     
                 }
                 
-            }.edgesIgnoringSafeArea(.bottom)
+            }
+            .edgesIgnoringSafeArea(.bottom)
+            .sheet(isPresented: self.$newUser) {
+               CreateAccount(show: self.$newUser)
+            }
         }
     }
 }

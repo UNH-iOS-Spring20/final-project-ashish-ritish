@@ -11,6 +11,8 @@ import SwiftUI
 struct HomePage: View {
     @ObservedObject var viewRouter: ViewRouter
     @State var showPopUp = false
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
     
     init(viewRouter: ViewRouter) {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -145,9 +147,29 @@ struct HomePage: View {
                     
                 }
                 
-            }.edgesIgnoringSafeArea(.bottom)
+            }
+            .edgesIgnoringSafeArea(.bottom)
+            .sheet(isPresented: self.$newUser) {
+               CreateAccount(show: self.$newUser)
+            }
+        }.onAppear(){
+            checkForUserExistence()
         }
     }
+}
+
+func checkForUserExistence(){
+    checkUser { (exists, user) in
+       if exists{
+           UserDefaults.standard.set(false, forKey: "NewUser")
+           UserDefaults.standard.set(user, forKey: "UserName")
+           
+           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+       } else{
+           UserDefaults.standard.set(true, forKey: "NewUser")
+           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+       }
+   }
 }
 
 

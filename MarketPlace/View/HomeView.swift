@@ -27,6 +27,7 @@ struct HomeView: View {
     
     @State var currentUser = UserDefaults.standard.value(forKey: "currentUser")
     
+    
     var profileButton: some View{
         Button(action: {
             self.showingProfile.toggle()
@@ -62,9 +63,6 @@ struct HomeView: View {
                 .aspectRatio(contentMode: .fit)
                 .accessibility(label: Text("User Profile"))
                 .padding(5)
-        }
-        .onAppear {
-            print("photo", self.currentUser)
         }
     }
     

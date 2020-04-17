@@ -6,7 +6,6 @@
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 import Firebase
-import SwiftUI
 
 func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, phoneNumber: String, location: String, completion : @escaping (Bool)-> Void){
     
@@ -77,10 +76,17 @@ func checkUser(completion: @escaping (Bool,String)->Void){
                 let about = i.data()["about"] as! String
                 let photoUrl = i.data()["photoUrl"] as! String
                 
-               
-
-                let currentUser = UserProfile(id: id, data: ["name": name, "email": email, "phoneNumber": phoneNumber, "zipcode": zipCode, "address": address, "about": about, "photoUrl": photoUrl])
-                            
+                let currentUser = [
+                    "id":id,
+                    "name":name,
+                    "email":email,
+                    "phoneNumber":phoneNumber,
+                    "zipCode": zipCode,
+                    "address": address,
+                    "about": about,
+                    "photoUrl": photoUrl
+                ]
+        
                 UserDefaults.standard.set(currentUser, forKey: "currentUser")
                 
                 completion(true,i.get("name") as! String)

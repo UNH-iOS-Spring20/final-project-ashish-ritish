@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct HomePage: View {
+struct RootTabView: View {
     @ObservedObject var viewRouter: ViewRouter
     @State var showPopUp = false
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
@@ -19,6 +19,18 @@ struct HomePage: View {
             .foregroundColor: UIColor.darkGray,
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
+        
+        checkUser { (exists, user) in
+            if exists{
+                UserDefaults.standard.set(false, forKey: "NewUser")
+                UserDefaults.standard.set(user, forKey: "UserName")
+                
+                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+            } else{
+                UserDefaults.standard.set(true, forKey: "NewUser")
+                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+            }
+        }
     }
     
     var body: some View {
@@ -26,18 +38,18 @@ struct HomePage: View {
             VStack{
                 Spacer()
                 
-                if self.viewRouter.currentView == "home" {
+                if self.viewRouter.selectedTab == "home" {
                     HomeView(viewRouter: self.viewRouter)
-                } else if self.viewRouter.currentView == "notification" {
+                } else if self.viewRouter.selectedTab == "notification" {
                     NotificationView()
                 }
-                else if self.viewRouter.currentView == "sell" {
+                else if self.viewRouter.selectedTab == "sell" {
                     SellView()
                 }
-                else if self.viewRouter.currentView == "list" {
+                else if self.viewRouter.selectedTab == "list" {
                     ListScreenView()
                 }
-                else if self.viewRouter.currentView == "add" {
+                else if self.viewRouter.selectedTab == "add" {
                     AddProductView()
                 }
                 
@@ -46,6 +58,7 @@ struct HomePage: View {
                 ZStack {
                     
                     HStack(spacing: 0){
+                        
                         VStack(){
                             Image(systemName: "house.fill")
                                 .resizable()
@@ -57,13 +70,13 @@ struct HomePage: View {
                             
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                            
-                        .foregroundColor(self.viewRouter.itemColor == "home" ? Color("appBlue") : .gray)
+                        .foregroundColor(self.viewRouter.currentView == "home" ? Color("appBlue") : .gray)
                         .onTapGesture {
+                            self.viewRouter.selectedTab = "home"
                             self.viewRouter.currentView = "home"
-                            self.viewRouter.itemColor = "home"
                             
                         }
+                        
                         VStack(){
                             Image(systemName: "bell.fill")
                                 .resizable()
@@ -74,12 +87,13 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "notification" ? Color("appBlue") : .gray)
+                        .foregroundColor(self.viewRouter.currentView == "notification" ? Color("appBlue") : .gray)
                         .onTapGesture {
+                            self.viewRouter.selectedTab = "notification"
                             self.viewRouter.currentView = "notification"
-                            self.viewRouter.itemColor = "notification"
                             
                         }
+                        
                         ZStack {
                             Circle()
                                 .foregroundColor(Color.white)
@@ -94,11 +108,9 @@ struct HomePage: View {
                                 .rotationEffect(Angle(degrees: self.showPopUp ? 180 : 0))
                         }
                         .offset(y: -geometry.size.height/10/2)
-                            
                         .onTapGesture {
                             
                             self.viewRouter.currentView = "add"
-                            self.viewRouter.itemColor = "add"
                             withAnimation{
                                 self.showPopUp.toggle()
                             }
@@ -116,12 +128,11 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "sell" ? Color("appBlue") : .gray)
+                        .foregroundColor(self.viewRouter.currentView == "sell" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "sell"
-                            self.viewRouter.itemColor = "sell"
-                            
                         }
+                        
                         VStack(){
                             Image(systemName: "line.horizontal.3")
                                 .resizable()
@@ -132,19 +143,15 @@ struct HomePage: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.itemColor == "list" ? Color("appBlue") : .gray)
+                        .foregroundColor(self.viewRouter.currentView == "list" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "list"
-                            self.viewRouter.itemColor = "list"
-                            
+                            self.viewRouter.selectedTab = "list"
                         }
                         
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height/10)
                     .background(Color.white.shadow(radius: 2))
-                    
-                    
-                    
                 }
                 
             }
@@ -152,30 +159,14 @@ struct HomePage: View {
             .sheet(isPresented: self.$newUser) {
                CreateAccount(show: self.$newUser)
             }
-        }.onAppear(){
-            checkForUserExistence()
         }
     }
 }
 
-func checkForUserExistence(){
-    checkUser { (exists, user) in
-       if exists{
-           UserDefaults.standard.set(false, forKey: "NewUser")
-           UserDefaults.standard.set(user, forKey: "UserName")
-           
-           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-       } else{
-           UserDefaults.standard.set(true, forKey: "NewUser")
-           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-       }
-   }
-}
 
 
-
-struct HomePage_Previews: PreviewProvider {
+struct RootTabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage(viewRouter: ViewRouter())
+        RootTabView(viewRouter: ViewRouter())
     }
 }

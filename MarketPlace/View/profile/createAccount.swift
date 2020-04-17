@@ -163,6 +163,7 @@ struct CreateAccount : View {
                         self.loading.toggle()
                         print( self.name, self.about)
                         let number = self.countryCode + self.phoneNumber
+                        
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status) in
                             
                             if status{

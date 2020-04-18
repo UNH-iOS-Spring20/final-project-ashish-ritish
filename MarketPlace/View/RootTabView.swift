@@ -5,14 +5,20 @@
 //  Created by Ashish Shrestha on 4/13/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
-
 import SwiftUI
+import Firebase
+
+let uid = Auth.auth().currentUser?.uid
+let userRef = Firestore.firestore().collection("users").document(uid!)
 
 struct RootTabView: View {
     @ObservedObject var viewRouter: ViewRouter
+    @EnvironmentObject var userProfile: UserProfile
+    
     @State var showPopUp = false
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
+    @State var user: [String:String] = UserDefaults.standard.object(forKey: "user") as? [String:String] ?? [:]
     
     init(viewRouter: ViewRouter) {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -20,17 +26,7 @@ struct RootTabView: View {
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
         
-        checkUser { (exists, user) in
-            if exists{
-                UserDefaults.standard.set(false, forKey: "NewUser")
-                UserDefaults.standard.set(user, forKey: "UserName")
-                
-                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-            } else{
-                UserDefaults.standard.set(true, forKey: "NewUser")
-                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-            }
-        }
+        checkForNewUserExistence()
     }
     
     var body: some View {
@@ -158,6 +154,16 @@ struct RootTabView: View {
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: self.$newUser) {
                CreateAccount(show: self.$newUser)
+            }
+            .onAppear(){
+                self.userProfile.id = self.user["id"] ?? ""
+                self.userProfile.zipCode = self.user["zipCode"] ?? ""
+                self.userProfile.email = self.user["email"] ?? ""
+                self.userProfile.phoneNumber = self.user["phoneNumber"] ?? ""
+                self.userProfile.photoUrl = self.user["photoUrl"] ?? ""
+                self.userProfile.about = self.user["about"] ?? ""
+                self.userProfile.address = self.user["address"] ?? ""
+                self.userProfile.name = self.user["name"] ?? ""
             }
         }
     }

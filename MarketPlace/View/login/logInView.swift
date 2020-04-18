@@ -70,17 +70,16 @@ struct logInView: View {
             }.padding(.horizontal, 6)
             
             Button(action: {
-                           
-                           signInWithEmail(email: self.user, password: self.pass) { (verified, status) in
+            signInWithEmail(email: self.user, password: self.pass) { (verified, status) in
                                
                                if !verified{
-                                   
                                    self.msg = status
                                    self.alert.toggle()
                                }
                                else{
-                                   
+                                    
                                    UserDefaults.standard.set(true, forKey: "status")
+                                    checkForNewUserExistence()
                                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                                }
                            }
@@ -90,9 +89,9 @@ struct logInView: View {
                            Text("Sign In").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
                            
                            
-                       }.background(Color("appBlue"))
-                       .clipShape(Capsule())
-                       .padding(.top, 45)
+            }.background(Color("appBlue"))
+           .clipShape(Capsule())
+           .padding(.top, 45)
             
             socialLogin(viewRouter: viewRouter)
             
@@ -112,4 +111,20 @@ struct logInView_Previews: PreviewProvider {
     static var previews: some View {
         logInView(viewRouter: ViewRouter())
     }
+}
+
+func checkForNewUserExistence(){
+    
+    checkUser { (exists, user) in
+        if exists{
+            UserDefaults.standard.set(false, forKey: "NewUser")
+            UserDefaults.standard.set(user, forKey: "UserName")
+            
+            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+        } else{
+            UserDefaults.standard.set(true, forKey: "NewUser")
+            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+        }
+    }
+
 }

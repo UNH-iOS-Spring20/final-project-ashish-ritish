@@ -19,52 +19,32 @@ struct HomeView: View {
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
     @State private var showingProfile = false
-    
+    var collection: [[Product]] = []
+    @EnvironmentObject var userProfile: UserProfile
     @ObservedObject var viewRouter: ViewRouter
     
     @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     @ObservedObject private var categories = FirebaseCollection<Category>(collectionRef: categoriesCollectionRef)
     
-    @State var currentUser = UserDefaults.standard.value(forKey: "currentUser")
-    
     var profileButton: some View{
-        Button(action: {
-            self.showingProfile.toggle()
-        }){
-            
-//            WebImage(url: URL(string: (currentUser?.data.profileUrl)!))
-//            .onSuccess { image, cacheType in
-//                // Success
-//            }
-//            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
-//            .placeholder(Image(systemName: "photo")) // Placeholder Image
-//            // Supports ViewBuilder as well
-//            .placeholder {
-//                Rectangle().foregroundColor(.gray)
-//            }
-//            .renderingMode(.original)
-//            .indicator(.activity) // Activity Indicator
-//            .animation(.easeInOut(duration: 0.5)) // Animation Duration
-//            .transition(.fade) // Fade Transition
-//            .scaledToFit()
-//            .frame(alignment: .center)
-//             .aspectRatio(contentMode: .fit)
-            
-            Image("karki")
-                .renderingMode(.original)
-                .resizable()
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color.white, lineWidth: 2)
-            )
-                .frame(width: 40, height: 40, alignment: .center)
-                .shadow(radius: 2)
-                .aspectRatio(contentMode: .fit)
-                .accessibility(label: Text("User Profile"))
-                .padding(5)
+       WebImage(url: URL(string: (self.userProfile.photoUrl)))
+        .onSuccess { image, cacheType in
+            // Success
         }
-        .onAppear {
-            print("photo", self.currentUser)
+        .resizable()
+        .placeholder {
+            Circle().foregroundColor(.gray)
+        }
+        .renderingMode(.original)
+        .indicator(.activity)
+        .clipShape(Circle())
+        .animation(.easeInOut(duration: 0.5)) // Animation Duration
+        .transition(.fade) // Fade Transition
+        .scaledToFit()
+        .frame(width: 40, height: 40, alignment: .center)
+        .aspectRatio(contentMode: .fit)
+        .onTapGesture {
+           self.showingProfile.toggle()
         }
     }
     
@@ -81,14 +61,14 @@ struct HomeView: View {
                 CategoryRow(items: categories.items)
                 
                 
-                //list of products displayed in grid style suing waterfall grid
+//                //list of products displayed in grid style suing waterfall grid
                 WaterfallGrid(self.products.items.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.id) { productData in
                     NavigationLink(destination: ProductDetails(product: productData)){
                         ProductView(product: productData)
                     }
-                    
+
                 }
                 .gridStyle(
                     columnsInPortrait: 2,
@@ -120,8 +100,8 @@ struct HomeView: View {
 }
 
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(viewRouter: ViewRouter())
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView(viewRouter: ViewRouter())
+//    }
+//}

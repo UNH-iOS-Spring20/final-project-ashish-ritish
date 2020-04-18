@@ -28,8 +28,8 @@ struct UserProfileView: View {
     }
     
     func navigate(place: String){
-        self.viewRouter.currentView = place
-        self.viewRouter.itemColor = place
+        self.viewRouter.selectedTab = place
+        self.viewRouter.currentPage = place
     }
     
     
@@ -63,7 +63,6 @@ struct UserProfileView: View {
                     }
                     
                     HStack(spacing: 10){
-                        //   Spacer()
                         NavigationLink(destination: EditProfile()){
                             HStack {
                                 Text("    ")
@@ -79,11 +78,7 @@ struct UserProfileView: View {
                             
                         }
                         Button(action: {
-                         //   self.navigate(place: "notification")
-                         //   self.isNavigationBarHidden = true
-                           // self.viewRouter.currentPage = "loginPage"
                             self.dismiss()
-//                            self.isPresented = false
                             self.flag = 1
                         }) {
                             HStack {

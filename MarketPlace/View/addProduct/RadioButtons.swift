@@ -15,13 +15,14 @@ struct RadioButtons : View {
     var data = [String]()
     
     var body : some View{
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 15) {
             
             ForEach(data,id: \.self) { i in
                 
                 Button(action: {
                     
                     self.selected = i
+                       self.show.toggle()
                     
                 }) {
                     
@@ -43,28 +44,6 @@ struct RadioButtons : View {
                     
                 }.padding(.top)
             }
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    self.show.toggle()
-                    
-                }) {
-                    
-                    Text("Select").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
-                    
-                }
-                .background(
-                    
-                    self.selected != "" ?
-                        
-                        LinearGradient(gradient: .init(colors: [Color("appBlue"),Color("appBlue")]), startPoint: .leading, endPoint: .trailing) :
-                        LinearGradient(gradient: .init(colors: [Color.black.opacity(0.2),Color.black.opacity(0.2)]), startPoint: .leading, endPoint: .trailing)
-                )
-                    .clipShape(Capsule())
-                    .disabled(self.selected != "" ? false : true)
-                Spacer()
-            }.padding(.top)
             
             
         }.padding(.vertical)

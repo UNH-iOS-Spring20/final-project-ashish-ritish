@@ -75,10 +75,12 @@ struct AddProductView: View {
                         Text("Product Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack {
                             TextField("Category", text: $categorySelected)
+                                .disabled(true)
                             Button(action: {
                             //    var data = self.categorysArray
                                 self.choice = true
                                 self.show.toggle()
+                                print("Category")
                             }){
                                 Image(systemName: "chevron.down")
                             }
@@ -90,10 +92,12 @@ struct AddProductView: View {
                         Text("Condition").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack {
                             TextField("Product Category", text: $conditionSelected)
+                             .disabled(true)
                             Button(action: {
                           //      var data = self.conditionArray
                                 self.choice = false
                                 self.show.toggle()
+                                print("Condition")
                             }){
                                 Image(systemName: "chevron.down")
                             }
@@ -141,11 +145,9 @@ struct AddProductView: View {
                 VStack{
                     Spacer()
                     if choice {
-                        ScrollView{
-                        RadioButtons(selected: self.$categorySelected, show: self.$show, data: categorysArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15 : UIScreen.main.bounds.height)
-                        }
+                        RadioButtons(selected: self.$categorySelected, show: self.$show, data: categorysArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 5 : UIScreen.main.bounds.height)
                     }else {
-                        RadioButtons(selected: self.$conditionSelected, show: self.$show, data: conditionArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15 : UIScreen.main.bounds.height)
+                        RadioButtons(selected: self.$conditionSelected, show: self.$show, data: conditionArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 25 : UIScreen.main.bounds.height)
                     }
                 }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
             }

@@ -14,8 +14,6 @@ target 'MarketPlace' do
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
-  #pod for waterfall grid layout
-  pod 'WaterfallGrid', '~> 0.4.0'
   #pod for displaying image from web
   pod 'SDWebImageSwiftUI'
 

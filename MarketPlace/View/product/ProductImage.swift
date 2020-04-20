@@ -28,7 +28,7 @@ struct ProductImage: View {
             .animation(.easeInOut(duration: 0.5)) // Animation Duration
             .transition(.fade) // Fade Transition
             .scaledToFit()
-            .frame(alignment: .center)
+            .frame(height:175, alignment: .center)
           //  .aspectRatio(contentMode: .fit)
     }
 }

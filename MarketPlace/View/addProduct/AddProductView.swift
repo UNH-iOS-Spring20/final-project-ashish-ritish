@@ -9,7 +9,14 @@
 import SwiftUI
 
 struct AddProductView: View {
-    
+    @ObservedObject var locationManager = LocationManager()
+    var userLatitude: String {
+        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
+    }
+
+    var userLongitude: String {
+        return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
+    }
     var categorysArray = ["Auto Motive", "Cell Phone", "Computer", "Electronics", "Fashion", "Household", "Music", "Real Estate", "Rental", "Sports", "Stationery", "Others"]
     
     var conditionArray = ["New", "Like new", "Good", "Fair", "Poor"]

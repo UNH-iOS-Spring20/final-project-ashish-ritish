@@ -14,7 +14,7 @@ class ViewRouter: ObservableObject {
     
     let objectWillChange = PassthroughSubject<ViewRouter, Never>()
     
-    @Published var itemColor = "home"
+    @Published var selectedTab = "home"
     
     var currentView = "home" {
         didSet{

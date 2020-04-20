@@ -14,17 +14,18 @@ struct ContentView: View {
     
     @ObservedObject var viewRouter: ViewRouter
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @EnvironmentObject var userProfile: UserProfile
     
     var body: some View {
         VStack{
             if status{
-                HomePage(viewRouter: viewRouter)
+                RootTabView(viewRouter: ViewRouter()).environmentObject(self.userProfile)
             }else{
-                logInView(viewRouter: viewRouter)
+                logInView(viewRouter: viewRouter).environmentObject(self.userProfile)
             }
         }.animation(.spring())
         .onAppear {
-                
+            checkForNewUserExistence()
             NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main) { (_) in
                 
                 let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false

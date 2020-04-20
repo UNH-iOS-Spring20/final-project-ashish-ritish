@@ -9,7 +9,7 @@
 
 import FirebaseFirestore
 
-class Product: FirebaseCodable {
+class Product: FirebaseCodable, Identifiable {
     var id: String
     @Published var name: String
     @Published var price: Double

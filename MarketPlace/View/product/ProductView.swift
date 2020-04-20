@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ProductView: View {
     @ObservedObject var product: Product
-    
     var body: some View {
         VStack(spacing:0) {
             HStack(alignment: .center){

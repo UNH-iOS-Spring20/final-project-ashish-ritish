@@ -71,3 +71,37 @@ func signInWithEmail(email: String,password : String,completion: @escaping (Bool
         completion(true,(res?.user.email)!)
     }
 }
+
+extension Array {
+    func chunked(into size:Int) -> [[Element]] {
+        
+        var chunkedArray = [[Element]]()
+        
+        for index in 0...self.count {
+            if index % size == 0 && index != 0 {
+                chunkedArray.append(Array(self[(index - size)..<index]))
+            } else if(index == self.count) {
+                let val = index % size
+                chunkedArray.append(Array(self[(index - val)..<index]))
+            }
+        }
+        
+        return chunkedArray
+    }
+}
+
+public struct ListSeparatorStyleNoneModifier: ViewModifier {
+    public func body(content: Content) -> some View {
+        content.onAppear {
+            UITableView.appearance().separatorStyle = .none
+        }.onDisappear {
+            UITableView.appearance().separatorStyle = .singleLine
+        }
+    }
+}
+
+extension View {
+    public func listSeparatorStyleNone() -> some View {
+        modifier(ListSeparatorStyleNoneModifier())
+    }
+}

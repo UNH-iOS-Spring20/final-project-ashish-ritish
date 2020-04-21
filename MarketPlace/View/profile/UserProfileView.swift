@@ -30,7 +30,7 @@ struct UserProfileView: View {
     
     func navigate(place: String){
         self.viewRouter.selectedTab = place
-        self.viewRouter.currentPage = place
+        self.viewRouter.currentView = place
     }
     
     
@@ -144,7 +144,7 @@ struct UserProfileView: View {
             .navigationBarTitle("Back", displayMode: .inline)
             .onAppear {
                 self.isNavigationBarHidden = true
-                print("aai pugyo", self.userProfile)
+               // print("aai pugyo", self.userProfile)
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

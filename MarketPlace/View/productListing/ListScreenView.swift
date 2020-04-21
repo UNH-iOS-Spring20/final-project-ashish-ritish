@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct ListScreenView: View {
-    @State var selectedTab = "favorite"
+    @State var selectedTab = "selling"
     
     var body: some View {
         NavigationView{
             GeometryReader{ geometry in
                 VStack(){
                     HStack{
-                        VStack(spacing: 5){
-                            Text("Favorite")
-                                .font(.system(size: 18))
-                                .foregroundColor(self.selectedTab == "favorite" ? Color("appBlue") : .gray)
-                            GeometryReader { g in
-                                Rectangle()
-                                    .fill(self.selectedTab == "favorite" ? Color("appBlue") : Color.clear)
-                                    .frame(width: g.size.width, height: 2)
-                            }
-                        }
-                        .onTapGesture {
-                            self.selectedTab = "favorite"
-                        }
+//                        VStack(spacing: 5){
+//                            Text("Favorite")
+//                                .font(.system(size: 18))
+//                                .foregroundColor(self.selectedTab == "favorite" ? Color("appBlue") : .gray)
+//                            GeometryReader { g in
+//                                Rectangle()
+//                                    .fill(self.selectedTab == "favorite" ? Color("appBlue") : Color.clear)
+//                                    .frame(width: g.size.width, height: 2)
+//                            }
+//                        }
+//                        .onTapGesture {
+//                            self.selectedTab = "favorite"
+//                        }
                         
                         VStack(spacing: 5){
                             Text("Selling")
@@ -78,9 +78,7 @@ struct ListScreenView: View {
                     VStack{
                         HStack{
                             
-                            if self.selectedTab == "favorite" {
-                                FavoriteList()
-                            }else if self.selectedTab == "selling"{
+                            if self.selectedTab == "selling"{
                                 SellingList()
                             }
                             

@@ -16,6 +16,8 @@ class ViewRouter: ObservableObject {
     
     @Published var selectedTab = "home"
     
+  //  @Published var currentView = "home"
+    
     var currentView = "home" {
         didSet{
             objectWillChange.send(self)

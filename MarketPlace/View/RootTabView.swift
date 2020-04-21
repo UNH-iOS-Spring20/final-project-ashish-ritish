@@ -39,8 +39,8 @@ struct RootTabView: View {
                 } else if self.viewRouter.selectedTab == "notification" {
                     NotificationView()
                 }
-                else if self.viewRouter.selectedTab == "sell" {
-                    SellView()
+                else if self.viewRouter.selectedTab == "fav" {
+                    FavoriteList()
                 }
                 else if self.viewRouter.selectedTab == "list" {
                     ListScreenView()
@@ -116,7 +116,7 @@ struct RootTabView: View {
                         }
                         
                         VStack(){
-                            Image(systemName: "gear")
+                            Image(systemName: "heart.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding(0)
@@ -125,10 +125,10 @@ struct RootTabView: View {
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
-                        .foregroundColor(self.viewRouter.currentView == "sell" ? Color("appBlue") : .gray)
+                        .foregroundColor(self.viewRouter.currentView == "fav" ? Color("appBlue") : .gray)
                         .onTapGesture {
-                            self.viewRouter.currentView = "sell"
-                            self.viewRouter.selectedTab = "sell"
+                            self.viewRouter.currentView = "fav"
+                            self.viewRouter.selectedTab = "fav"
                         }
                         
                         VStack(){

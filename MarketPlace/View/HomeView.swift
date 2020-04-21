@@ -53,27 +53,28 @@ struct HomeView: View {
                 HStack(spacing: 0){
                     profileButton
                     SearchBar(text: $searchText, placeholder: "Search")
-                }
-                .padding(.leading, 7.5)
+                }.padding(.leading, 7.5)
+                
                 // stack for category slider
                 CategoryRow(items: categories.items)
                 
                 VStack{
                     if(self.products.items.count > 0){
                         ProductsCollectionView(products: self.products.items.filter {
-                                                   self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
-                                               })
+                           self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
+                       })
                     }else{
                          noProduct(message: "No user has added any prodcuts yet.")
                     }
-                }.sheet(isPresented: $showingProfile){ UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile)
-                
+                }.sheet(isPresented: $showingProfile){
+                    return UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile).environmentObject(self.userProfile)
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
                 self.isNavigationBarHidden = true
+                checkForNewUserExistence()
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

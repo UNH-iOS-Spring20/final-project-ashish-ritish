@@ -10,10 +10,11 @@ import SwiftUI
 
 struct ProductView: View {
     @ObservedObject var product: Product
+    var setHeight: Bool
     var body: some View {
         VStack(spacing:0) {
             HStack(alignment: .center){
-                ProductImage(picture: self.product.imageUrls[0])
+                ProductImage(picture: self.product.imageUrls[0], setHeight: self.setHeight)
             }.padding(0)
             HStack() {
                 VStack(alignment: .leading) {
@@ -46,7 +47,7 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(product: sampleProudct!)
+        ProductView(product: sampleProudct!, setHeight: false)
             .padding()
             .previewLayout(.sizeThatFits)
     }

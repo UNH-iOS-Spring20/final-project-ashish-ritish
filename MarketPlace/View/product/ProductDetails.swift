@@ -25,7 +25,7 @@ struct ProductDetails: View {
     
     var body: some View {
         VStack(spacing : 0){
-            ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0) })
+            ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
             HStack{
                 Spacer()
                 Button(action: {

@@ -46,7 +46,7 @@ func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, p
                 UserDefaults.standard.set(true, forKey: "status")
                 
                 UserDefaults.standard.set(name, forKey: "UserName")
-                
+                checkForNewUserExistence()
                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
             }
         }
@@ -86,6 +86,8 @@ func checkUser(completion: @escaping (Bool,String)->Void){
                     "address":address,
                     "about":about,
                 ]
+                
+                print(userProfile)
                 
                 UserDefaults.standard.set(userProfile, forKey: "user")
                 UserDefaults.standard.set(false, forKey: "NewUser")

@@ -35,7 +35,7 @@ var urls = [
 
 struct ProductImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductImageView(urls.map { ProductImage(picture: $0) })
+        ProductImageView(urls.map { ProductImage(picture: $0, setHeight: false) })
         .aspectRatio(contentMode: .fit)
     }
 }

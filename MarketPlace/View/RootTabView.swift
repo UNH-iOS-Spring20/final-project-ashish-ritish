@@ -106,6 +106,7 @@ struct RootTabView: View {
                         .offset(y: -geometry.size.height/10/2)
                         .onTapGesture {
                             
+                            self.viewRouter.selectedTab = "add"
                             self.viewRouter.currentView = "add"
                             withAnimation{
                                 self.showPopUp.toggle()
@@ -127,6 +128,7 @@ struct RootTabView: View {
                         .foregroundColor(self.viewRouter.currentView == "sell" ? Color("appBlue") : .gray)
                         .onTapGesture {
                             self.viewRouter.currentView = "sell"
+                            self.viewRouter.selectedTab = "sell"
                         }
                         
                         VStack(){

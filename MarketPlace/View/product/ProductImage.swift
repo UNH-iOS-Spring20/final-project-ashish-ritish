@@ -2,7 +2,7 @@
 //  CategoryImage.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/4/20.
+//  Created by Ashish-Ritish on 3/4/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 

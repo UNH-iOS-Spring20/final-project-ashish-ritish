@@ -2,7 +2,7 @@
 //  Product.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/4/20.
+//  Created by Ashish-Ritish on 3/4/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -16,7 +16,6 @@ class Product: FirebaseCodable, Identifiable {
     @Published var email: String
     @Published var category: String
     @Published var condition: String
-    @Published var imageName: String
     @Published var latitude: Double
     @Published var longitude: Double
     @Published var description: String
@@ -31,7 +30,6 @@ class Product: FirebaseCodable, Identifiable {
             "email": email,
             "category": category,
             "condition": condition,
-            "imageName": imageName,
             "latitude": latitude,
             "longitude": longitude,
             "description": description,
@@ -47,7 +45,6 @@ class Product: FirebaseCodable, Identifiable {
             let email = data["email"] as? String,
             let category = data["category"] as? String,
             let condition = data["condition"] as? String,
-            let imageName = data["imageName"] as? String,
             let latitude = data["latitude"] as? Double,
             let longitude = data["longitude"] as? Double,
             let description = data["description"] as? String,
@@ -63,7 +60,6 @@ class Product: FirebaseCodable, Identifiable {
         self.email =  email
         self.category =  category
         self.condition =  condition
-        self.imageName =  imageName
         self.latitude =  latitude
         self.longitude = longitude
         self.description =  description

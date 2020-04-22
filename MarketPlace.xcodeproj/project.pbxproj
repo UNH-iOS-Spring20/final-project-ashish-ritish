@@ -36,7 +36,6 @@
 		E950EF70242E7CC00049EDC6 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950EF6E242E7CC00049EDC6 /* ViewRouter.swift */; };
 		E950EF71242E7CC00049EDC6 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950EF6E242E7CC00049EDC6 /* ViewRouter.swift */; };
 		E9658BA02447FB3F00FF83BF /* RadioButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9658B9F2447FB3F00FF83BF /* RadioButtons.swift */; };
-		E9658BA22447FBDB00FF83BF /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9658BA12447FBDB00FF83BF /* Demo.swift */; };
 		E96D7752243D4CC60069D52F /* FavoriteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D7751243D4CC60069D52F /* FavoriteList.swift */; };
 		E96D7754243D4CD30069D52F /* SellingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D7753243D4CD30069D52F /* SellingList.swift */; };
 		E96D775C243E493E0069D52F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D775B243E493E0069D52F /* Category.swift */; };
@@ -123,7 +122,6 @@
 		E94EA079244542AC000BDF83 /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
 		E950EF6E242E7CC00049EDC6 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		E9658B9F2447FB3F00FF83BF /* RadioButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtons.swift; sourceTree = "<group>"; };
-		E9658BA12447FBDB00FF83BF /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		E96D7751243D4CC60069D52F /* FavoriteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteList.swift; sourceTree = "<group>"; };
 		E96D7753243D4CD30069D52F /* SellingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellingList.swift; sourceTree = "<group>"; };
 		E96D775B243E493E0069D52F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 			children = (
 				E94EA079244542AC000BDF83 /* AddProductView.swift */,
 				E9658B9F2447FB3F00FF83BF /* RadioButtons.swift */,
-				E9658BA12447FBDB00FF83BF /* Demo.swift */,
 			);
 			path = addProduct;
 			sourceTree = "<group>";
@@ -699,7 +696,6 @@
 				772B9BBA2446C52F0014CF31 /* logInView.swift in Sources */,
 				77E4018B243D01A200D8698B /* ProductImageView.swift in Sources */,
 				770F3D9E24272BF200068BF0 /* notification.swift in Sources */,
-				E9658BA22447FBDB00FF83BF /* Demo.swift in Sources */,
 				77E40191243D6C5A00D8698B /* noProduct.swift in Sources */,
 				772B9BBE2446C6400014CF31 /* socialLogin.swift in Sources */,
 				E94C1A1D241019EC008D668E /* MapView.swift in Sources */,

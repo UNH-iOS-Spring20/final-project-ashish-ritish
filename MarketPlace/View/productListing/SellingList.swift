@@ -2,7 +2,7 @@
 //  SellingList.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 4/7/20.
+//  Created by Ashish-Ritish on 4/7/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  CategoryRow.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/17/20.
+//  Created by Ashish-Ritish on 3/17/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 import SwiftUI

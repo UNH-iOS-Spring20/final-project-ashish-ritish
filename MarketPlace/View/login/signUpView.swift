@@ -2,7 +2,7 @@
 //  signUpView.swift
 //  MarketPlace
 //
-//  Created by ritish karki on 4/15/20.
+//  Created by Ashish-Ritish on 4/15/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 

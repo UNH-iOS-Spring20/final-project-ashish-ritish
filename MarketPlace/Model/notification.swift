@@ -2,7 +2,7 @@
 //  notification.swift
 //  MarketPlace
 //
-//  Created by ritish karki on 3/22/20.
+//  Created by Ashish-Ritish on 3/22/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 import FirebaseFirestore

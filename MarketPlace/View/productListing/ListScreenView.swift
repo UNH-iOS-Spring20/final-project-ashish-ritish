@@ -2,7 +2,7 @@
 //  ListView.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/19/20.
+//  Created by Ashish-Ritish on 3/19/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -16,19 +16,6 @@ struct ListScreenView: View {
             GeometryReader{ geometry in
                 VStack(){
                     HStack{
-//                        VStack(spacing: 5){
-//                            Text("Favorite")
-//                                .font(.system(size: 18))
-//                                .foregroundColor(self.selectedTab == "favorite" ? Color("appBlue") : .gray)
-//                            GeometryReader { g in
-//                                Rectangle()
-//                                    .fill(self.selectedTab == "favorite" ? Color("appBlue") : Color.clear)
-//                                    .frame(width: g.size.width, height: 2)
-//                            }
-//                        }
-//                        .onTapGesture {
-//                            self.selectedTab = "favorite"
-//                        }
                         
                         VStack(spacing: 5){
                             Text("Selling")

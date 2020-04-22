@@ -2,7 +2,7 @@
 //  HomeView.swift
 //  MarketPlace
 //
-//  Created by Ashish Shrestha on 3/19/20.
+//  Created by Ashish-Ritish on 3/19/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -64,7 +64,7 @@ struct HomeView: View {
                            self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                        })
                     }else{
-                         noProduct(message: "No user has added any prodcuts yet.")
+                         noProduct(message: "No user has added any products yet.")
                     }
                 }.sheet(isPresented: $showingProfile){
                     return UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile).environmentObject(self.userProfile)

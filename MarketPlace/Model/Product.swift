@@ -19,8 +19,10 @@ class Product: FirebaseCodable, Identifiable {
     @Published var latitude: Double
     @Published var longitude: Double
     @Published var description: String
-    @Published var isFavorite: Bool
+    @Published var addBy: String
+    @Published var soldTo: String
     @Published var imageUrls: Array<String>
+    @Published var favoriteList: Array<String>
     
     
     var data: [String: Any] {
@@ -33,8 +35,10 @@ class Product: FirebaseCodable, Identifiable {
             "latitude": latitude,
             "longitude": longitude,
             "description": description,
-            "isFavorite": isFavorite,
-            "imageUrls": imageUrls
+            "addBy": addBy,
+            "soldTo": soldTo,
+            "imageUrls": imageUrls,
+            "favoriteList": favoriteList
         ]
     }
     
@@ -48,8 +52,10 @@ class Product: FirebaseCodable, Identifiable {
             let latitude = data["latitude"] as? Double,
             let longitude = data["longitude"] as? Double,
             let description = data["description"] as? String,
-            let isFavorite = data["isFavorite"] as? Bool,
-            let imageUrls = data["imageUrls"] as? Array<String>
+            let addBy = data["addBy"] as? String,
+            let soldTo = data["soldTo"] as? String,
+            let imageUrls = data["imageUrls"] as? Array<String>,
+            let favoriteList = data["favoriteList"] as? Array<String>
             else{
                 return nil
         }
@@ -63,7 +69,9 @@ class Product: FirebaseCodable, Identifiable {
         self.latitude =  latitude
         self.longitude = longitude
         self.description =  description
-        self.isFavorite = isFavorite
+        self.addBy = addBy
+        self.soldTo = soldTo
         self.imageUrls =  imageUrls
+        self.favoriteList = favoriteList
     }
 }

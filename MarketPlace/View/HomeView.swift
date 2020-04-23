@@ -10,9 +10,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 import FirebaseFirestore
 
-var productsCollectionRef = Firestore.firestore().collection("products")
-var categoriesCollectionRef = Firestore.firestore().collection("categories")
-
 struct HomeView: View {
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
@@ -44,6 +41,7 @@ struct HomeView: View {
     }
     
     var body: some View {
+
         NavigationView{
             VStack(spacing: 0){
                 // stack for top search bar
@@ -54,11 +52,11 @@ struct HomeView: View {
                 
                 // stack for category slider
                 CategoryRow(items: categories.items)
-                
+                //
                 VStack{
                     if(self.products.items.count > 0){
                         ProductsCollectionView(products: self.products.items.filter {
-                           self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
+                            $0.addBy != uid! && $0.soldTo.isEmpty && (self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased()))
                        })
                     }else{
                          noProduct(message: "No user has added any products yet.")
@@ -72,6 +70,7 @@ struct HomeView: View {
             .onAppear {
                 self.isNavigationBarHidden = true
                 checkForNewUserExistence()
+                print(uid!)
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

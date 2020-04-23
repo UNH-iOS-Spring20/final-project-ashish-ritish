@@ -67,6 +67,10 @@ struct ListScreenView: View {
                             
                             if self.selectedTab == "selling"{
                                 SellingList()
+                            }else if self.selectedTab == "sold"{
+                                SoldList()
+                            }else if self.selectedTab == "bought"{
+                                BroughtList()
                             }
                             
                         }

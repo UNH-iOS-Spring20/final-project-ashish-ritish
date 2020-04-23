@@ -49,6 +49,9 @@
 		E9708C4523FDBA84009542A8 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9708C4423FDBA84009542A8 /* UserProfile.swift */; };
 		E9708C4623FDBA84009542A8 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9708C4423FDBA84009542A8 /* UserProfile.swift */; };
 		E9708C4723FDBA84009542A8 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9708C4423FDBA84009542A8 /* UserProfile.swift */; };
+		E97A0440244F98EC005CFA79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E97A043F244F98EC005CFA79 /* GoogleService-Info.plist */; };
+		E97A04442451225B005CFA79 /* SoldList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A04432451225B005CFA79 /* SoldList.swift */; };
+		E97A044624512269005CFA79 /* BroughtList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A044524512269005CFA79 /* BroughtList.swift */; };
 		E9805807242443D400BC9A47 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9805806242443D400BC9A47 /* ProductView.swift */; };
 		E98D1F6323FB202E00F98CD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D1F6223FB202E00F98CD6 /* AppDelegate.swift */; };
 		E98D1F6523FB202E00F98CD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D1F6423FB202E00F98CD6 /* SceneDelegate.swift */; };
@@ -130,6 +133,9 @@
 		E96D775B243E493E0069D52F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		E9708C4023FDBA49009542A8 /* ListingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCart.swift; sourceTree = "<group>"; };
 		E9708C4423FDBA84009542A8 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		E97A043F244F98EC005CFA79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E97A04432451225B005CFA79 /* SoldList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoldList.swift; sourceTree = "<group>"; };
+		E97A044524512269005CFA79 /* BroughtList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroughtList.swift; sourceTree = "<group>"; };
 		E9805806242443D400BC9A47 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		E98D1F6223FB202E00F98CD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E98D1F6423FB202E00F98CD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +233,8 @@
 				E99D70FA24240D050064DD3A /* ListScreenView.swift */,
 				E96D7751243D4CC60069D52F /* FavoriteList.swift */,
 				E96D7753243D4CD30069D52F /* SellingList.swift */,
+				E97A04432451225B005CFA79 /* SoldList.swift */,
+				E97A044524512269005CFA79 /* BroughtList.swift */,
 			);
 			path = productListing;
 			sourceTree = "<group>";
@@ -668,11 +676,13 @@
 				E96D775C243E493E0069D52F /* Category.swift in Sources */,
 				E94EA070244509E9000BDF83 /* EditProfile.swift in Sources */,
 				E950EF6F242E7CC00049EDC6 /* ViewRouter.swift in Sources */,
+				E97A04442451225B005CFA79 /* SoldList.swift in Sources */,
 				7799CB292447CAF700ED7BD6 /* Account.swift in Sources */,
 				E9FE3688242164950080BA77 /* CategoryRow.swift in Sources */,
 				E94C1A1F24101CB3008D668E /* ProductDetails.swift in Sources */,
 				E9805807242443D400BC9A47 /* ProductView.swift in Sources */,
 				7799CB31244E31E000ED7BD6 /* ProductsCollectionView.swift in Sources */,
+				E97A044624512269005CFA79 /* BroughtList.swift in Sources */,
 				7799CB212447C27600ED7BD6 /* ImagePicker.swift in Sources */,
 				E9658BA02447FB3F00FF83BF /* RadioButtons.swift in Sources */,
 				E9708C4523FDBA84009542A8 /* UserProfile.swift in Sources */,

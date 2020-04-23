@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CategoryList: View {
     var categoryName: String
-    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
+    @ObservedObject var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     var body: some View {
         VStack{

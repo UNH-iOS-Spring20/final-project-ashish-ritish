@@ -2,7 +2,7 @@
 //  UserProfileView.swift
 //  MarketPlace
 //
-//  Created by Ashish-Ritish on 3/20/20.
+//  Created by ritish karki on 3/20/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -26,7 +26,7 @@ struct UserProfileView: View {
     
     func navigate(place: String){
         self.viewRouter.selectedTab = place
-        self.viewRouter.currentView = place
+        self.viewRouter.currentPage = place
     }
     
     

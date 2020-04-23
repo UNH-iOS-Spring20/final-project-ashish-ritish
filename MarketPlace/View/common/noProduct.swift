@@ -12,7 +12,7 @@ struct noProduct: View {
     var message: String
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(){
             Text(message)
                 .font(.system(size: 20))
                 .fontWeight(.light)

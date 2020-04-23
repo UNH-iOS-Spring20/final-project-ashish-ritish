@@ -13,23 +13,20 @@ import FirebaseFirestore
 var productsCollectionRef = Firestore.firestore().collection("products")
 var categoriesCollectionRef = Firestore.firestore().collection("categories")
 
-
 struct HomeView: View {
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true
     @State private var showingProfile = false
-    @EnvironmentObject var userProfile: UserProfile
     @ObservedObject var viewRouter: ViewRouter
     
     @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     @ObservedObject private var categories = FirebaseCollection<Category>(collectionRef: categoriesCollectionRef)
-    
  
     var profileButton: some View{
         Button(action: {
             self.showingProfile.toggle()
         }){
-            WebImage(url: URL(string: (self.userProfile.photoUrl)))
+            WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
             .onSuccess { image, cacheType in
                 // Success
             }
@@ -67,7 +64,7 @@ struct HomeView: View {
                          noProduct(message: "No user has added any products yet.")
                     }
                 }.sheet(isPresented: $showingProfile){
-                    return UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile).environmentObject(self.userProfile)
+                    return UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile)
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)

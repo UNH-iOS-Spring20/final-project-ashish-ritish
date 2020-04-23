@@ -10,9 +10,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 import FirebaseFirestore
 
-var productsCollectionRef = Firestore.firestore().collection("products")
-var categoriesCollectionRef = Firestore.firestore().collection("categories")
-
 struct HomeView: View {
     @State private var searchText: String = ""
     @State private var isNavigationBarHidden = true

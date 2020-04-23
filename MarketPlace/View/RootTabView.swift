@@ -12,6 +12,7 @@ let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
 let uid = Auth.auth().currentUser?.uid
 let userRef = Firestore.firestore().collection("users").document(uid!)
+
 struct RootTabView: View {
     @ObservedObject var viewRouter: ViewRouter
     

@@ -23,7 +23,7 @@ class Product: FirebaseCodable, Identifiable {
     @Published var imageUrls: Array<String>
     
     
-    var data: [String: Any]{
+    var data: [String: Any] {
         return [
             "name": name,
             "price": price,
@@ -66,6 +66,4 @@ class Product: FirebaseCodable, Identifiable {
         self.isFavorite = isFavorite
         self.imageUrls =  imageUrls
     }
-    
-    
 }

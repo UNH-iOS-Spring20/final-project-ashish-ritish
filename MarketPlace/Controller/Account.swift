@@ -8,7 +8,7 @@
 import Firebase
 import Foundation
 
-func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, phoneNumber: String, location: String, completion : @escaping (Bool)-> Void){
+func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, phoneNumber: String, location: String, completion : @escaping (Bool, String)-> Void){
     
     let db = Firestore.firestore()
     
@@ -41,13 +41,13 @@ func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, p
                     return
                 }
                 
-                completion(true)
+                completion(true, url!.path)
                 
                 UserDefaults.standard.set(true, forKey: "status")
-                
                 UserDefaults.standard.set(name, forKey: "UserName")
                 checkForNewUserExistence()
                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                UserDefaults.standard.synchronize()
             }
         }
     }
@@ -76,22 +76,10 @@ func checkUser(completion: @escaping (Bool,String)->Void){
                 let about = i.data()["about"] as! String
                 let photoUrl = i.data()["photoUrl"] as! String
                 
-                let userProfile: [String:String] = [
-                    "id":id,
-                    "name":name,
-                    "email":email,
-                    "phoneNumber":phoneNumber,
-                    "photoUrl":photoUrl,
-                    "zipCode":zipCode,
-                    "address":address,
-                    "about":about,
-                ]
                 
-                print(userProfile)
+                Defaults.save(name: name, address: address, id: id, zipCode: zipCode, phoneNumber: phoneNumber, email: email, photoUrl: photoUrl, about: about)
                 
-                UserDefaults.standard.set(userProfile, forKey: "user")
                 UserDefaults.standard.set(false, forKey: "NewUser")
-                
                 completion(true,i.get("name") as! String)
                 return
             }

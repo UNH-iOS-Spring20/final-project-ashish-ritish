@@ -10,15 +10,14 @@ import SwiftUI
 import UserNotifications
 
 struct EditProfile: View {
-    @EnvironmentObject var userProfile: UserProfile
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    @State var name = ""
-    @State var about = ""
+    @State var name = Defaults.getUserDetails().name
+    @State var about = Defaults.getUserDetails().about
     @State var countryCode = ""
     @State var phoneNumber = ""
-    @State var zipCode = ""
-    @State var location = ""
+    @State var zipCode = Defaults.getUserDetails().zipCode
+    @State var location = Defaults.getUserDetails().address
     @State var picker = false
     @State var loading = false
     @State var imagedata : Data = .init(count: 0)
@@ -155,10 +154,14 @@ struct EditProfile: View {
                         print( self.name, self.about)
                         let number = self.countryCode + self.phoneNumber
                         
-                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status) in
+                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status, url) in
                             
                             if status{
+                                
+                                Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: number, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
+
                                 CreateNotification(title: "Account Update", message: "User account successfully updated")
+                                checkForNewUserExistence()
                                 self.mode.wrappedValue.dismiss()
                             }
                         }
@@ -181,11 +184,6 @@ struct EditProfile: View {
             Alert(title: Text("Message"), message: Text("Please Fill The Contents"), dismissButton: .default(Text("Ok")))
         }
         .onAppear(){
-            self.name = self.userProfile.name
-            self.about = self.userProfile.about
-            self.zipCode = self.userProfile.zipCode
-            self.location = self.userProfile.address
-            
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]){ (_, _) in
                 
             }

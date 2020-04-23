@@ -164,10 +164,9 @@ struct CreateAccount : View {
                         print( self.name, self.about)
                         let number = self.countryCode + self.phoneNumber
                         
-                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status) in
+                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status, url) in
                             
                             if status{
-                                
                                 self.show.toggle()
                             }
                         }

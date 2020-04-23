@@ -8,6 +8,8 @@
 import SwiftUI
 import Firebase
 
+let productsCollectionRef = Firestore.firestore().collection("products")
+let categoriesCollectionRef = Firestore.firestore().collection("categories")
 let uid = Auth.auth().currentUser?.uid
 let userRef = Firestore.firestore().collection("users").document(uid!)
 
@@ -25,7 +27,6 @@ struct RootTabView: View {
             .foregroundColor: UIColor.darkGray,
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
-        
         checkForNewUserExistence()
     }
     
@@ -121,7 +122,7 @@ struct RootTabView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .padding(0)
                                 .frame(width: geometry.size.width/6, height: 23)
-                            Text("Chat")
+                            Text("Favorite")
                                 .font(.system(size: 12))
                         }
                         .frame(width: geometry.size.width/5, height: 75)
@@ -155,7 +156,7 @@ struct RootTabView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: self.$newUser) {
-               CreateAccount(show: self.$newUser)
+                CreateAccount(show: self.$newUser)
             }
             .onAppear(){
                 self.userProfile.id = self.user["id"] ?? ""

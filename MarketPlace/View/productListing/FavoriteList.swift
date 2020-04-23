@@ -2,7 +2,7 @@
 //  FavoriteList.swift
 //  MarketPlace
 //
-//  Created by Ashish-Ritish on 4/7/20.
+//  Created by Ashish Shrestha on 4/7/20.
 //  Copyright © 2020 Ashish-Ritish. All rights reserved.
 //
 
@@ -14,17 +14,15 @@ struct FavoriteList: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                if(products.items.filter{!self.showFavoriteOnly || $0.isFavorite}.count > 0){
-                    ProductsCollectionView(products: self.products.items.filter{!self.showFavoriteOnly || $0.isFavorite})
-                }else{
-                    noProduct(message: "You don't have any favorite items yet")
-                }
+        VStack{
+            if(products.items.filter{ $0.addBy != uid! && $0.soldTo.isEmpty && (!self.showFavoriteOnly || $0.isFavorite)}.count > 0){
+                ProductsCollectionView(products: self.products.items.filter{$0.addBy != uid! && $0.soldTo.isEmpty && (!self.showFavoriteOnly || $0.isFavorite)})
+            }else{
+                noProduct(message: "You don't have any favorite items yet")
             }
-                
-            .navigationBarTitle(Text("Favorite"), displayMode: .inline)
         }
-        
+         .navigationBarTitle("Favorite", displayMode: .inline)
+        }
     }
 }
 

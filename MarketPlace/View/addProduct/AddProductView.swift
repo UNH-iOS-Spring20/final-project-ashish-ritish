@@ -106,22 +106,6 @@ struct AddProductView: View {
                     }.padding(.bottom, 15)
                     
                     
-                    VStack(alignment: .leading){
-                        
-                        Text("Email").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                        HStack{
-                            TextField("User Email", text: $email)
-                            if email != ""{
-                                Image(systemName: "checkmark")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 23)
-                                    .foregroundColor(Color.init(.label))
-                            }
-                        }
-                        Divider()
-                    }.padding(.bottom, 15)
-                    
                     HStack{
                         Spacer()
                         Button(action: {

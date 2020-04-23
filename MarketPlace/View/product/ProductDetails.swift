@@ -13,7 +13,7 @@ struct ProductDetails: View {
     
     func updateFavorite() {
         if !product.name.isEmpty && !product.category.isEmpty && !product.condition.isEmpty && !product.description.isEmpty &&
-            !product.email.isEmpty && !product.imageUrls.isEmpty && !String(product.isFavorite).isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
+        !product.email.isEmpty && !product.imageUrls.isEmpty && !product.addBy.isEmpty && !String(product.isFavorite).isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
             
             productsCollectionRef.document(self.product.id).setData(self.product.data)
             print(self.product.data)

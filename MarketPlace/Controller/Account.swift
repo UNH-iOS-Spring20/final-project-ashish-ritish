@@ -87,7 +87,7 @@ func checkUser(completion: @escaping (Bool,String)->Void){
                     "about":about,
                 ]
                 
-                print(userProfile)
+//                print(userProfile)
                 
                 UserDefaults.standard.set(userProfile, forKey: "user")
                 UserDefaults.standard.set(false, forKey: "NewUser")

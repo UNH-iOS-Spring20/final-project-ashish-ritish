@@ -16,14 +16,10 @@ struct UserProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewRouter: ViewRouter
     @State private var isNavigationBarHidden = true
-    @State private var email = ""
-    @State private var password = ""
     @State private var userRating = 4
     @Binding var isPresented: Bool
     @State var flag = 0
-    
-    @EnvironmentObject var userProfile: UserProfile
-    
+        
     func dismiss() {
         presentationMode.wrappedValue.dismiss()
     }
@@ -40,7 +36,7 @@ struct UserProfileView: View {
                 VStack{
                     GeometryReader { geometry in
                         HStack{
-                            WebImage(url: URL(string: (self.userProfile.photoUrl)))
+                            WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
                                .onSuccess { image, cacheType in
                                    // Success
                                }
@@ -57,8 +53,8 @@ struct UserProfileView: View {
                                .padding([.leading,.trailing], 20)
                             
                             VStack(alignment: .leading){
-                                Text(self.userProfile.name).font(.system(size: 25))
-                                Text(self.userProfile.address)
+                                Text(Defaults.getUserDetails().name).font(.system(size: 25))
+                                Text(Defaults.getUserDetails().address)
                                 Section {
                                     RatingView(rating: self.$userRating)
                                 }
@@ -70,7 +66,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         // go to edit screen section
-                        NavigationLink(destination: EditProfile().environmentObject(self.userProfile)){
+                        NavigationLink(destination: EditProfile()){
                             HStack {
                                 Text("edit").foregroundColor(Color.white)
                                 Image(systemName: "pencil").foregroundColor(Color.white)
@@ -129,23 +125,20 @@ struct UserProfileView: View {
                         try! Auth.auth().signOut()
                            GIDSignIn.sharedInstance()?.signOut()
                            UserDefaults.standard.set(false, forKey: "status")
-                           UserDefaults.standard.set([:], forKey: "user")
-                           NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                            Defaults.clearUserData()
+                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                         self.dismiss()
                     }) {
                         Text("Log Out").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
                     }.background(Color("appBlue"))
                     .clipShape(Capsule())
                     .padding(.top, 45)
-                    
                 }
             }
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Back", displayMode: .inline)
             .onAppear {
-                self.isNavigationBarHidden = true
-                print("aai pugyo", self.userProfile)
-            }
+                self.isNavigationBarHidden = true            }
             .onDisappear {
                 self.isNavigationBarHidden = false
                 if self.flag == 2 {

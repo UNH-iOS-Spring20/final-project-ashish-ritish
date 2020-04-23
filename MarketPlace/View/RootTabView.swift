@@ -12,15 +12,12 @@ let productsCollectionRef = Firestore.firestore().collection("products")
 let categoriesCollectionRef = Firestore.firestore().collection("categories")
 let uid = Auth.auth().currentUser?.uid
 let userRef = Firestore.firestore().collection("users").document(uid!)
-
 struct RootTabView: View {
     @ObservedObject var viewRouter: ViewRouter
-    @EnvironmentObject var userProfile: UserProfile
     
     @State var showPopUp = false
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
-    @State var user: [String:String] = UserDefaults.standard.object(forKey: "user") as? [String:String] ?? [:]
     
     init(viewRouter: ViewRouter) {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -158,16 +155,6 @@ struct RootTabView: View {
             .sheet(isPresented: self.$newUser) {
                 CreateAccount(show: self.$newUser)
             }
-            .onAppear(){
-                self.userProfile.id = self.user["id"] ?? ""
-                self.userProfile.zipCode = self.user["zipCode"] ?? ""
-                self.userProfile.email = self.user["email"] ?? ""
-                self.userProfile.phoneNumber = self.user["phoneNumber"] ?? ""
-                self.userProfile.photoUrl = self.user["photoUrl"] ?? ""
-                self.userProfile.about = self.user["about"] ?? ""
-                self.userProfile.address = self.user["address"] ?? ""
-                self.userProfile.name = self.user["name"] ?? ""
-            }
         }
     }
 }
@@ -177,5 +164,11 @@ struct RootTabView: View {
 struct RootTabView_Previews: PreviewProvider {
     static var previews: some View {
         RootTabView(viewRouter: ViewRouter())
+    }
+}
+
+extension UserDefaults {
+    @objc dynamic var keyPath: Int {
+        return integer(forKey: "keyPath")
     }
 }

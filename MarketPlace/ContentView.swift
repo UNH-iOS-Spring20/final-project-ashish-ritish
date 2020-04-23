@@ -14,14 +14,15 @@ struct ContentView: View {
     
     @ObservedObject var viewRouter: ViewRouter
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-    @EnvironmentObject var userProfile: UserProfile
-    
+    init(viewRouter: ViewRouter) {
+        self.viewRouter = viewRouter
+    }
     var body: some View {
         VStack{
             if status{
-                RootTabView(viewRouter: ViewRouter()).environmentObject(self.userProfile)
+                RootTabView(viewRouter: ViewRouter())
             }else{
-                logInView(viewRouter: viewRouter).environmentObject(self.userProfile)
+                logInView(viewRouter: viewRouter)
             }
         }.animation(.spring())
         .onAppear {

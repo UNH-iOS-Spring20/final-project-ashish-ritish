@@ -9,14 +9,21 @@
 import SwiftUI
 
 struct ProductDetails: View {
+    @State var isFavorite = false
     @ObservedObject var product: Product
     
     func updateFavorite() {
         if !product.name.isEmpty && !product.category.isEmpty && !product.condition.isEmpty && !product.description.isEmpty &&
-        !product.email.isEmpty && !product.imageUrls.isEmpty && !product.addBy.isEmpty && !String(product.isFavorite).isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
-            
+            !product.email.isEmpty && !product.imageUrls.isEmpty && !product.addBy.isEmpty && !String(product.isFavorite).isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
+            if product.favoriteList.contains(uid!){
+                let index = product.favoriteList.firstIndex(of: uid!)
+                print(index!)
+                product.favoriteList.remove(at: index!)
+            }else{
+                product.favoriteList.append(uid!)
+            }
             productsCollectionRef.document(self.product.id).setData(self.product.data)
-            print(self.product.data)
+          //  print(self.product.data)
         }
         else{
             print("Cannot update Sorry")
@@ -28,19 +35,57 @@ struct ProductDetails: View {
             ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
             HStack{
                 Spacer()
-                Button(action: {
-                    self.product.isFavorite.toggle()
-                    self.updateFavorite()
-                }){
-                    if  product.isFavorite {
-                        Image(systemName: "heart.fill")
+                if (product.addBy == uid! && product.soldTo.isEmpty){
+                    NavigationLink(destination: EditProfile()){
+                        HStack {
+                            Image(systemName: "bell.fill")
+                            Text("Edit")
+                        }.padding(10.0)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .stroke(lineWidth: 2.0)
+                        )
+                            .foregroundColor(Color("appBlue"))
+                            .frame(minWidth: 120)
+                        
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        
+                        
+                    }) {
+                        HStack {
+                            Image(systemName: "bell.fill")
+                            Text("Sold")
+                        }.padding(10.0)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .stroke(lineWidth: 2.0)
+                        )
                             .foregroundColor(Color.red)
-                    }else{
-                        Image(systemName: "heart")
-                            .foregroundColor(Color.gray)
+                            .frame(minWidth: 120)
+                    }
+                }
+                Spacer()
+                if(product.addBy != uid! && product.soldTo.isEmpty) {
+                    Button(action: {
+                        self.isFavorite.toggle()
+                        self.updateFavorite()
+                    }){
+                        if  product.favoriteList.contains(uid!) {
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(Color.red)
+                        }else{
+                            Image(systemName: "heart")
+                                .foregroundColor(Color.gray)
+                        }
                     }
                 }
             }.padding(20)
+            
             VStack (spacing: 15){
                 
                 
@@ -52,7 +97,7 @@ struct ProductDetails: View {
                     Text(product.name)
                         .font(.headline)
                 }
-        
+                
                 HStack{
                     Text("Category:")
                         .font(.headline)
@@ -62,7 +107,7 @@ struct ProductDetails: View {
                         .font(.headline)
                     
                 }
-              
+                
                 HStack{
                     Text("Condition:")
                         .font(.headline)
@@ -72,7 +117,7 @@ struct ProductDetails: View {
                         .font(.headline)
                     
                 }
-            
+                
                 HStack{
                     Text("Email")
                         .font(.headline)
@@ -81,7 +126,7 @@ struct ProductDetails: View {
                     Text(product.email)
                         .font(.headline)
                 }
-            
+                
                 HStack{
                     Text("Price:")
                         .font(.headline)

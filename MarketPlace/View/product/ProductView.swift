@@ -30,10 +30,12 @@ struct ProductView: View {
                         .layoutPriority(99)
                 }
                 Spacer()
-                if product.isFavorite {
-                    Image(systemName: "heart.fill")
-                        .imageScale(.medium)
-                        .foregroundColor(.red)
+                if(product.addBy != uid! && product.soldTo.isEmpty){
+                    if product.favoriteList.contains(uid!) {
+                        Image(systemName: "heart.fill")
+                            .imageScale(.medium)
+                            .foregroundColor(.red)
+                    }
                 }
             }
             .padding()

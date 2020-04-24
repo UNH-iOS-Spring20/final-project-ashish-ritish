@@ -194,4 +194,7 @@ func CreateNotification( title: String, message: String){
     let req = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
     
     UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
+    
+    print(Defaults.getUserDetails().id)
+    
 }

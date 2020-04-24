@@ -69,7 +69,6 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.selectedTab = "home"
                             self.viewRouter.currentView = "home"
-                            
                         }
                         
                         VStack(){
@@ -86,7 +85,6 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.selectedTab = "notification"
                             self.viewRouter.currentView = "notification"
-                            
                         }
                         
                         ZStack {
@@ -110,7 +108,6 @@ struct RootTabView: View {
                             withAnimation{
                                 self.showPopUp.toggle()
                             }
-                            
                             
                         }
                         

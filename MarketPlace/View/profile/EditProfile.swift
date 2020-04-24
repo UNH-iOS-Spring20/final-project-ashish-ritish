@@ -14,8 +14,7 @@ struct EditProfile: View {
     
     @State var name = Defaults.getUserDetails().name
     @State var about = Defaults.getUserDetails().about
-    @State var countryCode = ""
-    @State var phoneNumber = ""
+    @State var phoneNumber = Defaults.getUserDetails().phoneNumber
     @State var zipCode = Defaults.getUserDetails().zipCode
     @State var location = Defaults.getUserDetails().address
     @State var picker = false
@@ -78,14 +77,8 @@ struct EditProfile: View {
                 Text("Phone Number").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
 
                 HStack{
-                    TextField("+1", text: $countryCode)
-                        .keyboardType(.numberPad)
-                        .frame(width: 45)
-                       
-                    
                     TextField("Number", text: $phoneNumber)
                     .keyboardType(.numberPad)
-                    
                 }
                 
                 Divider()
@@ -148,17 +141,16 @@ struct EditProfile: View {
                 
             else{
                 Button(action: {
-                    if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.countryCode != "" && self.phoneNumber != "" && self.location != ""{
+                    if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.phoneNumber != "" && self.location != ""{
                         
                         self.loading.toggle()
                         print( self.name, self.about)
-                        let number = self.countryCode + self.phoneNumber
                         
-                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status, url) in
+                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
                             
                             if status{
                                 
-                                Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: number, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
+                                Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: self.phoneNumber, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
 
                                 CreateNotification(title: "Account Update", message: "User account successfully updated")
                                 checkForNewUserExistence()
@@ -180,13 +172,7 @@ struct EditProfile: View {
             ImagePicker(picker: self.$picker, imagedata: self.$imagedata)
         })
         .alert(isPresented: self.$alert) {
-            
             Alert(title: Text("Message"), message: Text("Please Fill The Contents"), dismissButton: .default(Text("Ok")))
-        }
-        .onAppear(){
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]){ (_, _) in
-                
-            }
         }
     }
 }
@@ -200,11 +186,12 @@ struct EditProfile_Previews: PreviewProvider {
 func CreateNotification( title: String, message: String){
     let content = UNMutableNotificationContent()
     content.title = title
-    content.body = message
+    content.subtitle = message
+    content.sound = UNNotificationSound.default
     
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
     
-    let req = UNNotificationRequest(identifier: "MSG", content: content, trigger: trigger)
+    let req = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
     
     UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
 }

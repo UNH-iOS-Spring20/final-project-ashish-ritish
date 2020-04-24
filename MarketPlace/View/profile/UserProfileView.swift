@@ -19,14 +19,15 @@ struct UserProfileView: View {
     @State private var userRating = 4
     @Binding var isPresented: Bool
     @State var flag = 0
-        
-    func dismiss() {
+
+    func dismiss(){
         presentationMode.wrappedValue.dismiss()
     }
     
     func navigate(place: String){
+        self.isNavigationBarHidden = false
         self.viewRouter.selectedTab = place
-        self.viewRouter.currentPage = place
+        self.viewRouter.currentView = place
     }
     
     
@@ -50,10 +51,7 @@ struct UserProfileView: View {
                         // go to notification screen
                         Button(action: {
                             self.dismiss()
-                            self.flag = 1
-                            
-                            self.viewRouter.selectedTab = "notification"
-                            self.viewRouter.currentView = "notification"
+                            self.navigate(place: "notification")
                         }) {
                             HStack {
                                 Image(systemName: "bell.fill").foregroundColor(Color.white)
@@ -64,8 +62,7 @@ struct UserProfileView: View {
                         // go to notification screen
                         Button(action: {
                             self.dismiss()
-                            self.viewRouter.selectedTab = "fav"
-                            self.viewRouter.currentView = "fav"
+                            self.navigate(place: "fav")
                         }) {
                             HStack {
                                 Image(systemName: "heart.fill").foregroundColor(Color.white)
@@ -75,11 +72,9 @@ struct UserProfileView: View {
 
                         //list section button
                         Button(action: {
+                            self.dismiss()
                             self.isPresented = false
-                            self.flag = 2
-                            
-                            self.viewRouter.currentView = "list"
-                            self.viewRouter.selectedTab = "list"
+                            self.navigate(place: "list")
                         }) {
                             HStack {
                                 Image(systemName: "list.dash").foregroundColor(Color.white)
@@ -172,13 +167,13 @@ struct UserProfileView: View {
                 HStack(spacing: 0) {
                     // log out button
                     Button(action: {
-                        self.viewRouter.currentPage = "loginPage"
+                        self.dismiss()
+                        self.navigate(place: "loginPage")
                         try! Auth.auth().signOut()
                            GIDSignIn.sharedInstance()?.signOut()
                            UserDefaults.standard.set(false, forKey: "status")
                             Defaults.clearUserData()
                             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                        self.dismiss()
                     }) {
                         Text("Log Out").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
                     }.background(Color("appBlue"))
@@ -192,15 +187,7 @@ struct UserProfileView: View {
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Back", displayMode: .inline)
             .onAppear {
-                self.isNavigationBarHidden = true            }
-            .onDisappear {
-                self.isNavigationBarHidden = false
-                if self.flag == 2 {
-                    self.navigate(place: "list")
-                }else if self.flag == 1 {
-                    self.navigate(place: "notification")
-                }
-                
+                self.isNavigationBarHidden = true
             }
         }
     }

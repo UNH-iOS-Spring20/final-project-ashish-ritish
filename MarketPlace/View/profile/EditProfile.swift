@@ -172,13 +172,7 @@ struct EditProfile: View {
             ImagePicker(picker: self.$picker, imagedata: self.$imagedata)
         })
         .alert(isPresented: self.$alert) {
-            
             Alert(title: Text("Message"), message: Text("Please Fill The Contents"), dismissButton: .default(Text("Ok")))
-        }
-        .onAppear(){
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]){ (_, _) in
-                
-            }
         }
     }
 }

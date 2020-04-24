@@ -15,9 +15,9 @@ struct CategoryList: View {
     
     var body: some View {
         VStack{
-                if(products.items.filter{$0.category == categoryName}.count > 0){
+                if(products.items.filter{$0.category == categoryName && $0.addBy != uid! && $0.soldTo.isEmpty}.count > 0){
 
-                    ProductsCollectionView(products: self.products.items.filter{$0.category == categoryName})
+                    ProductsCollectionView(products: self.products.items.filter{$0.category == categoryName && $0.addBy != uid! && $0.soldTo.isEmpty})
 
                 }else{
                     noProduct(message: "Oops!!! Looks like there were no products in " + categoryName + " .")

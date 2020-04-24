@@ -69,7 +69,6 @@ struct HomeView: View {
             .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
                 self.isNavigationBarHidden = true
-                checkForNewUserExistence()
                 print(uid!)
             }
             .onDisappear {

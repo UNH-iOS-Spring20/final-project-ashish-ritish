@@ -68,6 +68,8 @@ func signInWithEmail(email: String,password : String,completion: @escaping (Bool
             completion(false,(err?.localizedDescription)!)
             return
         }
+        uid = Auth.auth().currentUser?.uid
+        checkForNewUserExistence()
         
         completion(true,(res?.user.email)!)
     }

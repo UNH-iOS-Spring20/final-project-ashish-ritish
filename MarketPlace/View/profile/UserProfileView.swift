@@ -34,90 +34,141 @@ struct UserProfileView: View {
         NavigationView{
             VStack{
                 VStack{
-                    GeometryReader { geometry in
-                        HStack{
-                            WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
-                               .onSuccess { image, cacheType in
-                                   // Success
-                               }
-                               .resizable()
-                               .placeholder(Image(systemName: "person.crop.circle")) // Placeholder Image
-                               .renderingMode(.original)
-                               .frame(width: 100, height: 100)
-                               .clipShape(Circle())
-                               .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                               .shadow(radius: 10)
-                               .edgesIgnoringSafeArea(.top)
-                               .scaledToFit()
-                               .padding([.top,.bottom], 50)
-                               .padding([.leading,.trailing], 20)
-                            
-                            VStack(alignment: .leading){
-                                Text(Defaults.getUserDetails().name).font(.system(size: 25))
-                                Text(Defaults.getUserDetails().address)
-                                Section {
-                                    RatingView(rating: self.$userRating)
-                                }
-                            }.padding(.trailing, 20)
-                            Spacer()
-                        }
-                        .frame(width: geometry.size.width)
-                    }
-                    
+                    //notification section
                     HStack(spacing: 10){
                         // go to edit screen section
                         NavigationLink(destination: EditProfile()){
                             HStack {
-                                Text("edit").foregroundColor(Color.white)
                                 Image(systemName: "pencil").foregroundColor(Color.white)
-                            }.padding(10.0)
-                        }.background(Color("appBlue"))
-                        .clipShape(Capsule())
+                            }.padding(15)
+                        }.background(Color("appBlue").opacity(0.85))
+                        .clipShape(Circle())
+                        
+                        //every thing to right
+                        Spacer()
                         
                         // go to notification screen
                         Button(action: {
                             self.dismiss()
                             self.flag = 1
+                            
+                            self.viewRouter.selectedTab = "notification"
+                            self.viewRouter.currentView = "notification"
                         }) {
                             HStack {
                                 Image(systemName: "bell.fill").foregroundColor(Color.white)
-                                Text("Notification").foregroundColor(Color.white)
-                            }.padding(10.0)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10.0)
-                                        .stroke(lineWidth: 2.0)
-                            )
-                                .foregroundColor(Color.gray)
-                        }.background(Color("appBlue"))
-                        .clipShape(Capsule())
+                            }.padding(15)
+                        }.background(Color("appBlue").opacity(0.85))
+                        .clipShape(Circle())
                         
+                        // go to notification screen
+                        Button(action: {
+                            self.dismiss()
+                            self.viewRouter.selectedTab = "fav"
+                            self.viewRouter.currentView = "fav"
+                        }) {
+                            HStack {
+                                Image(systemName: "heart.fill").foregroundColor(Color.white)
+                            }.padding(15)
+                        }.background(Color("appBlue").opacity(0.85))
+                        .clipShape(Circle())
+
                         //list section button
                         Button(action: {
                             self.isPresented = false
                             self.flag = 2
+                            
+                            self.viewRouter.currentView = "list"
+                            self.viewRouter.selectedTab = "list"
                         }) {
                             HStack {
                                 Image(systemName: "list.dash").foregroundColor(Color.white)
-                                Text("List").foregroundColor(Color.white)
-                            }.padding(10.0)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10.0)
-                                        .stroke(lineWidth: 2.0)
-                            )
-                                .foregroundColor(Color.gray)
-                        }.background(Color("appBlue"))
-                        .clipShape(Capsule())
-                        
-                        Spacer()
+                            }.padding(15)
+                        }.background(Color("appBlue").opacity(0.85))
+                        .clipShape(Circle())
                     }
-                    .padding(.leading, 20)
-                    .padding(.bottom, 10)
+                    .padding([.leading,.trailing, .top],20)
                     
+                    Spacer()
                 }
                 .background(Color(UIColor(red:0, green: 0, blue: 0, alpha: 0.05)))
-                .frame(height:200)
-                Spacer()
+                .frame(height:175)
                 
+                //user picture
+                HStack(alignment: .center){
+                       Spacer()
+                    
+                        WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
+                        .onSuccess { image, cacheType in
+                        // Success
+                        }
+                        .resizable()
+                        .placeholder(Image(systemName: "person.crop.circle")) // Placeholder Image
+                        .renderingMode(.original)
+                        .frame(width: 200, height: 200)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                        .shadow(radius: 10)
+                        .edgesIgnoringSafeArea(.top)
+                        .scaledToFit()
+                
+                        Spacer()
+                }.offset(y: -100)
+                
+                
+                //user profile names
+                VStack(alignment: .center){
+                    Text(Defaults.getUserDetails().name).font(.system(size: 35))
+                }.offset(y: -100)
+
+                
+                VStack{
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "star").foregroundColor(Color("appBlue"))
+                        Section {
+                            RatingView(rating: self.$userRating)
+                        }
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],20)
+                    .padding(.bottom, 10)
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "mappin.and.ellipse").foregroundColor(Color("appBlue"))
+                        Text(Defaults.getUserDetails().address).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],20)
+                    .padding(.bottom, 10)
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "phone").foregroundColor(Color("appBlue"))
+                        Text(Defaults.getUserDetails().phoneNumber).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],20)
+                    .padding(.bottom, 10)
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "envelope").foregroundColor(Color("appBlue"))
+                        Text(Defaults.getUserDetails().email).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],20)
+                    .padding(.bottom, 10)
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "person").foregroundColor(Color("appBlue"))
+                        Text(Defaults.getUserDetails().about).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],20)
+                    .padding(.bottom, 10)
+                    
+                }.offset(y: -100)
+                
+                //log out section
                 HStack(spacing: 0) {
                     // log out button
                     Button(action: {
@@ -134,6 +185,9 @@ struct UserProfileView: View {
                     .clipShape(Capsule())
                     .padding(.top, 45)
                 }
+                
+                //push every thing up
+                Spacer()
             }
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Back", displayMode: .inline)

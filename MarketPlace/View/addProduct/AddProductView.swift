@@ -29,6 +29,10 @@ struct AddProductView: View {
     @State var show = false
     @State var choice = false
     var data: [String] = []
+    
+    func addProduct(){
+        print(self.name, self.email, self.price, self.categorySelected, self.conditionSelected, self.show, self.choice)
+    }
    
     var body: some View {
         
@@ -36,9 +40,7 @@ struct AddProductView: View {
             
             ZStack{
                 VStack(alignment: .leading){
-                    //
                     VStack(alignment: .leading){
-                        
                         Text("Name").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack{
                             TextField("Product Name", text: $name)
@@ -56,7 +58,6 @@ struct AddProductView: View {
                     
                     
                     VStack(alignment: .leading){
-                        
                         Text("Price").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack{
                             TextField("Product Price", text: $price).keyboardType(.numberPad)
@@ -77,7 +78,6 @@ struct AddProductView: View {
                             TextField("Category", text: $categorySelected)
                                 .disabled(true)
                             Button(action: {
-                            //    var data = self.categorysArray
                                 self.choice = true
                                 self.show.toggle()
                                 print("Category")
@@ -94,7 +94,6 @@ struct AddProductView: View {
                             TextField("Product Category", text: $conditionSelected)
                              .disabled(true)
                             Button(action: {
-                          //      var data = self.conditionArray
                                 self.choice = false
                                 self.show.toggle()
                                 print("Condition")
@@ -109,6 +108,7 @@ struct AddProductView: View {
                     HStack{
                         Spacer()
                         Button(action: {
+                            
                         }) {
                             
                             Text("Add").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()

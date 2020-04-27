@@ -17,24 +17,19 @@ struct NotificationView: View {
     @State private var notificationId = ""
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
     
-    var actionSheet: ActionSheet{
-        ActionSheet(title: Text(""), message: Text(actionTitle), buttons: [
-            .destructive(Text("Delete"), action: {
-                let id = self.notificationId
-                notificationsCollectionRef.document(id).delete() { error in
-                    if let error = error {
-                        print("Error removing document: \(error)")
-                    } else {
-                        print("Document successfully removed")
-                    }
-                }
-            }),
-            .cancel(Text("Cancel"), action:{
-                self.actionTitle = ""
-                self.notificationId = ""
-            })
-        ])
-    }
+    
+    func deletePizzeria(at offsets: IndexSet) {
+          let index = offsets.first!
+          let id = notifications.items[index].id
+          notificationsCollectionRef.document(id).delete() { err in
+              if let err = err {
+                  print("Error removing dpcument: \(err)")
+              }else{
+                  print("Document successfully removed!")
+              }
+              
+          }
+      }
     
     var body: some View {
         NavigationView{
@@ -61,24 +56,15 @@ struct NotificationView: View {
                                     .layoutPriority(99)
                             }
                             .padding(10)
-                            Spacer()
-                            Button(action : {
-                                self.showingSheet = true
-                                self.notificationId = notification.id
-                                self.actionTitle = notification.title
-                            }){
-                                Image(systemName: "ellipsis")
-                            }
-                            .actionSheet(isPresented: self.$showingSheet, content: {
-                                self.actionSheet })
                             
                         }
                         
                     }
                     .padding(10)
-                }
+                }.onDelete(perform: deletePizzeria)
             }
              .navigationBarTitle(Text("Notifications"), displayMode: .inline)
+            .navigationBarItems(leading: EditButton())
         }
        
     }

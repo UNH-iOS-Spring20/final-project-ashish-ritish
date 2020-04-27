@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ProductDetails: View {
     @State var isFavorite = false
@@ -138,7 +139,7 @@ struct ProductDetails: View {
             
         .navigationBarItems(trailing:
             HStack(spacing: 7){
-            NavigationLink(destination: EditProduct()){
+            NavigationLink(destination: EditProduct(product: product)){
                 HStack {
                     Image(systemName: "pencil").foregroundColor(Color.white)
                 }.padding(7)

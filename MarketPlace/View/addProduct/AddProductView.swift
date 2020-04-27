@@ -13,7 +13,7 @@ struct AddProductView: View {
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
     }
-
+    
     var userLongitude: String {
         return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
     }
@@ -28,18 +28,73 @@ struct AddProductView: View {
     @State var conditionSelected = ""
     @State var show = false
     @State var choice = false
+    @State private var refresh = false
     var data: [String] = []
+    
+    func clear(){
+        name = ""
+        email = ""
+        price = ""
+        categorySelected = ""
+        conditionSelected = ""
+    }
     
     func addProduct(){
         print(self.name, self.email, self.price, self.categorySelected, self.conditionSelected, self.show, self.choice)
+        self.refresh.toggle()
+        clear()
     }
-   
+    
     var body: some View {
         
         NavigationView{
             
             ZStack{
                 VStack(alignment: .leading){
+                    VStack(alignment: .leading){
+                        Text("Image").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack(spacing: 10) {
+                            Spacer()
+                            Image("karki")
+                                .resizable()
+                                .renderingMode(.original)
+                                .frame(width: 100, height: 100)
+                                .edgesIgnoringSafeArea(.top)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().stroke(Color.white, lineWidth: 2))
+                                .shadow(radius: 5)
+                                .edgesIgnoringSafeArea(.top)
+                                .scaledToFit()
+                            
+                            
+                            Image("karki")
+                                .resizable()
+                                .renderingMode(.original)
+                                .frame(width: 100, height: 100)
+                                .edgesIgnoringSafeArea(.top)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().stroke(Color.white, lineWidth: 2))
+                                .shadow(radius: 5)
+                                .edgesIgnoringSafeArea(.top)
+                                .scaledToFit()
+                            
+                            Image("karki")
+                                .resizable()
+                                .renderingMode(.original)
+                                .frame(width: 100, height: 100)
+                                .edgesIgnoringSafeArea(.top)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle().stroke(Color.white, lineWidth: 2))
+                                .shadow(radius: 5)
+                                .edgesIgnoringSafeArea(.top)
+                                .scaledToFit()
+                            Spacer()
+                        }
+                    }.padding(.bottom, 15)
+                    
                     VStack(alignment: .leading){
                         Text("Name").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack{
@@ -73,9 +128,9 @@ struct AddProductView: View {
                     }.padding(.bottom, 15)
                     
                     VStack(alignment: .leading) {
-                        Text("Product Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        Text("Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack {
-                            TextField("Category", text: $categorySelected)
+                            TextField("Product Category" + (refresh ? "" : " "), text: $categorySelected)
                                 .disabled(true)
                             Button(action: {
                                 self.choice = true
@@ -91,8 +146,8 @@ struct AddProductView: View {
                     VStack(alignment: .leading) {
                         Text("Condition").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                         HStack {
-                            TextField("Product Category", text: $conditionSelected)
-                             .disabled(true)
+                            TextField("Product Condition" + (refresh ? "" : " "), text: $conditionSelected)
+                                .disabled(true)
                             Button(action: {
                                 self.choice = false
                                 self.show.toggle()
@@ -108,7 +163,7 @@ struct AddProductView: View {
                     HStack{
                         Spacer()
                         Button(action: {
-                            
+                            self.addProduct()
                         }) {
                             
                             Text("Add").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()

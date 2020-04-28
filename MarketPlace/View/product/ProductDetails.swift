@@ -7,10 +7,38 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ProductDetails: View {
     @State var isFavorite = false
     @ObservedObject var product: Product
+    @State private var showingSheet = false
+    
+    func markAsSold(){
+        print("Sold")
+        
+    }
+    
+    var actionSheet: ActionSheet{
+        ActionSheet(title: Text(""), message: Text(product.name), buttons: [
+            .default(Text("Mark as Sold"), action:{
+                self.markAsSold()
+            }),
+            .destructive(Text("Delete"),
+                        action: {
+                            print("Deleted")
+            //                let id = self.notificationId
+            //                notificationsCollectionRef.document(id).delete() { error in
+            //                    if let error = error {
+            //                        print("Error removing document: \(error)")
+            //                    } else {
+            //                        print("Document successfully removed")
+            //                    }
+            //                }
+                        }),
+            .cancel()
+        ])
+    }
     
     func updateFavorite() {
         if !product.name.isEmpty && !product.category.isEmpty && !product.condition.isEmpty && !product.description.isEmpty &&
@@ -23,7 +51,7 @@ struct ProductDetails: View {
                 product.favoriteList.append(uid!)
             }
             productsCollectionRef.document(self.product.id).setData(self.product.data)
-          //  print(self.product.data)
+            //  print(self.product.data)
         }
         else{
             print("Cannot update Sorry")
@@ -34,41 +62,6 @@ struct ProductDetails: View {
         VStack(spacing : 0){
             ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
             HStack{
-                Spacer()
-                if (product.addBy == uid! && product.soldTo.isEmpty){
-                    NavigationLink(destination: EditProfile()){
-                        HStack {
-                            Image(systemName: "bell.fill")
-                            Text("Edit")
-                        }.padding(10.0)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10.0)
-                                    .stroke(lineWidth: 2.0)
-                        )
-                            .foregroundColor(Color("appBlue"))
-                            .frame(minWidth: 120)
-                        
-                        
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        
-                        
-                    }) {
-                        HStack {
-                            Image(systemName: "bell.fill")
-                            Text("Sold")
-                        }.padding(10.0)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10.0)
-                                    .stroke(lineWidth: 2.0)
-                        )
-                            .foregroundColor(Color.red)
-                            .frame(minWidth: 120)
-                    }
-                }
                 Spacer()
                 if(product.addBy != uid! && product.soldTo.isEmpty) {
                     Button(action: {
@@ -143,6 +136,34 @@ struct ProductDetails: View {
                 .frame(height: 160)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
+            
+        .navigationBarItems(trailing:
+            HStack(spacing: 7){
+            NavigationLink(destination: EditProduct(product: product)){
+                HStack {
+                    Image(systemName: "pencil").foregroundColor(Color.white)
+                }.padding(7)
+            }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+            .clipShape(Circle())
+            .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
+            
+            Spacer()
+            
+            Button(action : {
+                    self.showingSheet = true
+            }
+            ){
+                HStack {
+                    Image(systemName: "ellipsis").foregroundColor(Color.white)
+                }.padding(7)
+            }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+            .clipShape(Circle())
+            .actionSheet(isPresented: self.$showingSheet, content: {
+                self.actionSheet })
+            .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
+            }
+        )
+        
     }
 }
 
@@ -155,6 +176,4 @@ struct ProductDetails_Previews: PreviewProvider {
         ProductDetails(product: sampleProudct!)
     }
 }
-
-
 

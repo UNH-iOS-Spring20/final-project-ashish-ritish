@@ -48,14 +48,15 @@ struct ProductDetails: View {
             .destructive(Text("Delete"),
                          action: {
                             print("Deleted")
-                            //                let id = self.notificationId
-                            //                notificationsCollectionRef.document(id).delete() { error in
-                            //                    if let error = error {
-                            //                        print("Error removing document: \(error)")
-                            //                    } else {
-                            //                        print("Document successfully removed")
-                            //                    }
-                            //                }
+                            let id = self.product.id
+                            productsCollectionRef.document(id).delete() { error in
+                                if let error = error {
+                                    print("Error removing document: \(error)")
+                                } else {
+                                    print("Document successfully removed")
+                                    self.dismiss()
+                                }
+                            }
             }),
             .cancel()
         ])

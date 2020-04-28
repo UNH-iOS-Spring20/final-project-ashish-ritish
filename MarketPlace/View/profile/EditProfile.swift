@@ -8,6 +8,7 @@
 
 import SwiftUI
 import UserNotifications
+import Firebase
 
 struct EditProfile: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -184,6 +185,8 @@ struct EditProfile_Previews: PreviewProvider {
 }
 
 func CreateNotification( title: String, message: String){
+    let now = Int(NSDate().timeIntervalSince1970)
+    
     let content = UNMutableNotificationContent()
     content.title = title
     content.subtitle = message
@@ -195,6 +198,13 @@ func CreateNotification( title: String, message: String){
     
     UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
     
-    print(Defaults.getUserDetails().id)
+    var notificationData = [String:Any]()
+    notificationData["createdTime"] = now
+    notificationData["title"] = title
+    notificationData["description"] = message
+    notificationData["seenTime"] = now
+    
+    
+    notificationsCollectionRef.addDocument(data: notificationData)
     
 }

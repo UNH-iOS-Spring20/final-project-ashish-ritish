@@ -16,25 +16,44 @@ struct NotificationView: View {
     @State private var actionTitle = ""
     @State private var notificationId = ""
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
+    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     
     func deleteNotification(at offsets: IndexSet) {
         let index = offsets.first!
         let id = notifications.items[index].id
-        notifications.items[index].userId.append(uid!)
-        notificationsCollectionRef.document(id).setData(notifications.items[index].data)
+        if notifications.items[index].isPublic {
+            notifications.items[index].clearId.append(uid!)
+            notificationsCollectionRef.document(id).setData(notifications.items[index].data)
+        } else{
+            notificationsCollectionRef.document(id).delete() { err in
+                if let err = err {
+                    print("Error removing dpcument: \(err)")
+                }else{
+                    print("Document successfully removed!")
+                }
+                
+            }
+        }
     }
     
     var body: some View {
-        NavigationView{
+        var filtered = notifications.items.filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}
+        // print (filtered)
+        return NavigationView{
             List{
-                ForEach(notifications.items.filter{ !$0.userId.contains(uid!)}, id: \.self.id) { notification in
+                ForEach(filtered, id: \.self.id) { notification in
                     HStack(){
                         Image("AppLogo")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 50, height: 50)
+                            .edgesIgnoringSafeArea(.top)
                             .clipShape(Circle())
                             .overlay(
                                 Circle().stroke(Color.white, lineWidth: 2))
-                            .shadow(radius: 4)
+                            .shadow(radius: 5)
+                            .edgesIgnoringSafeArea(.top)
                             .scaledToFit()
                         HStack() {
                             VStack(alignment: .leading) {

@@ -161,28 +161,28 @@ struct ProductDetails: View {
             
         .navigationBarItems(trailing:
             HStack(spacing: 7){
-                NavigationLink(destination: EditProduct(product: product)){
-                    HStack {
-                        Image(systemName: "pencil").foregroundColor(Color.white)
-                    }.padding(7)
-                }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
-                    .clipShape(Circle())
-                    .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
-                
-                Spacer()
-                
-                Button(action : {
-                    self.showingSheet = true
+                if product.addBy == uid! && product.soldTo.isEmpty {
+                    NavigationLink(destination: EditProduct(product: product)){
+                        HStack {
+                            Image(systemName: "pencil").foregroundColor(Color.white)
+                        }.padding(7)
+                    }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+                        .clipShape(Circle())
+                    
+                    Spacer()
+                    
+                    Button(action : {
+                        self.showingSheet = true
+                    }
+                    ){
+                        HStack {
+                            Image(systemName: "ellipsis").foregroundColor(Color.white)
+                        }.padding(7)
+                    }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+                        .clipShape(Circle())
+                        .actionSheet(isPresented: self.$showingSheet, content: {
+                            self.actionSheet })
                 }
-                ){
-                    HStack {
-                        Image(systemName: "ellipsis").foregroundColor(Color.white)
-                    }.padding(7)
-                }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
-                    .clipShape(Circle())
-                    .actionSheet(isPresented: self.$showingSheet, content: {
-                        self.actionSheet })
-                    .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
             }
         )
         

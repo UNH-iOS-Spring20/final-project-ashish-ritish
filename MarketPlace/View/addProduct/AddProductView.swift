@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct AddProductView: View {
     @ObservedObject var locationManager = LocationManager()
@@ -30,6 +31,21 @@ struct AddProductView: View {
     @State var choice = false
     @State private var refresh = false
     var data: [String] = []
+    
+    func getCoordinate(){
+        let geocoder = CLGeocoder()
+        let address = Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode
+        print(address)
+        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+            if((error) != nil){
+                print("Error", error ?? "")
+            }
+            if let placemark = placemarks?.first {
+                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                print("Lat: \(coordinates.latitude) -- Long: \(coordinates.longitude)")
+            }
+        })
+    }
     
     func clear(){
         name = ""
@@ -163,6 +179,7 @@ struct AddProductView: View {
                     HStack{
                         Spacer()
                         Button(action: {
+                            self.getCoordinate()
                             self.addProduct()
                         }) {
                             

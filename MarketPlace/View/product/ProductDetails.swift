@@ -10,21 +10,34 @@ import SwiftUI
 import FirebaseFirestore
 
 struct ProductDetails: View {
+    @Environment(\.presentationMode) var presentationMode
     @State var isFavorite = false
     @ObservedObject var product: Product
     @State private var showingSheet = false
     
+    
+    func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+    }
+    
     func markAsSold(){
-        
+        var id = ""
         getUsersId { usersId in
             
             if usersId.count > 0{
-                print(usersId)
+                while true {
+                    id = usersId.randomElement()!
+                    //  print("Inside " + id)
+                    if id != uid!{
+                        break
+                    }
+                }
+                self.product.soldTo.append(id)
+                productsCollectionRef.document(self.product.id).setData(self.product.data)
+                self.dismiss()
             }
             
         }
-        print("Sold")
-        
     }
     
     var actionSheet: ActionSheet{
@@ -33,17 +46,18 @@ struct ProductDetails: View {
                 self.markAsSold()
             }),
             .destructive(Text("Delete"),
-                        action: {
+                         action: {
                             print("Deleted")
-            //                let id = self.notificationId
-            //                notificationsCollectionRef.document(id).delete() { error in
-            //                    if let error = error {
-            //                        print("Error removing document: \(error)")
-            //                    } else {
-            //                        print("Document successfully removed")
-            //                    }
-            //                }
-                        }),
+                            let id = self.product.id
+                            productsCollectionRef.document(id).delete() { error in
+                                if let error = error {
+                                    print("Error removing document: \(error)")
+                                } else {
+                                    print("Document successfully removed")
+                                    self.dismiss()
+                                }
+                            }
+            }),
             .cancel()
         ])
     }
@@ -85,7 +99,7 @@ struct ProductDetails: View {
                         }
                     }
                 }
-            }.padding(20)
+            }.padding(10)
             
             VStack (spacing: 15){
                 
@@ -147,28 +161,28 @@ struct ProductDetails: View {
             
         .navigationBarItems(trailing:
             HStack(spacing: 7){
-            NavigationLink(destination: EditProduct(product: product)){
-                HStack {
-                    Image(systemName: "pencil").foregroundColor(Color.white)
-                }.padding(7)
-            }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
-            .clipShape(Circle())
-            .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
-            
-            Spacer()
-            
-            Button(action : {
+                NavigationLink(destination: EditProduct(product: product)){
+                    HStack {
+                        Image(systemName: "pencil").foregroundColor(Color.white)
+                    }.padding(7)
+                }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+                    .clipShape(Circle())
+                    .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
+                
+                Spacer()
+                
+                Button(action : {
                     self.showingSheet = true
-            }
-            ){
-                HStack {
-                    Image(systemName: "ellipsis").foregroundColor(Color.white)
-                }.padding(7)
-            }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
-            .clipShape(Circle())
-            .actionSheet(isPresented: self.$showingSheet, content: {
-                self.actionSheet })
-            .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
+                }
+                ){
+                    HStack {
+                        Image(systemName: "ellipsis").foregroundColor(Color.white)
+                    }.padding(7)
+                }.background(((product.addBy == uid! && product.soldTo.isEmpty) ? Color("appBlue") : .gray).opacity(0.85))
+                    .clipShape(Circle())
+                    .actionSheet(isPresented: self.$showingSheet, content: {
+                        self.actionSheet })
+                    .disabled((product.addBy == uid! && product.soldTo.isEmpty) ? false : true)
             }
         )
         

@@ -18,23 +18,17 @@ struct NotificationView: View {
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
     
     
-    func deletePizzeria(at offsets: IndexSet) {
-          let index = offsets.first!
-          let id = notifications.items[index].id
-          notificationsCollectionRef.document(id).delete() { err in
-              if let err = err {
-                  print("Error removing dpcument: \(err)")
-              }else{
-                  print("Document successfully removed!")
-              }
-              
-          }
-      }
+    func deleteNotification(at offsets: IndexSet) {
+        let index = offsets.first!
+        let id = notifications.items[index].id
+        notifications.items[index].userId.append(uid!)
+        notificationsCollectionRef.document(id).setData(notifications.items[index].data)
+    }
     
     var body: some View {
         NavigationView{
             List{
-                ForEach(notifications.items, id: \.self.id) { notification in
+                ForEach(notifications.items.filter{ !$0.userId.contains(uid!)}, id: \.self.id) { notification in
                     HStack(){
                         Image("AppLogo")
                             .clipShape(Circle())
@@ -61,12 +55,12 @@ struct NotificationView: View {
                         
                     }
                     .padding(10)
-                }.onDelete(perform: deletePizzeria)
+                }.onDelete(perform: deleteNotification)
             }
-             .navigationBarTitle(Text("Notifications"), displayMode: .inline)
+            .navigationBarTitle(Text("Notifications"), displayMode: .inline)
             .navigationBarItems(leading: EditButton())
         }
-       
+        
     }
 }
 

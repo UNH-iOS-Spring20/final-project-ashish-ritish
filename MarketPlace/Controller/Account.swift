@@ -53,6 +53,24 @@ func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, p
     }
 }
 
+func getUsersId(completion: @escaping ([String])->Void){
+    let db = Firestore.firestore()
+    var usersId: [String] = []
+    db.collection("users").getDocuments { (snap, err) in
+
+        if err != nil{
+            print((err?.localizedDescription)!)
+            return
+        }
+        
+        for i in snap!.documents{
+            usersId.append(i.documentID)
+        }
+        
+        completion(usersId)
+    }
+}
+
 func checkUser(completion: @escaping (Bool,String)->Void){
     let db = Firestore.firestore()
     db.collection("users").getDocuments { (snap, err) in

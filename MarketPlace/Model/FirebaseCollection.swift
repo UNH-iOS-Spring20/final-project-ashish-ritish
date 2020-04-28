@@ -29,8 +29,7 @@ class FirebaseCollection<T: FirebaseCodable>: ObservableObject {
             }
             
             let models = snapshot.documents.map { (document) -> T in
-                if let model = T(id: document.documentID,
-                                 data: document.data()) {
+                if let model = T(id: document.documentID, data: document.data()) {
                     return model
                 } else {
                     fatalError("Unable to initialize type \(T.self) with data \(document.data())")

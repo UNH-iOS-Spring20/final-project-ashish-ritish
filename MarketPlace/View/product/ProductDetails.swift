@@ -15,6 +15,14 @@ struct ProductDetails: View {
     @State private var showingSheet = false
     
     func markAsSold(){
+        
+        getUsersId { usersId in
+            
+            if usersId.count > 0{
+                print(usersId)
+            }
+            
+        }
         print("Sold")
         
     }

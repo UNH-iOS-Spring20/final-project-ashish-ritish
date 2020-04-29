@@ -131,7 +131,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         Image(systemName: "mappin.and.ellipse").foregroundColor(Color("appBlue"))
-                        Text(Defaults.getUserDetails().address).fontWeight(.medium).font(.system(size: 20))
+                        Text(Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode ).fontWeight(.medium).font(.system(size: 20))
                         Spacer()
                     }
                     .padding([.leading,.trailing],20)

@@ -13,7 +13,9 @@ class Notification: FirebaseCodable{
     @Published var description: String
     @Published var createdTime: Int
     @Published var seenTime: Int
-    @Published var userId: Array<String>
+    @Published var userId: String
+    @Published var isPublic: Bool
+    @Published var clearId: Array<String>
     
     var data: [String: Any]{
         return[
@@ -21,7 +23,9 @@ class Notification: FirebaseCodable{
             "description": description,
             "createdTime": createdTime,
             "seenTime": seenTime,
-            "userId": userId
+            "userId": userId,
+            "clearId": clearId,
+            "isPublic": isPublic
         ]
     }
     
@@ -31,7 +35,9 @@ class Notification: FirebaseCodable{
             let description = data["description"] as? String,
             let createdTime = data["createdTime"] as? Int,
             let seenTime = data["seenTime"] as? Int,
-            let userId = data["userId"] as? Array<String>
+            let userId = data["userId"] as? String,
+            let isPublic = data["isPublic"] as? Bool,
+            let clearId = data["clearId"] as? Array<String>
             else {
                 return nil
         }
@@ -42,5 +48,7 @@ class Notification: FirebaseCodable{
         self.createdTime = createdTime
         self.seenTime = seenTime
         self.userId = userId
+        self.clearId = clearId
+        self.isPublic = isPublic
     }
 }

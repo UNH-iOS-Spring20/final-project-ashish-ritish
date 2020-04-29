@@ -10,19 +10,11 @@ import SwiftUI
 import CoreLocation
 
 struct AddProductView: View {
-    //    @ObservedObject var locationManager = LocationManager()
-    //
-    //    var userLatitude: String {
-    //        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
-    //    }
-    //
-    //    var userLongitude: String {
-    //        return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-    //    }
-    
     let categorysArray = ["Auto Motive", "Cell Phone", "Computer", "Electronics", "Fashion", "Household", "Music", "Real Estate", "Rental", "Sports", "Stationery", "Others"]
     
     let conditionArray = ["New", "Like new", "Good", "Fair", "Poor"]
+    
+    
     
     @State var name = ""
     @State var price = ""
@@ -63,7 +55,7 @@ struct AddProductView: View {
                 addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.latitude, longitude: self.longitude, description: self.productDescription){ completed in
                     
                     if(completed){
-                        CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: true)
+                        CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: false)
                         self.refresh.toggle()
                         self.clear()
                         self.loading.toggle()

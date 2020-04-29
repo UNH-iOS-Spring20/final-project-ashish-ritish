@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import CoreLocation
+import SDWebImageSwiftUI
 
 struct EditProduct: View {
     var categorysArray = ["Auto Motive", "Cell Phone", "Computer", "Electronics", "Fashion", "Household", "Music", "Real Estate", "Rental", "Sports", "Stationery", "Others"]
@@ -16,136 +18,243 @@ struct EditProduct: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var product: Product
     @State var name: String = ""
-    @State var email: String = ""
     @State var price: String = ""
+    @State var productDescription = ""
     @State var categorySelected: String = ""
     @State var conditionSelected: String = ""
     @State var show = false
     @State var choice = false
-    
+    @State var loading = false
     var data: [String] = []
+    @State var latitude = 0.0
+    @State var longitude = 0.0
+    
+    @State var showImagePicker = false
+    @State var selectedImages : [UIImage] = []
     
     func dismiss() {
-         presentationMode.wrappedValue.dismiss()
-     }
+        presentationMode.wrappedValue.dismiss()
+    }
     
     func editProduct(){
-        print(self.name, self.email, self.price, self.categorySelected, self.conditionSelected, self.show, self.choice)
-      //  dismiss()
+        
+        modifyProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, description: self.productDescription){ completed in
+            
+            if(completed){
+                CreateNotification(title: "Product Edited", message: "\(self.name) has been modified", isPublic: false)
+                self.dismiss()
+            }else{
+                print("failed operation")
+            }
+        }
+        
     }
+
     
     
     var body: some View {
-        ZStack{
-            VStack(alignment: .leading){
+        ScrollView(.vertical, showsIndicators: false){
+            ZStack{
                 VStack(alignment: .leading){
-                    Text("Name").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                    VStack(alignment: .center){
+                        
+                        if !self.selectedImages.isEmpty{
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                
+                                HStack(spacing: 20){
+                                    
+                                    ForEach(self.selectedImages,id: \.self){i in
+                                        
+                                        Image(uiImage: i)
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width / 2 - 50, height: 120)
+                                            .cornerRadius(15)
+                                    }
+                                }
+                                .padding(.horizontal, 20)
+                            }
+                        }else{
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                
+                                HStack(spacing: 20){
+                                    
+                                    ForEach(self.product.imageUrls,id: \.self){ url in
+                                        
+                                        WebImage(url: URL(string: (url)))
+                                            .onSuccess { image, cacheType in
+                                                // Success
+                                        }
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width / 2 - 50, height: 120)
+                                        .cornerRadius(15)
+                                        
+                                    }
+                                }
+                                .padding(.horizontal, 20)
+                            }
+                            //    ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
+                        }
+                        
+                        HStack(spacing: 10) {
+                            Spacer()
+                            Button(action: {
+                                self.showImagePicker.toggle()
+                                self.selectedImages.removeAll()
+                            }) {
+                                
+                                Text("Choose product images")
+                                    .foregroundColor(.white)
+                                    .padding(.vertical,10)
+                                    .frame(width: UIScreen.main.bounds.width / 2)
+                            }
+                            .background(Color("appBlue"))
+                            .clipShape(Capsule())
+                            .padding(.top, 10)
+                            Spacer()
+                        }
+                    }.padding(.bottom, 15)
+                    
+                    VStack(alignment: .leading){
+                        Text("Name").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack{
+                            TextField("Product Name", text: $name)
+                                .onAppear{
+                                    self.name = self.product.name
+                            }
+                            if name != ""{
+                                Image(systemName: "checkmark")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 23)
+                                    .foregroundColor(Color.init(.label))
+                            }
+                        }
+                        Divider()
+                    }.padding(.bottom, 5)
+                    
+                    
+                    
+                    VStack(alignment: .leading){
+                        Text("Price").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack{
+                            TextField("Product Price", text: $price).keyboardType(.numberPad)
+                                .onAppear{
+                                    self.price = String(self.product.price)
+                            }
+                            if price != ""{
+                                Image(systemName: "checkmark")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 23)
+                                    .foregroundColor(Color.init(.label))
+                            }
+                        }
+                        Divider()
+                    }.padding(.bottom, 5)
+                    
+                    VStack(alignment: .leading){
+                        Text("Describe your product").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack{
+                            TextField("Product Description", text: $productDescription)
+                                .onAppear{
+                                    self.productDescription = String(self.product.description)
+                            }
+                            if productDescription != ""{
+                                Image(systemName: "checkmark")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 23)
+                                    .foregroundColor(Color.init(.label))
+                            }
+                        }
+                        Divider()
+                    }.padding(.bottom, 5)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack {
+                            TextField("Product Category", text: $categorySelected)
+                                .onAppear{
+                                    self.categorySelected = self.product.category
+                            }
+                            .disabled(true)
+                            Button(action: {
+                                self.choice = true
+                                self.show.toggle()
+                            }){
+                                Image(systemName: "chevron.down")
+                            }
+                        }
+                        Divider()
+                    }.padding(.bottom, 5)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Condition").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                        HStack {
+                            TextField("Product Condition", text: $conditionSelected)
+                                .onAppear{
+                                    self.conditionSelected = self.product.condition
+                            }
+                            .disabled(true)
+                            Button(action: {
+                                self.choice = false
+                                self.show.toggle()
+                            }){
+                                Image(systemName: "chevron.down")
+                            }
+                        }
+                        Divider()
+                    }.padding(.bottom, 5)
+                    
+                    
                     HStack{
-                        TextField("Product Name", text: $name)
-                            .onAppear{
-                                self.name = self.product.name
+                        Spacer()
+                        if self.loading{
+                            HStack{
+                                Spacer()
+                                Indicator()
+                                Spacer()
+                            }
                         }
-                        if name != ""{
-                            Image(systemName: "checkmark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 23)
-                                .foregroundColor(Color.init(.label))
+                        else{
+                            
+                            Button(action: {
+                                self.editProduct()
+                                self.loading.toggle()
+                            }) {
+                                
+                                Text("Save").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()
+                                
+                                
+                            }.background(Color("appBlue"))
+                                .clipShape(Capsule())
+                                .padding(.top, 10)
                         }
+                        Spacer()
                     }
-                    Divider()
-                }.padding(.bottom, 15)
-                
-                
-                
-                VStack(alignment: .leading){
-                    Text("Price").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                    HStack{
-                        TextField("Product Price", text: $price).keyboardType(.numberPad)
-                            .onAppear{
-                                self.price = String(self.product.price)
-                        }
-                        if price != ""{
-                            Image(systemName: "checkmark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 23)
-                                .foregroundColor(Color.init(.label))
-                        }
-                    }
-                    Divider()
-                }.padding(.bottom, 15)
-                
-                VStack(alignment: .leading) {
-                    Text("Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                    HStack {
-                        TextField("Product Category", text: $categorySelected)
-                            .onAppear{
-                                self.categorySelected = self.product.category
-                        }
-                        .disabled(true)
-                        Button(action: {
-                            self.choice = true
-                            self.show.toggle()
-                        }){
-                            Image(systemName: "chevron.down")
-                        }
-                    }
-                    Divider()
-                }.padding(.bottom, 15)
-                
-                VStack(alignment: .leading) {
-                    Text("Condition").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                    HStack {
-                        TextField("Product Condition", text: $conditionSelected)
-                            .onAppear{
-                                self.conditionSelected = self.product.condition
-                        }
-                        .disabled(true)
-                        Button(action: {
-                            self.choice = false
-                            self.show.toggle()
-                        }){
-                            Image(systemName: "chevron.down")
-                        }
-                    }
-                    Divider()
-                }.padding(.bottom, 15)
-                
-                
-                HStack{
-                    Spacer()
-                    Button(action: {
-                        self.editProduct()
-                    }) {
-                        
-                        Text("Save").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()
-                        
-                        
-                    }.background(Color("appBlue"))
-                        .clipShape(Capsule())
-                        .padding(.top, 20)
                     
                     Spacer()
-                }
+                    
+                }.padding(.horizontal, 20)
+                    .padding(.top, 10)
                 
-                Spacer()
-                
-            }.padding(.horizontal, 20)
-                .padding(.top, 20)
-            
-            VStack{
-                Spacer()
-                if choice {
-                    RadioButtons(selected: self.$categorySelected, show: self.$show, data: categorysArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 5 : UIScreen.main.bounds.height)
-                }else {
-                    RadioButtons(selected: self.$conditionSelected, show: self.$show, data: conditionArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 25 : UIScreen.main.bounds.height)
-                }
-            }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
+                VStack{
+                    Spacer()
+                    if choice {
+                        RadioButtons(selected: self.$categorySelected, show: self.$show, data: categorysArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 5 : UIScreen.main.bounds.height)
+                    }else {
+                        RadioButtons(selected: self.$conditionSelected, show: self.$show, data: conditionArray).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 25 : UIScreen.main.bounds.height)
+                    }
+                }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
+            }
         }
         .background(Color.white.edgesIgnoringSafeArea(.all))
         .animation(.default)
-        .navigationBarTitle(Text("Edit Product"), displayMode: .inline)
+        .sheet(isPresented: $showImagePicker){
+            return CustomPicker(selected: self.$selectedImages, show: self.$showImagePicker)
+        }
+        .navigationBarTitle(Text("Edit \(self.product.name)"), displayMode: .inline)
     }
     
 }

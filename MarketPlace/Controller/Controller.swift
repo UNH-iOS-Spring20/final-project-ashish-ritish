@@ -176,6 +176,66 @@ func addProduct(name: String,price : String,images : [UIImage], category: String
     }
 }
 
+func modifyProduct(name: String,price : String,images : [UIImage], category: String, condition: String, description: String, completion : @escaping (Bool)-> Void){
+    
+    let uid = Auth.auth().currentUser?.uid
+    var productUrls: [String] = []
+    
+    for (index, image) in images.enumerated() {
+        
+        let parentDirectory = category
+        let documentIdentifier = uid! + name + randomString(length: 8)
+        let finalDocumentId = documentIdentifier.filter { !$0.isNewline && !$0.isWhitespace }
+        
+        let currentImage = image.resizeWithWidth(width: 500)!
+        let imageData = currentImage.jpegData(compressionQuality: 1)!
+        
+        storage.child(parentDirectory).child(finalDocumentId).putData(imageData, metadata: nil) { (_, err) in
+
+            if err != nil{
+
+                print((err?.localizedDescription)!)
+                return
+            }
+
+            storage.child(parentDirectory).child(finalDocumentId).downloadURL { (url, err) in
+
+                if err != nil{
+
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                
+                productUrls.append("\(url!)")
+
+                if index == images.count - 1 {
+                    
+                    var productData = [String:Any]()
+                    productData["name"] = name
+                    productData["price"] = Double(price)
+                    productData["category"] = category
+                    productData["condition"] = condition
+                    productData["imageUrls"] = productUrls
+                    productData["description"] = description
+                    productData["addBy"] = uid!
+                    
+                    productsCollectionRef.addDocument(data: productData){ err in
+                        if err != nil {
+                            print((err?.localizedDescription)!)
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                }
+                
+            }
+        }
+        
+    }
+}
+
 
 func randomString(length: Int) -> String {
   let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

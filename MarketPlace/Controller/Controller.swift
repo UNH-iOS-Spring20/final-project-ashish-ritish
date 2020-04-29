@@ -8,11 +8,11 @@
 import Firebase
 import Foundation
 
+let db = Firestore.firestore()
+let storage = Storage.storage().reference()
+
 func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, phoneNumber: String, location: String, completion : @escaping (Bool, String)-> Void){
     
-    let db = Firestore.firestore()
-    
-    let storage = Storage.storage().reference()
     
     let uid = Auth.auth().currentUser?.uid
     let email = Auth.auth().currentUser?.email
@@ -72,7 +72,6 @@ func getUsersId(completion: @escaping ([String])->Void){
 }
 
 func checkUser(completion: @escaping (Bool,String)->Void){
-    let db = Firestore.firestore()
     db.collection("users").getDocuments { (snap, err) in
 
         if err != nil{
@@ -106,4 +105,79 @@ func checkUser(completion: @escaping (Bool,String)->Void){
         completion(false,"")
     }
     
+}
+
+func addProduct(name: String,price : String,images : [UIImage], category: String, condition: String, latitude: String, longitude: String, description: String, completion : @escaping (Bool)-> Void){
+    
+    let favoriteList:[String] = []
+
+    let uid = Auth.auth().currentUser?.uid
+    var productUrls: [String] = []
+    
+    for (index, image) in images.enumerated() {
+        
+        let parentDirectory = category
+        let documentIdentifier = uid! + name + randomString(length: 8)
+        let finalDocumentId = documentIdentifier.filter { !$0.isNewline && !$0.isWhitespace }
+        
+        let currentImage = image.resizeWithWidth(width: 500)!
+        let imageData = currentImage.jpegData(compressionQuality: 1)!
+        
+        storage.child(parentDirectory).child(finalDocumentId).putData(imageData, metadata: nil) { (_, err) in
+
+            if err != nil{
+
+                print((err?.localizedDescription)!)
+                return
+            }
+
+            storage.child(parentDirectory).child(finalDocumentId).downloadURL { (url, err) in
+
+                if err != nil{
+
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                
+                productUrls.append("\(url!)")
+
+                if index == images.count - 1 {
+                    
+                    var productData = [String:Any]()
+                    productData["name"] = name
+                    productData["price"] = Double(price)
+                    productData["category"] = category
+                    productData["condition"] = condition
+                    productData["longitude"] = Double(longitude)
+                    productData["latitude"] = Double(latitude)
+                    productData["imageUrls"] = productUrls
+                    productData["description"] = description
+                    productData["soldTo"] = ""
+                    productData["addBy"] = uid!
+                    productData["favoriteList"] = favoriteList
+                    productData["email"] = Defaults.getUserDetails().email
+                    
+                    productsCollectionRef.addDocument(data: productData){ err in
+                        if err != nil {
+                            print((err?.localizedDescription)!)
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
+    completion(true)
+}
+
+
+func randomString(length: Int) -> String {
+  let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  return String((0..<length).map{ _ in letters.randomElement()! })
 }

@@ -64,6 +64,7 @@ struct HomeView: View {
                 }.sheet(isPresented: $showingProfile){
                     return UserProfileView(viewRouter: self.viewRouter, isPresented: self.$showingProfile)
                 }
+                Spacer()
             }
             .navigationBarHidden(isNavigationBarHidden)
             .navigationBarTitle("Home", displayMode: .inline)

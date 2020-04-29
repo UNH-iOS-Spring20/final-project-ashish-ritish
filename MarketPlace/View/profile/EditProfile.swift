@@ -145,7 +145,6 @@ struct EditProfile: View {
                     if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.phoneNumber != "" && self.location != ""{
                         
                         self.loading.toggle()
-                        print( self.name, self.about)
                         
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
                             

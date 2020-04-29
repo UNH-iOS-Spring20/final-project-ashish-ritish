@@ -172,8 +172,6 @@ func addProduct(name: String,price : String,images : [UIImage], category: String
         }
         
     }
-    
-    completion(true)
 }
 
 

@@ -107,7 +107,7 @@ func checkUser(completion: @escaping (Bool,String)->Void){
     
 }
 
-func addProduct(name: String,price : String,images : [UIImage], category: String, condition: String, latitude: String, longitude: String, description: String, completion : @escaping (Bool)-> Void){
+func addProduct(name: String,price : String,images : [UIImage], category: String, condition: String, latitude: Double, longitude: Double, description: String, completion : @escaping (Bool)-> Void){
     
     let favoriteList:[String] = []
 
@@ -148,8 +148,8 @@ func addProduct(name: String,price : String,images : [UIImage], category: String
                     productData["price"] = Double(price)
                     productData["category"] = category
                     productData["condition"] = condition
-                    productData["longitude"] = Double(longitude)
-                    productData["latitude"] = Double(latitude)
+                    productData["longitude"] = longitude
+                    productData["latitude"] = latitude
                     productData["imageUrls"] = productUrls
                     productData["description"] = description
                     productData["soldTo"] = ""
@@ -172,8 +172,6 @@ func addProduct(name: String,price : String,images : [UIImage], category: String
         }
         
     }
-    
-    completion(true)
 }
 
 

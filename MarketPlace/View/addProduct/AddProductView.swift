@@ -10,19 +10,11 @@ import SwiftUI
 import CoreLocation
 
 struct AddProductView: View {
-    @ObservedObject var locationManager = LocationManager()
-    
-    var userLatitude: String {
-        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
-    }
-    
-    var userLongitude: String {
-        return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-    }
-    
     let categorysArray = ["Auto Motive", "Cell Phone", "Computer", "Electronics", "Fashion", "Household", "Music", "Real Estate", "Rental", "Sports", "Stationery", "Others"]
     
     let conditionArray = ["New", "Like new", "Good", "Fair", "Poor"]
+    
+    
     
     @State var name = ""
     @State var price = ""
@@ -40,21 +32,6 @@ struct AddProductView: View {
     @State var showImagePicker = false
     @State var selectedImages : [UIImage] = []
     
-    func getCoordinate(){
-        let geocoder = CLGeocoder()
-        let address = Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode
-        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
-            if((error) != nil){
-                print("Error", error ?? "")
-            }
-            if let placemark = placemarks?.first {
-                 let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
-                self.latitude = coordinates.latitude
-                self.longitude = coordinates.longitude
-            }
-        })
-    }
-    
     func clear(){
         name = ""
         price = ""
@@ -65,18 +42,30 @@ struct AddProductView: View {
     }
     
     func addNewProduct(){
-        
-        addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.latitude, longitude: self.longitude, description: self.productDescription){ completed in
-            
-            if(completed){
-                CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: true)
-                self.refresh.toggle()
-                self.clear()
-                self.loading.toggle()
-            }else{
-                print("failed operation")
+        let geocoder = CLGeocoder()
+        let address = Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode
+        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+            if((error) != nil){
+                print("Error", error ?? "")
             }
-        }
+            if let placemark = placemarks?.first {
+                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                self.latitude = coordinates.latitude
+                self.longitude = coordinates.longitude
+                addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.latitude, longitude: self.longitude, description: self.productDescription){ completed in
+                    
+                    if(completed){
+                        CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: false)
+                        self.refresh.toggle()
+                        self.clear()
+                        self.loading.toggle()
+                    }else{
+                        print("failed operation")
+                    }
+                }
+            }
+        })
+        
         
         
     }
@@ -180,7 +169,6 @@ struct AddProductView: View {
                                 Button(action: {
                                     self.choice = true
                                     self.show.toggle()
-                                    print("Category")
                                 }){
                                     Image(systemName: "chevron.down")
                                 }
@@ -196,7 +184,6 @@ struct AddProductView: View {
                                 Button(action: {
                                     self.choice = false
                                     self.show.toggle()
-                                    print("Condition")
                                 }){
                                     Image(systemName: "chevron.down")
                                 }
@@ -217,9 +204,8 @@ struct AddProductView: View {
                             else{
                                 
                                 Button(action: {
-                                    self.getCoordinate()
                                     self.addNewProduct()
-                                     self.loading.toggle()
+                                    self.loading.toggle()
                                 }) {
                                     
                                     Text("Add").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()

@@ -109,6 +109,8 @@ func checkUser(completion: @escaping (Bool,String)->Void){
 
 func addProduct(name: String,price : String,images : [UIImage], category: String, condition: String, latitude: Double, longitude: Double, description: String, completion : @escaping (Bool)-> Void){
     
+    print("latitude \(latitude)")
+    print("longitude \(longitude)")
     let favoriteList:[String] = []
 
     let uid = Auth.auth().currentUser?.uid

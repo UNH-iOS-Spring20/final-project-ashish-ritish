@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		770F3D9E24272BF200068BF0 /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F3D9D24272BF200068BF0 /* notification.swift */; };
 		771C63012458C4E1001824C1 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771C63002458C4E1001824C1 /* CustomPicker.swift */; };
+		771C63032459460D001824C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 771C63022459460D001824C1 /* GoogleService-Info.plist */; };
 		772B9BBA2446C52F0014CF31 /* logInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772B9BB92446C52F0014CF31 /* logInView.swift */; };
 		772B9BBC2446C56D0014CF31 /* signUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772B9BBB2446C56D0014CF31 /* signUpView.swift */; };
 		772B9BBE2446C6400014CF31 /* socialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772B9BBD2446C6400014CF31 /* socialLogin.swift */; };
@@ -28,7 +29,6 @@
 		7B65A1D446335B134C8A9935 /* Pods_MarketPlace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805BEF27F8197EBFB4E922EA /* Pods_MarketPlace.framework */; };
 		92AB0C4C74B9C491BD9D2228 /* Pods_MarketPlaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70708A83C3A712B65A2C543 /* Pods_MarketPlaceTests.framework */; };
 		B5F9F069BB0FFF1338319608 /* Pods_MarketPlace_MarketPlaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AACEC16A0F7842017612C0F /* Pods_MarketPlace_MarketPlaceUITests.framework */; };
-		E913B13824593A8E002852A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E913B13724593A8E002852A6 /* GoogleService-Info.plist */; };
 		E94C1A1B24101761008D668E /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1A24101761008D668E /* ProductImage.swift */; };
 		E94C1A1D241019EC008D668E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1C241019EC008D668E /* MapView.swift */; };
 		E94C1A1F24101CB3008D668E /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A1E24101CB3008D668E /* ProductDetails.swift */; };
@@ -95,6 +95,7 @@
 		6EE8C9CA19451E97E376CF35 /* Pods-MarketPlace-MarketPlaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace-MarketPlaceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarketPlace-MarketPlaceUITests/Pods-MarketPlace-MarketPlaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		770F3D9D24272BF200068BF0 /* notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notification.swift; sourceTree = "<group>"; };
 		771C63002458C4E1001824C1 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		771C63022459460D001824C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		772B9BB92446C52F0014CF31 /* logInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logInView.swift; sourceTree = "<group>"; };
 		772B9BBB2446C56D0014CF31 /* signUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpView.swift; sourceTree = "<group>"; };
 		772B9BBD2446C6400014CF31 /* socialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socialLogin.swift; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		8AACEC16A0F7842017612C0F /* Pods_MarketPlace_MarketPlaceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarketPlace_MarketPlaceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70708A83C3A712B65A2C543 /* Pods_MarketPlaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarketPlaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC655AC89457E93633F95086 /* Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlace-MarketPlaceUITests/Pods-MarketPlace-MarketPlaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		E913B13724593A8E002852A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E92FFF94240EC18C00BB2822 /* MarketPlaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92FFF95240EC18C00BB2822 /* MarketPlaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93F2FF42405DD5100A7E661 /* MarketPlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,7 +347,7 @@
 				E98D1F6623FB202E00F98CD6 /* ContentView.swift */,
 				E98D1F6D23FB202F00F98CD6 /* LaunchScreen.storyboard */,
 				E98D1F7023FB202F00F98CD6 /* Info.plist */,
-				E913B13724593A8E002852A6 /* GoogleService-Info.plist */,
+				771C63022459460D001824C1 /* GoogleService-Info.plist */,
 				E98D1F6A23FB202F00F98CD6 /* Preview Content */,
 			);
 			path = MarketPlace;
@@ -511,7 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E98D1F6F23FB202F00F98CD6 /* LaunchScreen.storyboard in Resources */,
-				E913B13824593A8E002852A6 /* GoogleService-Info.plist in Resources */,
+				771C63032459460D001824C1 /* GoogleService-Info.plist in Resources */,
 				E9CF5F18241074B8008FA082 /* Assets.xcassets in Resources */,
 				E98D1F6C23FB202F00F98CD6 /* Preview Assets.xcassets in Resources */,
 			);

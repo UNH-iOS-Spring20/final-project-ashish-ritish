@@ -92,7 +92,7 @@ struct UserProfileView: View {
                 //user picture
                 HStack(alignment: .center){
                        Spacer()
-                    
+            
                         WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
                         .onSuccess { image, cacheType in
                         // Success

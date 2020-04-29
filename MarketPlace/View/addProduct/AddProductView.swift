@@ -11,6 +11,7 @@ import CoreLocation
 
 struct AddProductView: View {
     @ObservedObject var locationManager = LocationManager()
+    
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
     }
@@ -31,7 +32,10 @@ struct AddProductView: View {
     @State var show = false
     @State var choice = false
     @State private var refresh = false
+    @State var loading = false
     var data: [String] = []
+    @State var latitude = 0.0
+    @State var longitude = 0.0
     
     @State var showImagePicker = false
     @State var selectedImages : [UIImage] = []
@@ -44,7 +48,9 @@ struct AddProductView: View {
                 print("Error", error ?? "")
             }
             if let placemark = placemarks?.first {
-                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                 let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                self.latitude = coordinates.latitude
+                self.longitude = coordinates.longitude
             }
         })
     }
@@ -55,30 +61,31 @@ struct AddProductView: View {
         categorySelected = ""
         conditionSelected = ""
         productDescription = ""
+        selectedImages.removeAll()
     }
     
     func addNewProduct(){
         
-//        print(self.name, self.price, self.categorySelected, self.conditionSelected, self.productDescription, Defaults.getUserDetails().id, Defaults.getUserDetails().email, self.productDescription, self.selectedImages, userLongitude, userLatitude)
-        
-        addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.userLatitude, longitude: self.userLongitude, description: self.productDescription){ completed in
+        addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.latitude, longitude: self.longitude, description: self.productDescription){ completed in
             
             if(completed){
+                CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: true)
                 self.refresh.toggle()
                 self.clear()
+                self.loading.toggle()
             }else{
                 print("failed operation")
             }
         }
         
-
+        
     }
     
     var body: some View {
         NavigationView{
             ScrollView(.vertical, showsIndicators: false){
                 ZStack{
-               
+                    
                     VStack(alignment: .leading){
                         VStack(alignment: .center){
                             
@@ -91,9 +98,9 @@ struct AddProductView: View {
                                         ForEach(self.selectedImages,id: \.self){i in
                                             
                                             Image(uiImage: i)
-                                            .resizable()
-                                                .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 150)
-                                            .cornerRadius(15)
+                                                .resizable()
+                                                .frame(width: UIScreen.main.bounds.width / 2 - 50, height: 120)
+                                                .cornerRadius(15)
                                         }
                                     }
                                     .padding(.horizontal, 20)
@@ -114,7 +121,7 @@ struct AddProductView: View {
                                 }
                                 .background(Color("appBlue"))
                                 .clipShape(Capsule())
-                                .padding(.top, 25)
+                                .padding(.top, 10)
                                 Spacer()
                             }
                         }.padding(.bottom, 15)
@@ -132,7 +139,7 @@ struct AddProductView: View {
                                 }
                             }
                             Divider()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 5)
                         
                         
                         VStack(alignment: .leading){
@@ -148,7 +155,7 @@ struct AddProductView: View {
                                 }
                             }
                             Divider()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 5)
                         
                         VStack(alignment: .leading){
                             Text("Describe your product").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
@@ -163,7 +170,7 @@ struct AddProductView: View {
                                 }
                             }
                             Divider()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 5)
                         
                         VStack(alignment: .leading) {
                             Text("Category").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
@@ -179,7 +186,7 @@ struct AddProductView: View {
                                 }
                             }
                             Divider()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 5)
                         
                         VStack(alignment: .leading) {
                             Text("Condition").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
@@ -195,30 +202,41 @@ struct AddProductView: View {
                                 }
                             }
                             Divider()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 5)
                         
                         
                         HStack{
                             Spacer()
-                            Button(action: {
-                                self.getCoordinate()
-                                self.addNewProduct()
-                            }) {
+                            if self.loading{
+                                HStack{
+                                    Spacer()
+                                    Indicator()
+                                    Spacer()
+                                }
+                            }
+                            else{
                                 
-                                Text("Add").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()
+                                Button(action: {
+                                    self.getCoordinate()
+                                    self.addNewProduct()
+                                     self.loading.toggle()
+                                }) {
+                                    
+                                    Text("Add").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()
+                                    
+                                    
+                                }.background(Color("appBlue"))
+                                    .clipShape(Capsule())
+                                    .padding(.top, 10)
                                 
-                                
-                            }.background(Color("appBlue"))
-                                .clipShape(Capsule())
-                                .padding(.top, 10)
-                            
-                            Spacer()
+                                Spacer()
+                            }
                         }
                         
                         Spacer()
                         
                     }.padding(.horizontal, 20)
-                    .padding(.top, 10)
+                        .padding(.top, 10)
                     
                     VStack{
                         Spacer()

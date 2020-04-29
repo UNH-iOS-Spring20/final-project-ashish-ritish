@@ -27,13 +27,13 @@ struct ProductDetails: View {
             if usersId.count > 0{
                 while true {
                     id = usersId.randomElement()!
-                    //  print("Inside " + id)
                     if id != uid!{
                         break
                     }
                 }
                 self.product.soldTo.append(id)
                 productsCollectionRef.document(self.product.id).setData(self.product.data)
+                CreateNotification(title: "Product sold", message: "\(self.product.name) has been sold", isPublic: true)
                 self.dismiss()
             }
             
@@ -54,6 +54,7 @@ struct ProductDetails: View {
                                     print("Error removing document: \(error)")
                                 } else {
                                     print("Document successfully removed")
+                                    CreateNotification(title: "Product Deleted", message: "\(self.product.name) have been deleted", isPublic: true)
                                     self.dismiss()
                                 }
                             }
@@ -69,11 +70,15 @@ struct ProductDetails: View {
                 let index = product.favoriteList.firstIndex(of: uid!)
                 print(index!)
                 product.favoriteList.remove(at: index!)
+                CreateNotification(title: "Favorite Remove", message: "You have remove favorite  of \(product.name)", isPublic: false)
             }else{
                 product.favoriteList.append(uid!)
+                CreateNotification(title: "Favorite Added", message: "You have added favorite  of \(product.name)", isPublic: false)
+
             }
             productsCollectionRef.document(self.product.id).setData(self.product.data)
             //  print(self.product.data)
+           
         }
         else{
             print("Cannot update Sorry")

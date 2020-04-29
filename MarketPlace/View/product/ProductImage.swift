@@ -23,7 +23,7 @@ struct ProductImage: View {
             .placeholder(Image(systemName: "photo")) // Placeholder Image
             // Supports ViewBuilder as well
             .placeholder {
-                Rectangle().foregroundColor(.gray)
+                Image("Screen Shot 2020-03-03 at 2.19.28 PM")
             }
             .renderingMode(.original)
             .indicator(.activity) // Activity Indicator
@@ -40,7 +40,7 @@ struct ProductImage: View {
             .placeholder(Image(systemName: "photo")) // Placeholder Image
             // Supports ViewBuilder as well
             .placeholder {
-                Rectangle().foregroundColor(.gray)
+                 Image("Screen Shot 2020-03-03 at 2.19.28 PM")
             }
             .renderingMode(.original)
             .indicator(.activity) // Activity Indicator

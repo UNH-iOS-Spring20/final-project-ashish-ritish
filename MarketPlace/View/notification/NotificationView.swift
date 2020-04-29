@@ -38,11 +38,9 @@ struct NotificationView: View {
     }
     
     var body: some View {
-        var filtered = notifications.items.filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}
-        // print (filtered)
-        return NavigationView{
+        NavigationView{
             List{
-                ForEach(filtered, id: \.self.id) { notification in
+                ForEach(notifications.items.filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}, id: \.self.id) { notification in
                     HStack(){
                         Image("AppLogo")
                             .resizable()
@@ -87,4 +85,31 @@ struct NotificationView_Previews: PreviewProvider {
     static var previews: some View {
         NotificationView()
     }
+}
+
+func CreateNotification( title: String, message: String, isPublic: Bool){
+    let now = Int(NSDate().timeIntervalSince1970)
+    
+    let content = UNMutableNotificationContent()
+    content.title = title
+    content.subtitle = message
+    content.sound = UNNotificationSound.default
+    
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+    
+    let req = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    
+    UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
+    
+    var notificationData = [String:Any]()
+    notificationData["createdTime"] = now
+    notificationData["title"] = title
+    notificationData["description"] = message
+    notificationData["seenTime"] = now
+    notificationData["clearId"] = []
+    notificationData["isPublic"] = isPublic
+    notificationData["userId"] = uid!
+    
+    notificationsCollectionRef.addDocument(data: notificationData)
+    
 }

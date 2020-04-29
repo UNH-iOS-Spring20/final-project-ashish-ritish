@@ -9,6 +9,8 @@
 import SwiftUI
 import UserNotifications
 import Firebase
+import SDWebImageSwiftUI
+
 
 struct EditProfile: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -38,11 +40,25 @@ struct EditProfile: View {
                     
                     if self.imagedata.count == 0{
                         
-                       Image(systemName: "person.crop.circle.badge.plus").resizable().frame(width: 90, height: 70).foregroundColor(.gray)
+                        //                       Image(systemName: "person.crop.circle.badge.plus").resizable().frame(width: 90, height: 70).foregroundColor(.gray)
+                        WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
+                            .onSuccess { image, cacheType in
+                                // Success
+                        }
+                        .resizable()
+                            .placeholder(Image(systemName: "person.crop.circle")) // Placeholder Image
+                            .renderingMode(.original)
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                            .shadow(radius: 10)
+                            //   .edgesIgnoringSafeArea(.top)
+                            .scaledToFit()
                     }
                     else{
                         
-                        Image(uiImage: UIImage(data: self.imagedata)!).resizable().renderingMode(.original).frame(width: 90, height: 90).clipShape(Circle())
+                        Image(uiImage: UIImage(data: self.imagedata)!).resizable().renderingMode(.original).frame(width: 150, height: 150).clipShape(Circle())
+                        
                     }
                     
                     
@@ -50,7 +66,8 @@ struct EditProfile: View {
                 
                 Spacer()
             }
-            .padding(.vertical, 15)
+            .padding(.top,15)
+            .padding(.bottom,15)
             
             VStack(alignment: .leading){
                 
@@ -76,10 +93,10 @@ struct EditProfile: View {
             
             VStack(alignment: .leading){
                 Text("Phone Number").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-
+                
                 HStack{
                     TextField("Number", text: $phoneNumber)
-                    .keyboardType(.numberPad)
+                        .keyboardType(.numberPad)
                 }
                 
                 Divider()
@@ -111,7 +128,7 @@ struct EditProfile: View {
             }.padding(.bottom, 15)
             
             VStack(alignment: .leading){
-
+                
                 Text("About You").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                 
                 HStack{
@@ -151,8 +168,8 @@ struct EditProfile: View {
                             if status{
                                 
                                 Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: self.phoneNumber, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
-
-                                CreateNotification(title: "Account Update", message: "User account successfully updated")
+                                
+                                CreateNotification(title: "Account Update", message: "Your account successfully updated", isPublic: false)
                                 checkForNewUserExistence()
                                 self.mode.wrappedValue.dismiss()
                             }
@@ -161,8 +178,8 @@ struct EditProfile: View {
                 }) {
                     Text("Update").frame(width: UIScreen.main.bounds.width - 30,height: 50)
                 }.foregroundColor(.white)
-                .background(Color("appBlue"))
-                .cornerRadius(10)
+                    .background(Color("appBlue"))
+                    .cornerRadius(10)
                 
             }
             
@@ -171,8 +188,8 @@ struct EditProfile: View {
         .sheet(isPresented: self.$picker, content: {
             ImagePicker(picker: self.$picker, imagedata: self.$imagedata)
         })
-        .alert(isPresented: self.$alert) {
-            Alert(title: Text("Message"), message: Text("Please Fill The Contents"), dismissButton: .default(Text("Ok")))
+            .alert(isPresented: self.$alert) {
+                Alert(title: Text("Message"), message: Text("Please Fill The Contents"), dismissButton: .default(Text("Ok")))
         }
     }
 }
@@ -183,27 +200,4 @@ struct EditProfile_Previews: PreviewProvider {
     }
 }
 
-func CreateNotification( title: String, message: String){
-    let now = Int(NSDate().timeIntervalSince1970)
-    
-    let content = UNMutableNotificationContent()
-    content.title = title
-    content.subtitle = message
-    content.sound = UNNotificationSound.default
-    
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-    
-    let req = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    
-    UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
-    
-    var notificationData = [String:Any]()
-    notificationData["createdTime"] = now
-    notificationData["title"] = title
-    notificationData["description"] = message
-    notificationData["seenTime"] = now
-    
-    
-    notificationsCollectionRef.addDocument(data: notificationData)
-    
-}
+

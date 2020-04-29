@@ -7,6 +7,9 @@
 //
 
 import SwiftUI
+import Foundation
+import CoreLocation
+import Combine
 import MapKit
 
 struct MapView: UIViewRepresentable {
@@ -31,10 +34,6 @@ struct MapView_Previews: PreviewProvider {
         MapView(location: [41.26201, -72.94621])
     }
 }
-
-import Foundation
-import CoreLocation
-import Combine
 
 class LocationManager: NSObject, ObservableObject {
 
@@ -92,4 +91,14 @@ extension LocationManager: CLLocationManagerDelegate {
         print(#function, location)
     }
 
+}
+
+extension CLLocation {
+    var latitude: Double {
+        return self.coordinate.latitude
+    }
+    
+    var longitude: Double {
+        return self.coordinate.longitude
+    }
 }

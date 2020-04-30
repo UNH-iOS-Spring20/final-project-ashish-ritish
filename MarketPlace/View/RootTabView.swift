@@ -69,6 +69,7 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.selectedTab = "home"
                             self.viewRouter.currentView = "home"
+                            self.showPopUp = false
                         }
                         
                         VStack(){
@@ -85,6 +86,7 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.selectedTab = "notification"
                             self.viewRouter.currentView = "notification"
+                            self.showPopUp = false
                         }
                         
                         ZStack {
@@ -98,7 +100,7 @@ struct RootTabView: View {
                                 .foregroundColor(Color("appBlue"))
                                 .overlay(Circle().stroke(Color.white, lineWidth: 3))
                                 .shadow(radius: 3)
-                                .rotationEffect(Angle(degrees: self.showPopUp ? 180 : 0))
+                                .rotationEffect(Angle(degrees: self.showPopUp ? 180: 0))
                         }
                         .offset(y: -geometry.size.height/10/2)
                         .onTapGesture {
@@ -106,7 +108,7 @@ struct RootTabView: View {
                             self.viewRouter.selectedTab = "add"
                             self.viewRouter.currentView = "add"
                             withAnimation{
-                                self.showPopUp.toggle()
+                                self.showPopUp = true
                             }
                             
                         }
@@ -125,6 +127,7 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.currentView = "fav"
                             self.viewRouter.selectedTab = "fav"
+                            self.showPopUp = false
                         }
                         
                         VStack(){
@@ -141,6 +144,7 @@ struct RootTabView: View {
                         .onTapGesture {
                             self.viewRouter.currentView = "list"
                             self.viewRouter.selectedTab = "list"
+                            self.showPopUp = false
                         }
                         
                     }

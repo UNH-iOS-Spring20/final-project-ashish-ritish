@@ -164,9 +164,7 @@ struct EditProfile: View {
                         self.loading.toggle()
                         
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
-                            
                             if status{
-                                
                                 Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: self.phoneNumber, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
                                 
                                 CreateNotification(title: "Account Update", message: "Your account successfully updated", isPublic: false)

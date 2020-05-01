@@ -36,22 +36,6 @@ struct EditProduct: View {
         presentationMode.wrappedValue.dismiss()
     }
     
-    func editProduct(){
-        
-        modifyProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, description: self.productDescription){ completed in
-            
-            if(completed){
-                CreateNotification(title: "Product Edited", message: "\(self.name) has been modified", isPublic: false)
-                self.dismiss()
-            }else{
-                print("failed operation")
-            }
-        }
-        
-    }
-
-    
-    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             ZStack{
@@ -220,8 +204,17 @@ struct EditProduct: View {
                         else{
                             
                             Button(action: {
-                                self.editProduct()
                                 self.loading.toggle()
+                                editProduct(id: self.product.id, name: self.name,price : self.price,images : self.selectedImages, oldUrls: self.product.imageUrls, category: self.categorySelected, condition: self.conditionSelected, description: self.productDescription){ completed in
+                                    
+                                    if(completed){
+                                        CreateNotification(title: "Product Edited", message: "\(self.name) has been modified", isPublic: false)
+                                        self.dismiss()
+                                    }else{
+                                        print("failed operation")
+                                    }
+                                }
+                                
                             }) {
                                 
                                 Text("Save").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-200).padding()

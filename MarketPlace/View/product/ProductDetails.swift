@@ -64,32 +64,38 @@ struct ProductDetails: View {
     }
     
     func updateFavorite() {
-        if !product.name.isEmpty && !product.category.isEmpty && !product.condition.isEmpty && !product.description.isEmpty &&
-            !product.email.isEmpty && !product.imageUrls.isEmpty && !product.addBy.isEmpty && !String(product.latitude).isEmpty && !String(product.longitude).isEmpty && !String(product.price).isEmpty {
-            if product.favoriteList.contains(uid!){
-                let index = product.favoriteList.firstIndex(of: uid!)
-                print(index!)
-                product.favoriteList.remove(at: index!)
-                CreateNotification(title: "Favorite Remove", message: "You have remove favorite  of \(product.name)", isPublic: false)
-            }else{
-                product.favoriteList.append(uid!)
-                CreateNotification(title: "Favorite Added", message: "You have added favorite  of \(product.name)", isPublic: false)
-                
-            }
-            productsCollectionRef.document(self.product.id).setData(self.product.data)
-            //  print(self.product.data)
-            
+        var favList:[String] = product.favoriteList
+        
+        if favList.contains(uid!){
+            let index = favList.firstIndex(of: uid!)
+            print(index!)
+            favList.remove(at: index!)
+            CreateNotification(title: "Favorite Remove", message: "You have remove favorite  of \(product.name)", isPublic: false)
+        }else{
+            favList.append(uid!)
+            CreateNotification(title: "Favorite Added", message: "You have added favorite  of \(product.name)", isPublic: false)
         }
-        else{
-            print("Cannot update Sorry")
+        
+        productsCollectionRef.document(product.id).updateData([
+            "favoriteList": favList
+        ]) { err in
+           if err != nil {
+               print((err?.localizedDescription)!)
+               return
+           } else {
+                print("successfully updated")
+           }
         }
     }
     
     var body: some View {
         
         VStack(spacing : 0){
-            ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
-            
+            if(self.product.imageUrls.count > 1){
+                ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
+            }else{
+                ProductImage(picture: self.product.imageUrls[0], setHeight: false)
+            }
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack (alignment: .leading, spacing: 10){

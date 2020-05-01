@@ -74,11 +74,11 @@ struct ProductDetails: View {
             }else{
                 product.favoriteList.append(uid!)
                 CreateNotification(title: "Favorite Added", message: "You have added favorite  of \(product.name)", isPublic: false)
-
+                
             }
             productsCollectionRef.document(self.product.id).setData(self.product.data)
             //  print(self.product.data)
-           
+            
         }
         else{
             print("Cannot update Sorry")
@@ -86,81 +86,106 @@ struct ProductDetails: View {
     }
     
     var body: some View {
+        
         VStack(spacing : 0){
             ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
-            HStack{
-                Spacer()
-                if(product.addBy != uid! && product.soldTo.isEmpty) {
-                    Button(action: {
-                        self.isFavorite.toggle()
-                        self.updateFavorite()
-                    }){
-                        if  product.favoriteList.contains(uid!) {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(Color.red)
-                        }else{
-                            Image(systemName: "heart")
-                                .foregroundColor(Color.gray)
+            
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack (alignment: .leading, spacing: 10){
+                    
+                    HStack(spacing: 10){
+                        
+                        Text(product.name).font(.system(size: 25)).foregroundColor(Color("appBlue"))
+                        Spacer()
+                        if(product.addBy != uid! && product.soldTo.isEmpty) {
+                            Button(action: {
+                                self.isFavorite.toggle()
+                                self.updateFavorite()
+                            }){
+                                if  product.favoriteList.contains(uid!) {
+                                    Image(systemName: "heart.fill")
+                                        .foregroundColor(Color.red)
+                                }else{
+                                    Image(systemName: "heart")
+                                        .foregroundColor(Color.gray)
+                                }
+                            }
                         }
+                        
                     }
-                }
-            }.padding(10)
-            
-            VStack (spacing: 15){
-                
-                
-                HStack{
-                    Text("Name:")
-                        .font(.headline)
-                        .padding(.leading, 25)
-                    Spacer()
-                    Text(product.name)
-                        .font(.headline)
-                }
-                
-                HStack{
-                    Text("Category:")
-                        .font(.headline)
-                        .padding(.leading,25)
-                    Spacer()
-                    Text(product.category)
-                        .font(.headline)
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
                     
-                }
-                
-                HStack{
-                    Text("Condition:")
-                        .font(.headline)
-                        .padding(.leading,25)
-                    Spacer()
-                    Text(product.condition)
-                        .font(.headline)
+                    HStack(spacing: 10){
+                        Image(systemName: "dollarsign.square")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(0)
+                            .frame(height: 20)
+                            .foregroundColor(Color("appBlue"))
+                        
+                        
+                        Text(String(product.price)).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
                     
+                    
+                    HStack(spacing: 10){
+                        Image(product.category)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        
+                        Text(product.category).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
+                    
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "checkmark.shield")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(0)
+                            .frame(height: 20)
+                            .foregroundColor(Color("appBlue"))
+                        Text(product.condition).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
+                    
+                    
+                    HStack(spacing: 10){
+                        Image(systemName: "envelope").foregroundColor(Color("appBlue"))
+                        Text(product.email).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
+                    
+                    
+                    HStack(alignment: .top, spacing: 10){
+                        Image(systemName: "doc.text")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(0)
+                            .frame(height: 20)
+                            .foregroundColor(Color("appBlue"))
+                        Text(product.description).fontWeight(.medium).font(.system(size: 20))
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing],10)
+                    .padding(.bottom, 10)
                 }
+                .padding()
                 
-                HStack{
-                    Text("Email")
-                        .font(.headline)
-                        .padding(.leading, 25)
-                    Spacer()
-                    Text(product.email)
-                        .font(.headline)
-                }
-                
-                HStack{
-                    Text("Price:")
-                        .font(.headline)
-                        .padding(.leading, 25)
-                    Spacer()
-                    Text("$ " + String(product.price))
-                        .font(.headline)
-                        .padding(.leading,50)
-                }
+                MapView(location: [product.latitude, product.longitude])
+                    .frame(height: 200)
             }
-            .padding()
-            
-            MapView(location: [product.latitude, product.longitude])
-                .frame(height: 160)
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
             
@@ -190,8 +215,8 @@ struct ProductDetails: View {
                 }
             }
         )
-        
     }
+    
 }
 
 var sampleProudct = Product(id: "1234", data: [ "name": "Iphone8", "price": 622.00, "email": "rkark1@unh.newhaven.edu", "category": "Cell Phone", "condition": "New", "imageName": "Ihone8", "latitude": 41.26201, "longitude": -72.94621, "description": "Sample phone Data", "isFavorite": true, "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00B0B_imKuvG07Bhf_600x450.jpg?alt=media&token=b8ef0d5c-dbea-4d71-a6a3-c25416792262",

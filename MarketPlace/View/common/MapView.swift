@@ -26,79 +26,17 @@ struct MapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         view.setRegion(region, animated: true)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = Defaults.getUserDetails().address
+        view.addAnnotation(annotation)
+        
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView(location: [41.26201, -72.94621])
-    }
-}
-
-class LocationManager: NSObject, ObservableObject {
-
-    override init() {
-        super.init()
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-    }
-
-    @Published var locationStatus: CLAuthorizationStatus? {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @Published var lastLocation: CLLocation? {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    var statusString: String {
-        guard let status = locationStatus else {
-            return "unknown"
-        }
-
-        switch status {
-        case .notDetermined: return "notDetermined"
-        case .authorizedWhenInUse: return "authorizedWhenInUse"
-        case .authorizedAlways: return "authorizedAlways"
-        case .restricted: return "restricted"
-        case .denied: return "denied"
-        default: return "unknown"
-        }
-
-    }
-
-    let objectWillChange = PassthroughSubject<Void, Never>()
-
-    let locationManager = CLLocationManager()
-}
-
-extension LocationManager: CLLocationManagerDelegate {
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        self.locationStatus = status
-        print(#function, statusString)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        self.lastLocation = location
-        print(#function, location)
-    }
-
-}
-
-extension CLLocation {
-    var latitude: Double {
-        return self.coordinate.latitude
-    }
-    
-    var longitude: Double {
-        return self.coordinate.longitude
     }
 }

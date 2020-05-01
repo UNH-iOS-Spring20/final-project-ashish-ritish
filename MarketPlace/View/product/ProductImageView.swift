@@ -23,7 +23,7 @@ struct ProductImageView<Page: View>: View {
                 Spacer()
             PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
             Spacer()
-            }
+            }.padding(.bottom, 20)
         }
     }
 }

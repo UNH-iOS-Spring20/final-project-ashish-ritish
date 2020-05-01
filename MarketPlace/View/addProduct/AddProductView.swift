@@ -15,7 +15,6 @@ struct AddProductView: View {
     let conditionArray = ["New", "Like new", "Good", "Fair", "Poor"]
     
     
-    
     @State var name = ""
     @State var price = ""
     @State var categorySelected = ""

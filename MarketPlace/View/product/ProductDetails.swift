@@ -14,6 +14,8 @@ struct ProductDetails: View {
     @State var isFavorite = false
     @ObservedObject var product: Product
     @State private var showingSheet = false
+    @State var showingAlert = false
+    @State var deleteOrSold = true
     
     
     func dismiss() {
@@ -21,6 +23,8 @@ struct ProductDetails: View {
     }
     
     func markAsSold(){
+        self.deleteOrSold = true
+        self.showingAlert.toggle()
         var id = ""
         getUsersId { usersId in
             
@@ -34,7 +38,6 @@ struct ProductDetails: View {
                 self.product.soldTo.append(id)
                 productsCollectionRef.document(self.product.id).setData(self.product.data)
                 CreateNotification(title: "Product sold", message: "\(self.product.name) has been sold", isPublic: true)
-                self.dismiss()
             }
             
         }
@@ -47,6 +50,8 @@ struct ProductDetails: View {
             }),
             .destructive(Text("Delete"),
                          action: {
+                            self.deleteOrSold = false
+                            self.showingAlert.toggle()
                             print("Deleted")
                             let id = self.product.id
                             productsCollectionRef.document(id).delete() { error in
@@ -55,7 +60,7 @@ struct ProductDetails: View {
                                 } else {
                                     print("Document successfully removed")
                                     CreateNotification(title: "Product Deleted", message: "\(self.product.name) have been deleted", isPublic: true)
-                                    self.dismiss()
+                               //     self.dismiss()
                                 }
                             }
             }),
@@ -194,6 +199,19 @@ struct ProductDetails: View {
             }
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
+        
+        .alert(isPresented: $showingAlert) {
+            if deleteOrSold {
+            return Alert(title: Text("Product Sold"), message: Text("\(product.name) was successfully sold"), dismissButton: .default(Text("OK")){
+                   self.dismiss()
+                          })
+            }else{
+            return Alert(title: Text("Product Deleted"), message: Text("\(product.name) was successfully deleted"), dismissButton: .default(Text("OK")){
+                self.dismiss()
+                       })
+            }
+           
+            }
             
         .navigationBarItems(trailing:
             HStack(spacing: 7){

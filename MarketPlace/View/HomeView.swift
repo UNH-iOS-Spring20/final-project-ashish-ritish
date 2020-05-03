@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var isNavigationBarHidden = true
     @State private var showingProfile = false
     @ObservedObject var viewRouter: ViewRouter
+   // @ObservedObject var defaults = Defaults()
     
     @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     @ObservedObject private var categories = FirebaseCollection<Category>(collectionRef: categoriesCollectionRef)
@@ -70,7 +71,6 @@ struct HomeView: View {
             .navigationBarTitle("Home", displayMode: .inline)
             .onAppear {
                 self.isNavigationBarHidden = true
-                print(uid!)
             }
             .onDisappear {
                 self.isNavigationBarHidden = false

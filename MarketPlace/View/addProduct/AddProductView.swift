@@ -30,6 +30,7 @@ struct AddProductView: View {
     
     @State var showImagePicker = false
     @State var selectedImages : [UIImage] = []
+    @State var showingAlert = false
     
     func clear(){
         name = ""
@@ -41,6 +42,7 @@ struct AddProductView: View {
     }
     
     func addNewProduct(){
+        self.showingAlert.toggle()
         let geocoder = CLGeocoder()
         let address = Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode
         geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
@@ -55,9 +57,7 @@ struct AddProductView: View {
                     
                     if(completed){
                         CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: false)
-                        self.refresh.toggle()
-                        self.clear()
-                        self.loading.toggle()
+                        
                     }else{
                         print("failed operation")
                     }
@@ -239,6 +239,13 @@ struct AddProductView: View {
                 return CustomPicker(selected: self.$selectedImages, show: self.$showImagePicker)
             }
             .navigationBarTitle(Text("Add Product"), displayMode: .inline)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Product Added"), message: Text("\(name) was successfully added"), dismissButton: .default(Text("OK")){
+                    self.refresh.toggle()
+                    self.clear()
+                    self.loading.toggle()
+                    })
+            }
         }
     }
 }

@@ -40,8 +40,8 @@ struct NotificationView: View {
     var body: some View {
         NavigationView{
             List{
-                ForEach(notifications.items.filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}, id: \.self.id) { notification in
-                    HStack(){
+                ForEach(notifications.items.sorted(by: {$0.createdTime > $1.createdTime }).filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}, id: \.self.id) { notification in
+                    HStack(spacing: 20){
                         Image("AppLogo")
                             .resizable()
                             .renderingMode(.original)
@@ -53,27 +53,36 @@ struct NotificationView: View {
                             .shadow(radius: 5)
                             .edgesIgnoringSafeArea(.top)
                             .scaledToFit()
-                        HStack() {
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 3) {
                                 Text(notification.title)
                                     .font(.headline)
                                     .foregroundColor(.primary)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .layoutPriority(98)
+                                    .padding(.bottom, 3)
                                 Text(notification.description)
                                     .font(.headline)
                                     .foregroundColor(.secondary)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .layoutPriority(99)
+                                HStack(){
+                                    Image(systemName: "timer")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 12)
+                                        .foregroundColor(.gray)
+                                    Text(Date(timeIntervalSince1970: TimeInterval(notification.createdTime)).timeAgo() + " ago")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.gray)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .layoutPriority(99)
+                                }
                             }
-                            .padding(10)
-                            
-                        }
-                        
                     }
-                    .padding(10)
                 }.onDelete(perform: deleteNotification)
+                 .padding(.top, 5)
             }
+           
             .navigationBarTitle(Text("Notifications"), displayMode: .inline)
             .navigationBarItems(leading: EditButton())
         }

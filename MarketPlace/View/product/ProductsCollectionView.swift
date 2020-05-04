@@ -22,7 +22,8 @@ struct ProductsCollectionView: View {
                             ForEach(chunkedProducts[index], id: \.self.id) { productData in
                                 VStack(){
                                      NavigationLink(destination: ProductDetails(product: productData)) {
-                                        ProductView(product: productData, setHeight:true)
+                                        ProductView(product: productData)
+                                            .frame(height: 200)
                                     }.buttonStyle(PlainButtonStyle())
                                 }
                                 .padding(.bottom, 10)

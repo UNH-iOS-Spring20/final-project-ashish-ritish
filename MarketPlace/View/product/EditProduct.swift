@@ -30,6 +30,7 @@ struct EditProduct: View {
     @State var longitude = 0.0
     
     @State var showImagePicker = false
+    @State var showingAlert = false
     @State var selectedImages : [UIImage] = []
     
     func dismiss() {
@@ -208,8 +209,8 @@ struct EditProduct: View {
                                 editProduct(id: self.product.id, name: self.name,price : self.price,images : self.selectedImages, oldUrls: self.product.imageUrls, category: self.categorySelected, condition: self.conditionSelected, description: self.productDescription){ completed in
                                     
                                     if(completed){
-                                        CreateNotification(title: "Product Edited", message: "\(self.name) has been modified", isPublic: false)
-                                        self.dismiss()
+                                        CreateNotification(title: "Product Edited", message: "\(self.name) has been modified", isPublic: true)
+                                        self.showingAlert.toggle()
                                     }else{
                                         print("failed operation")
                                     }
@@ -248,6 +249,13 @@ struct EditProduct: View {
             return CustomPicker(selected: self.$selectedImages, show: self.$showImagePicker)
         }
         .navigationBarTitle(Text("Edit \(self.product.name)"), displayMode: .inline)
+        .alert(isPresented: $showingAlert) {
+                       Alert(title: Text("Product Updated"), message: Text("\(name) was successfully updated"), dismissButton: .default(Text("OK")){
+                          
+                           self.dismiss()
+                           
+                           })
+                   }
     }
     
 }

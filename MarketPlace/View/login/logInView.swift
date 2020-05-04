@@ -54,18 +54,6 @@ struct logInView: View {
                     
                     Divider()
                 }
-                
-                HStack{
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        
-                    }) {
-                        
-                        Text("Forgot Password ?").foregroundColor(Color("appBlue").opacity(0.5))
-                    }
-                }
 
             }.padding(.horizontal, 6)
             

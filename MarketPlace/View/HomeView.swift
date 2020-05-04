@@ -52,7 +52,7 @@ struct HomeView: View {
                 }.padding(.leading, 7.5)
                 
                 // stack for category slider
-                CategoryRow(items: categories.items)
+                CategoryRow(items: categories.items.sorted(by: {$0.name < $1.name }))
                 //
                 VStack{
                     if(self.products.items.count > 0){

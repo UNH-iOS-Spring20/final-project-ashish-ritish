@@ -14,8 +14,6 @@ struct ProductDetails: View {
     @State var isFavorite = false
     @ObservedObject var product: Product
     @State private var showingSheet = false
-    @State var showingAlert = false
-    @State var deleteOrSold = true
     
     
     func dismiss() {
@@ -23,8 +21,6 @@ struct ProductDetails: View {
     }
     
     func markAsSold(){
-        self.deleteOrSold = true
-        self.showingAlert.toggle()
         var id = ""
         getUsersId { usersId in
             
@@ -50,8 +46,6 @@ struct ProductDetails: View {
             }),
             .destructive(Text("Delete"),
                          action: {
-                            self.deleteOrSold = false
-                            self.showingAlert.toggle()
                             print("Deleted")
                             let id = self.product.id
                             productsCollectionRef.document(id).delete() { error in
@@ -97,9 +91,9 @@ struct ProductDetails: View {
         
         VStack(spacing : 0){
             if(self.product.imageUrls.count > 1){
-                ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0, setHeight: false) })
+                ProductImageView(self.product.imageUrls.map { ProductImage(picture: $0) })
             }else{
-                ProductImage(picture: self.product.imageUrls[0], setHeight: false)
+                ProductImage(picture: self.product.imageUrls[0])
             }
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -199,19 +193,6 @@ struct ProductDetails: View {
             }
         }
         .navigationBarTitle(Text(product.name), displayMode: .inline)
-        
-        .alert(isPresented: $showingAlert) {
-            if deleteOrSold {
-            return Alert(title: Text("Product Sold"), message: Text("\(product.name) was successfully sold"), dismissButton: .default(Text("OK")){
-                   self.dismiss()
-                          })
-            }else{
-            return Alert(title: Text("Product Deleted"), message: Text("\(product.name) was successfully deleted"), dismissButton: .default(Text("OK")){
-                self.dismiss()
-                       })
-            }
-           
-            }
             
         .navigationBarItems(trailing:
             HStack(spacing: 7){
@@ -243,9 +224,21 @@ struct ProductDetails: View {
     
 }
 
-var sampleProudct = Product(id: "1234", data: [ "name": "Iphone8", "price": 622.00, "email": "rkark1@unh.newhaven.edu", "category": "Cell Phone", "condition": "New", "imageName": "Ihone8", "latitude": 41.26201, "longitude": -72.94621, "description": "Sample phone Data", "isFavorite": true, "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00B0B_imKuvG07Bhf_600x450.jpg?alt=media&token=b8ef0d5c-dbea-4d71-a6a3-c25416792262",
-                                                                                                                                                                                                                                                                                                                 "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00m0m_7xa163K3Jyc_600x450.jpg?alt=media&token=2a8749ec-e810-4729-83f6-33faaebde207",
-                                                                                                                                                                                                                                                                                                                 "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00P0P_57FBcuR9IdY_600x450.jpg?alt=media&token=66afdb55-51f2-4ca7-9053-b906afab8f16"]])
+var sampleProudct = Product(id: "1234", data: ["addBy": "8AbYDCOBe5QrGUVaYZk23YLmlvY2",
+                                               "category": "Cell Phone",
+                                               "condition": "New",
+                                               "email": "rkark1@unh.newhaven.edu",
+                                               "description": "Sample phone Data",
+                                               "name": "Iphone8",
+                                               "price": 622.00,
+                                               "favoriteList": ["8AbYDCOBe5QrGUVaYZk23YLmlvY2"],
+                                               "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00B0B_imKuvG07Bhf_600x450.jpg?alt=media&token=b8ef0d5c-dbea-4d71-a6a3-c25416792262",
+                                               "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00m0m_7xa163K3Jyc_600x450.jpg?alt=media&token=2a8749ec-e810-4729-83f6-33faaebde207",
+                                               "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Real%20State%2FGhar%2F00P0P_57FBcuR9IdY_600x450.jpg?alt=media&token=66afdb55-51f2-4ca7-9053-b906afab8f16"],
+                                               "latitude": 41.26201,
+                                               "longitude": -72.94621,
+                                               "soldTo": ""
+                                                ])
 
 struct ProductDetails_Previews: PreviewProvider {
     static var previews: some View {

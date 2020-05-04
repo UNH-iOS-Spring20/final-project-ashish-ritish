@@ -11,50 +11,30 @@ import SDWebImageSwiftUI
 
 struct ProductImage: View {
     var picture: String
-    var setHeight: Bool
     
     var body: some View {
-        if (self.setHeight){
-            return WebImage(url: URL(string: picture))
+        WebImage(url: URL(string: picture))
             .onSuccess { image, cacheType in
                 // Success
-            }
+        }
             .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
             .placeholder(Image(systemName: "photo")) // Placeholder Image
             // Supports ViewBuilder as well
             .placeholder {
                 Image("Screen Shot 2020-03-03 at 2.19.28 PM")
-            }
-            .renderingMode(.original)
-            .indicator(.activity) // Activity Indicator
-            .animation(.easeInOut(duration: 0.5)) // Animation Duration
-            .transition(.fade) // Fade Transition
-            .scaledToFit()
-                .frame(height: 170, alignment: .center)
-        }else{
-            return WebImage(url: URL(string: picture))
-            .onSuccess { image, cacheType in
-                // Success
-            }
-            .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
-            .placeholder(Image(systemName: "photo")) // Placeholder Image
-            // Supports ViewBuilder as well
-            .placeholder {
-                 Image("Screen Shot 2020-03-03 at 2.19.28 PM")
-            }
-            .renderingMode(.original)
-            .indicator(.activity) // Activity Indicator
-            .animation(.easeInOut(duration: 0.5)) // Animation Duration
-            .transition(.fade) // Fade Transition
-            .scaledToFit()
-           .frame(alignment: .center)
         }
+        .renderingMode(.original)
+            .indicator(.activity) // Activity Indicator
+            .animation(.easeInOut(duration: 0.5)) // Animation Duration
+            .transition(.fade) // Fade Transition
+            .scaledToFit()
+            .frame(alignment: .center)
     }
 }
 
 struct ProductImage_Previews: PreviewProvider {
     static var previews: some View {
-        ProductImage(picture: "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/BMW.png?alt=media&token=aca57096-47ee-46d9-86e2-f81c81cb0c14", setHeight:false)
+        ProductImage(picture: "https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/BMW.png?alt=media&token=aca57096-47ee-46d9-86e2-f81c81cb0c14")
     }
 }
 

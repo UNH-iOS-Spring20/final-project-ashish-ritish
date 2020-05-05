@@ -20,7 +20,7 @@ struct ContentView: View {
     var body: some View {
         VStack{
             if status{
-                RootTabView(viewRouter: ViewRouter())
+                RootTabView(viewRouter: viewRouter)
             }else{
                 logInView(viewRouter: viewRouter)
             }

@@ -67,10 +67,10 @@ struct ProductDetails: View {
             let index = favList.firstIndex(of: uid!)
             print(index!)
             favList.remove(at: index!)
-            CreateNotification(title: "Favorite Remove", message: "You have remove favorite  of \(product.name)", isPublic: false)
+            CreateNotification(title: "Favorite Remove", message: "You have removed \(product.name) as your favorite", isPublic: false)
         }else{
             favList.append(uid!)
-            CreateNotification(title: "Favorite Added", message: "You have added favorite  of \(product.name)", isPublic: false)
+            CreateNotification(title: "Favorite Added", message: "You have marked \(product.name) as your favorite", isPublic: false)
         }
         
         productsCollectionRef.document(product.id).updateData([

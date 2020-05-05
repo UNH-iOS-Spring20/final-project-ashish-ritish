@@ -29,25 +29,21 @@ func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, p
             
             if err != nil{
                 
-                print((err?.localizedDescription)!)
                 return
             }
             
             db.collection("users").document(uid!).setData(["name":name,"email":email!, "about":about,"photoUrl":"\(url!)","id":uid!, "zipCode":zipCode, "phoneNumber": phoneNumber, "address": location]) { (err) in
                 
                 if err != nil{
-                    
-                    print((err?.localizedDescription)!)
                     return
                 }
-                
-                completion(true, url!.path)
-                
+                                
                 UserDefaults.standard.set(true, forKey: "status")
                 UserDefaults.standard.set(name, forKey: "UserName")
-                checkForNewUserExistence()
+                Defaults.save(name: name, address: location, id: uid!, zipCode: zipCode, phoneNumber: phoneNumber, email: Defaults.getUserDetails().email, photoUrl: "\(url!)", about: about)
+                NotificationCenter.default.post(name: NSNotification.Name("userDataChanged"),object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                UserDefaults.standard.synchronize()
+                completion(true, url!.path)
             }
         }
     }
@@ -94,6 +90,18 @@ func checkUser(completion: @escaping (Bool,String)->Void){
                 let photoUrl = i.data()["photoUrl"] as! String
                 
                 
+                var userData:[String:String] = [:]
+                userData["email"] = email
+                userData["id"] = id
+                userData["name"] = name
+                userData["phoneNumber"] = phoneNumber
+                userData["zipCode"] = zipCode
+                userData["address"] = address
+                userData["about"] = about
+                userData["photoUrl"] = photoUrl
+                
+                NotificationCenter.default.post(name: NSNotification.Name("userDataChanged"),object: nil,userInfo: userData)
+                
                 Defaults.save(name: name, address: address, id: id, zipCode: zipCode, phoneNumber: phoneNumber, email: email, photoUrl: photoUrl, about: about)
                 
                 UserDefaults.standard.set(false, forKey: "NewUser")
@@ -109,8 +117,6 @@ func checkUser(completion: @escaping (Bool,String)->Void){
 
 func addProduct(name: String,price : String,images : [UIImage], category: String, condition: String, latitude: Double, longitude: Double, description: String, completion : @escaping (Bool)-> Void){
     
-    print("latitude \(latitude)")
-    print("longitude \(longitude)")
     let favoriteList:[String] = []
 
     let uid = Auth.auth().currentUser?.uid

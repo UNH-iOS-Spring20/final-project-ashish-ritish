@@ -19,7 +19,15 @@ struct UserProfileView: View {
     @State private var userRating = 4
     @Binding var isPresented: Bool
     @State var flag = 0
-
+    @State var url = Defaults.getUserDetails().photoUrl
+    @State var address = Defaults.getUserDetails().address
+    @State var zipCode = Defaults.getUserDetails().zipCode
+    @State var name = Defaults.getUserDetails().name
+    @State var email = Defaults.getUserDetails().email
+    @State var phoneNumber = Defaults.getUserDetails().phoneNumber
+    @State var about = Defaults.getUserDetails().about
+    let publisher = NotificationCenter.default.publisher(for: NSNotification.Name("userDataChanged"))
+    
     func dismiss(){
         presentationMode.wrappedValue.dismiss()
     }
@@ -93,10 +101,13 @@ struct UserProfileView: View {
                 HStack(alignment: .center){
                        Spacer()
             
-                        WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
+                    WebImage(url: URL(string: (self.url)))
                         .onSuccess { image, cacheType in
-                        // Success
+                            print("success", image, self.url)
                         }
+                        .onFailure(perform: { (err) in
+                            self.url = Defaults.getUserDetails().photoUrl
+                        })
                         .resizable()
                         .placeholder(Image(systemName: "person.crop.circle")) // Placeholder Image
                         .renderingMode(.original)
@@ -113,7 +124,7 @@ struct UserProfileView: View {
                 
                 //user profile names
                 VStack(alignment: .center){
-                    Text(Defaults.getUserDetails().name).font(.system(size: 35))
+                    Text(self.name).font(.system(size: 35))
                 }.offset(y: -100)
 
                 
@@ -131,7 +142,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         Image(systemName: "mappin.and.ellipse").foregroundColor(Color("appBlue"))
-                        Text(Defaults.getUserDetails().address + " " + Defaults.getUserDetails().zipCode ).fontWeight(.medium).font(.system(size: 20))
+                        Text(self.address + " " + self.zipCode ).fontWeight(.medium).font(.system(size: 20))
                         Spacer()
                     }
                     .padding([.leading,.trailing],20)
@@ -139,7 +150,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         Image(systemName: "phone").foregroundColor(Color("appBlue"))
-                        Text(Defaults.getUserDetails().phoneNumber).fontWeight(.medium).font(.system(size: 20))
+                        Text(self.phoneNumber).fontWeight(.medium).font(.system(size: 20))
                         Spacer()
                     }
                     .padding([.leading,.trailing],20)
@@ -147,7 +158,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         Image(systemName: "envelope").foregroundColor(Color("appBlue"))
-                        Text(Defaults.getUserDetails().email).fontWeight(.medium).font(.system(size: 20))
+                        Text(self.email).fontWeight(.medium).font(.system(size: 20))
                         Spacer()
                     }
                     .padding([.leading,.trailing],20)
@@ -155,7 +166,7 @@ struct UserProfileView: View {
                     
                     HStack(spacing: 10){
                         Image(systemName: "person").foregroundColor(Color("appBlue"))
-                        Text(Defaults.getUserDetails().about).fontWeight(.medium).font(.system(size: 20))
+                        Text(self.about).fontWeight(.medium).font(.system(size: 20))
                         Spacer()
                     }
                     .padding([.leading,.trailing],20)
@@ -188,6 +199,15 @@ struct UserProfileView: View {
             .navigationBarTitle("Back", displayMode: .inline)
             .onAppear {
                 self.isNavigationBarHidden = true
+            }
+            .onReceive(publisher) { (output) in
+                self.url = Defaults.getUserDetails().photoUrl
+                self.address = Defaults.getUserDetails().address
+                self.zipCode = Defaults.getUserDetails().zipCode
+                self.name = Defaults.getUserDetails().name
+                self.email = Defaults.getUserDetails().email
+                self.phoneNumber = Defaults.getUserDetails().phoneNumber
+                self.about = Defaults.getUserDetails().about
             }
         }
     }

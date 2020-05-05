@@ -161,7 +161,6 @@ struct CreateAccount : View {
                     if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.countryCode != "" && self.phoneNumber != "" && self.location != ""{
                         
                         self.loading.toggle()
-                        print( self.name, self.about)
                         let number = self.countryCode + self.phoneNumber
                         
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status, url) in

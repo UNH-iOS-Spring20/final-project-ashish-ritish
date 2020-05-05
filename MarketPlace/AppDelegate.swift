@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 return
             }
             UserDefaults.standard.set(true, forKey: "status")
+            checkForNewUserExistence()
             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
         }
     }

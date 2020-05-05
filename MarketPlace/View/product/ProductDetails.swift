@@ -46,7 +46,6 @@ struct ProductDetails: View {
             }),
             .destructive(Text("Delete"),
                          action: {
-                            print("Deleted")
                             let id = self.product.id
                             productsCollectionRef.document(id).delete() { error in
                                 if let error = error {
@@ -54,7 +53,6 @@ struct ProductDetails: View {
                                 } else {
                                     print("Document successfully removed")
                                     CreateNotification(title: "Product Deleted", message: "\(self.product.name) have been deleted", isPublic: true)
-                               //     self.dismiss()
                                 }
                             }
             }),

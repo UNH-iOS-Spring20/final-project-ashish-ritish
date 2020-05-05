@@ -13,18 +13,33 @@ let notificationsCollectionRef = Firestore.firestore().collection("notifications
 
 struct NotificationView: View {
     @State private var showingSheet = false
-    @State private var actionTitle = ""
-    @State private var notificationId = ""
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
-    @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
-    
+  //  @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     func deleteNotification(at offsets: IndexSet) {
+        var count = 0
         let index = offsets.first!
-        let id = notifications.items[index].id
-        if notifications.items[index].isPublic {
-            notifications.items[index].clearId.append(uid!)
-            notificationsCollectionRef.document(id).setData(notifications.items[index].data)
+        var id = ""
+         let filteredList = notifications.items.sorted(by: {$0.createdTime > $1.createdTime }).filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}
+        for items in filteredList{
+            if count == index{
+                id = items.id
+            }
+            count+=1
+        }
+        
+        var notificationIndex = 0
+        for (i, not) in notifications.items.enumerated(){
+            if id == not.id{
+                notificationIndex = i
+                break
+            }
+        }
+    
+       
+        if notifications.items[notificationIndex].isPublic {
+            notifications.items[notificationIndex].clearId.append(uid!)
+            notificationsCollectionRef.document(id).setData(notifications.items[notificationIndex].data)
         } else{
             notificationsCollectionRef.document(id).delete() { err in
                 if let err = err {
@@ -32,15 +47,18 @@ struct NotificationView: View {
                 }else{
                     print("Document successfully removed!")
                 }
-                
+
             }
         }
     }
     
     var body: some View {
-        NavigationView{
+        let filteredList = notifications.items.sorted(by: {$0.createdTime > $1.createdTime }).filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}
+       // print(filteredList)
+        return NavigationView{
             List{
-                ForEach(notifications.items.sorted(by: {$0.createdTime > $1.createdTime }).filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}, id: \.self.id) { notification in
+                if filteredList.count > 0 {
+                ForEach(filteredList, id: \.self.id) { notification in
                     HStack(spacing: 20){
                         Image("AppLogo")
                             .resizable()
@@ -76,17 +94,26 @@ struct NotificationView: View {
                                         .foregroundColor(.gray)
                                         .fixedSize(horizontal: false, vertical: true)
                                         .layoutPriority(99)
+                                    
                                 }
+                                Text(notification.id)
                             }
                     }
-                }.onDelete(perform: deleteNotification)
+                }.onDelete{ index in
+                    self.deleteNotification(at: index)
+                }
                  .padding(.top, 5)
+                }else {
+                    HStack {
+                        Spacer()
+                        Text("No any notificationss")
+                        Spacer()
+                    }
+                }
             }
-           
             .navigationBarTitle(Text("Notifications"), displayMode: .inline)
             .navigationBarItems(leading: EditButton())
         }
-        
     }
 }
 

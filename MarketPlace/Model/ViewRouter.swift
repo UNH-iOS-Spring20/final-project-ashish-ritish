@@ -30,7 +30,5 @@ class ViewRouter: ObservableObject {
         }
     }
     
-    @Published var favoriteProducts: [String] = []
-    
     
 }

@@ -39,8 +39,6 @@ struct EditProfile: View {
                 }) {
                     
                     if self.imagedata.count == 0{
-                        
-                        //                       Image(systemName: "person.crop.circle.badge.plus").resizable().frame(width: 90, height: 70).foregroundColor(.gray)
                         WebImage(url: URL(string: (Defaults.getUserDetails().photoUrl)))
                             .onSuccess { image, cacheType in
                                 // Success
@@ -52,7 +50,6 @@ struct EditProfile: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
                             .shadow(radius: 10)
-                            //   .edgesIgnoringSafeArea(.top)
                             .scaledToFit()
                     }
                     else{
@@ -165,10 +162,7 @@ struct EditProfile: View {
                         
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
                             if status{
-                                Defaults.save(name: self.name, address: self.location, id: uid!, zipCode: self.zipCode, phoneNumber: self.phoneNumber, email: Defaults.getUserDetails().email, photoUrl: url, about: self.about)
-                                
                                 CreateNotification(title: "Account Update", message: "Your account successfully updated", isPublic: false)
-                                checkForNewUserExistence()
                                 self.mode.wrappedValue.dismiss()
                             }
                         }

@@ -14,9 +14,7 @@ class ViewRouter: ObservableObject {
     
     let objectWillChange = PassthroughSubject<ViewRouter, Never>()
     
-    @Published var selectedTab = "home"
-    
-  //  @Published var currentView = "home"
+    @Published var selectedTab = "log"
     
     var currentView = "home" {
         didSet{
@@ -24,7 +22,7 @@ class ViewRouter: ObservableObject {
         }
     }
     
-    var currentPage: String = "loginPage"{
+    var currentPage: String = "home"{
         didSet{
             objectWillChange.send(self)
         }

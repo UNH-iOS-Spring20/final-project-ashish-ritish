@@ -19,6 +19,7 @@ struct RootTabView: View {
     @State var showPopUp = false
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
+    let publisher = NotificationCenter.default.publisher(for: NSNotification.Name("newUser"))
     
     init(viewRouter: ViewRouter) {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -156,6 +157,10 @@ struct RootTabView: View {
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: self.$newUser) {
                 CreateAccount(show: self.$newUser)
+            }
+            .onReceive(self.publisher) { (output) in
+                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                self.newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
             }
         }
     }

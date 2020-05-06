@@ -9,14 +9,17 @@
 import SwiftUI
 import Firebase
 import GoogleSignIn
+import Combine
 
 struct ContentView: View {
     
     @ObservedObject var viewRouter: ViewRouter
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    let publisher = NotificationCenter.default.publisher(for: NSNotification.Name("statusChange"))
     init(viewRouter: ViewRouter) {
         self.viewRouter = viewRouter
     }
+    
     var body: some View {
         VStack{
             if status{
@@ -25,12 +28,18 @@ struct ContentView: View {
                 logInView(viewRouter: viewRouter)
             }
         }.animation(.spring())
-        .onAppear {
-            checkForNewUserExistence()
-            NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main) { (_) in
-                
-                let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+        .onReceive(self.publisher) { (output) in
+            let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+            if(status != self.status){
                 self.status = status
+                
+                if(self.status){
+                    self.viewRouter.selectedTab = "home"
+                    self.viewRouter.currentView = "home"
+                }else{
+                    self.viewRouter.selectedTab = "login"
+                    self.viewRouter.currentView = "login"
+                }
             }
         }
     }

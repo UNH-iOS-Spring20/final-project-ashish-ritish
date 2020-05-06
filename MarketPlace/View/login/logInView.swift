@@ -108,7 +108,6 @@ func checkForNewUserExistence(){
             UserDefaults.standard.set(false, forKey: "NewUser")
             UserDefaults.standard.set(user, forKey: "UserName")
             
-            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
         } else{
             UserDefaults.standard.set(true, forKey: "NewUser")
         }

@@ -14,7 +14,6 @@ let notificationsCollectionRef = Firestore.firestore().collection("notifications
 struct NotificationView: View {
     @State private var showingSheet = false
     @ObservedObject private var notifications = FirebaseCollection<Notification>(collectionRef: notificationsCollectionRef)
-  //  @ObservedObject private var products = FirebaseCollection<Product>(collectionRef: productsCollectionRef)
     
     func deleteNotification(at offsets: IndexSet) {
         var count = 0
@@ -54,7 +53,7 @@ struct NotificationView: View {
     
     var body: some View {
         let filteredList = notifications.items.sorted(by: {$0.createdTime > $1.createdTime }).filter{($0.isPublic && !$0.clearId.contains(uid!)) || (!$0.isPublic && $0.userId == uid!)}
-       // print(filteredList)
+       
         return NavigationView{
             List{
                 if filteredList.count > 0 {

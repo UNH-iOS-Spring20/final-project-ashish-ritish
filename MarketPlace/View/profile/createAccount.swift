@@ -12,7 +12,6 @@ struct CreateAccount : View {
     @Binding var show : Bool
     @State var name = ""
     @State var about = ""
-    @State var countryCode = ""
     @State var phoneNumber = ""
     @State var zipCode = ""
     @State var location = ""
@@ -82,10 +81,6 @@ struct CreateAccount : View {
                 Text("Phone Number").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
 
                 HStack{
-                    TextField("+1", text: $countryCode)
-                        .keyboardType(.numberPad)
-                        .frame(width: 45)
-                       
                     
                     TextField("Number", text: $phoneNumber)
                     .keyboardType(.numberPad)
@@ -158,13 +153,11 @@ struct CreateAccount : View {
                 
                 Button(action: {
                     
-                    if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.countryCode != "" && self.phoneNumber != "" && self.location != ""{
+                    if self.name != "" && self.about != "" && self.imagedata.count != 0 && self.zipCode != "" && self.phoneNumber != "" && self.location != ""{
                         
                         self.loading.toggle()
-                        let number = self.countryCode + self.phoneNumber
-                        
-                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: number, location: self.location) { (status, url) in
-                            
+                        CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
+                            CreateNotification(title: "Account Created", message: "Your account was sucessfully created", isPublic: false)
                             if status{
                                 self.show.toggle()
                             }

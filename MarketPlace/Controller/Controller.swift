@@ -37,12 +37,10 @@ func CreateUser(name: String,about : String,imagedata : Data, zipCode: String, p
                 if err != nil{
                     return
                 }
-                                
-                UserDefaults.standard.set(true, forKey: "status")
+                
                 UserDefaults.standard.set(name, forKey: "UserName")
                 Defaults.save(name: name, address: location, id: uid!, zipCode: zipCode, phoneNumber: phoneNumber, email: Defaults.getUserDetails().email, photoUrl: "\(url!)", about: about)
                 NotificationCenter.default.post(name: NSNotification.Name("userDataChanged"),object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                 completion(true, url!.path)
             }
         }

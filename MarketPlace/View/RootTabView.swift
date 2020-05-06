@@ -17,7 +17,6 @@ struct RootTabView: View {
     @ObservedObject var viewRouter: ViewRouter
     
     @State var showPopUp = false
-    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
     let publisher = NotificationCenter.default.publisher(for: NSNotification.Name("newUser"))
     
@@ -27,6 +26,7 @@ struct RootTabView: View {
             .font : UIFont(name: "Arial", size: 22)!]
         self.viewRouter = viewRouter
         checkForNewUserExistence()
+        print(self.viewRouter.selectedTab)
     }
     
     var body: some View {
@@ -159,7 +159,6 @@ struct RootTabView: View {
                 CreateAccount(show: self.$newUser)
             }
             .onReceive(self.publisher) { (output) in
-                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
                 self.newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
             }
         }

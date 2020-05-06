@@ -103,7 +103,6 @@ struct UserProfileView: View {
             
                     WebImage(url: URL(string: (self.url)))
                         .onSuccess { image, cacheType in
-                            print("success", image, self.url)
                         }
                         .onFailure(perform: { (err) in
                             self.url = Defaults.getUserDetails().photoUrl
@@ -176,7 +175,6 @@ struct UserProfileView: View {
                 
                 //log out section
                 HStack(spacing: 0) {
-                    // log out button
                     Button(action: {
                         self.dismiss()
                         self.navigate(place: "loginPage")

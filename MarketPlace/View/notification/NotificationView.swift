@@ -96,7 +96,6 @@ struct NotificationView: View {
                                         .layoutPriority(99)
                                     
                                 }
-                                Text(notification.id)
                             }
                     }
                 }.onDelete{ index in

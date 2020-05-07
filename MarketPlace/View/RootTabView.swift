@@ -159,7 +159,10 @@ struct RootTabView: View {
                 CreateAccount(show: self.$newUser)
             }
             .onReceive(self.publisher) { (output) in
-                self.newUser = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
+                let new = UserDefaults.standard.value(forKey: "NewUser") as? Bool ?? false
+                if(new != self.newUser){
+                    self.newUser = new
+                }
             }
         }
     }

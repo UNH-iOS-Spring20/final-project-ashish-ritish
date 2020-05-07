@@ -8,7 +8,7 @@
 
 import SwiftUI
 struct CreateAccount : View {
-    
+    @Environment(\.presentationMode) var presentationMode
     @Binding var show : Bool
     @State var name = ""
     @State var about = ""
@@ -19,6 +19,10 @@ struct CreateAccount : View {
     @State var loading = false
     @State var imagedata : Data = .init(count: 0)
     @State var alert = false
+    
+    func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+    }
     
     var body : some View{
         
@@ -159,7 +163,8 @@ struct CreateAccount : View {
                         CreateUser(name: self.name, about: self.about, imagedata: self.imagedata, zipCode: self.zipCode, phoneNumber: self.phoneNumber, location: self.location) { (status, url) in
                             CreateNotification(title: "Account Created", message: "Your account was sucessfully created", isPublic: false)
                             if status{
-                                self.show.toggle()
+                                self.show = false
+                                self.dismiss()
                             }
                         }
                     }

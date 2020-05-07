@@ -8,12 +8,14 @@
 
 import SwiftUI
 import FirebaseFirestore
+import CoreLocation
 
 struct ProductDetails: View {
     @Environment(\.presentationMode) var presentationMode
     @State var isFavorite = false
     @ObservedObject var product: Product
     @State private var showingSheet = false
+   // @State private var address = ""
     
     
     func dismiss() {
@@ -84,6 +86,8 @@ struct ProductDetails: View {
            }
         }
     }
+    
+    
     
     var body: some View {
         

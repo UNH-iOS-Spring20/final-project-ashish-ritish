@@ -14,6 +14,9 @@ struct signUpView: View {
     @Binding var show : Bool
     @State var email = ""
     @State var pass = ""
+    @State var repass = ""
+    @State var visible = false
+    @State var revisible = false
     @State var alert = false
     @State var msg = ""
     
@@ -32,9 +35,9 @@ struct signUpView: View {
                     
                     HStack{
                         
-                        TextField("Enter Your Email", text: $email)
+                        TextField("Enter Your Email", text: $email).autocapitalization(.none)
                         
-                        if email != ""{
+                        if isValidEmail(email: self.email){
                             Image(systemName: "checkmark")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -51,8 +54,68 @@ struct signUpView: View {
                 VStack(alignment: .leading){
                     
                     Text("Password").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                    
+                    HStack(spacing: 15){
                         
-                    SecureField("Enter Your Password", text: $pass)
+                        VStack{
+                            
+                            if self.visible{
+                                
+                                TextField("Password", text: self.$pass)
+                                    .autocapitalization(.none)
+                            }
+                            else{
+                                
+                                SecureField("Password", text: self.$pass)
+                                    .autocapitalization(.none)
+                            }
+                        }
+                        
+                        Button(action: {
+                            
+                            self.visible.toggle()
+                            
+                        }) {
+                            
+                            Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                .foregroundColor(Color("appBlue"))
+                        }
+                        
+                    }
+                    Divider()
+                }.padding(.bottom, 15)
+                
+                VStack(alignment: .leading){
+                    
+                    Text("Re-enter Password").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                    
+                    HStack(spacing: 15){
+                        
+                        VStack{
+                            
+                            if self.revisible{
+                                
+                                TextField("Re-enter Password", text: self.$repass)
+                                    .autocapitalization(.none)
+                            }
+                            else{
+                                
+                                SecureField("Re-enter Password", text: self.$repass)
+                                    .autocapitalization(.none)
+                            }
+                        }
+                        
+                        Button(action: {
+                            
+                            self.revisible.toggle()
+                            
+                        }) {
+                            
+                            Image(systemName: self.revisible ? "eye.slash.fill" : "eye.fill")
+                                .foregroundColor(Color("appBlue"))
+                        }
+                        
+                    }
                     
                     Divider()
                 }.padding(.bottom, 15)
@@ -80,14 +143,15 @@ struct signUpView: View {
                     Text("Register").foregroundColor(.white).frame(width: UIScreen.main.bounds.width-70).padding()
                     
                     
-                }.background(Color("appBlue"))
-                .clipShape(Capsule())
-                .padding(.top, 45)
-
+                }.background(self.pass != self.repass && self.repass.count > 0 ? Color.red:Color("appBlue"))
+                    .clipShape(Capsule())
+                    .padding(.top, 45)
+                    .disabled((self.email.count == 0 || self.pass.count == 0 || self.repass.count == 0) && self.pass != self.repass )
+                
             }.padding(.horizontal, 20)
         }.padding()
-        .alert(isPresented: $alert) {
-            Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
         }
     }
 }
@@ -95,7 +159,7 @@ struct signUpView: View {
 func signIupWithEmail(email: String,password : String,completion: @escaping (Bool,String)->Void){
     
     Auth.auth().createUser(withEmail: email, password: password) { (res, err) in
-    
+        
         if err != nil{
             completion(false,(err?.localizedDescription)!)
             return
@@ -110,4 +174,10 @@ struct signUpView_Previews: PreviewProvider {
     static var previews: some View {
         signUpView(show: .constant(false))
     }
+}
+
+func isValidEmail(email:String) -> Bool {
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+    let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailTest.evaluate(with: email)
 }

@@ -181,6 +181,7 @@ struct UserProfileView: View {
                         try! Auth.auth().signOut()
                            GIDSignIn.sharedInstance()?.signOut()
                            UserDefaults.standard.set(false, forKey: "status")
+                           UserDefaults.standard.set(true, forKey: "NewUser")
                             Defaults.clearUserData()
                             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                     }) {

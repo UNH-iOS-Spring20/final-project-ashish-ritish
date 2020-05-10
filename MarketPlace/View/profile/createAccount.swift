@@ -21,6 +21,13 @@ struct CreateAccount : View {
     @State var alert = false
     
     func dismiss() {
+        self.name=""
+        self.about = ""
+        self.phoneNumber = ""
+        self.zipCode = ""
+        self.location = ""
+        self.loading = false
+        self.imagedata = .init(count: 0)
         presentationMode.wrappedValue.dismiss()
     }
     

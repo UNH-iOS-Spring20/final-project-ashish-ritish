@@ -65,6 +65,7 @@ struct RootTabView: View {
                                 .font(.system(size: 12))
                             
                         }
+                        .contentShape(Rectangle())
                         .frame(width: geometry.size.width/5, height: 75)
                         .foregroundColor(self.viewRouter.currentView == "home" ? Color("appBlue") : .gray)
                         .onTapGesture {
@@ -82,6 +83,7 @@ struct RootTabView: View {
                             Text("Notification")
                                 .font(.system(size: 12))
                         }
+                        .contentShape(Rectangle())
                         .frame(width: geometry.size.width/5, height: 75)
                         .foregroundColor(self.viewRouter.currentView == "notification" ? Color("appBlue") : .gray)
                         .onTapGesture {
@@ -123,6 +125,7 @@ struct RootTabView: View {
                             Text("Favorite")
                                 .font(.system(size: 12))
                         }
+                        .contentShape(Rectangle())
                         .frame(width: geometry.size.width/5, height: 75)
                         .foregroundColor(self.viewRouter.currentView == "fav" ? Color("appBlue") : .gray)
                         .onTapGesture {
@@ -140,6 +143,7 @@ struct RootTabView: View {
                             Text("List")
                                 .font(.system(size: 12))
                         }
+                        .contentShape(Rectangle())
                         .frame(width: geometry.size.width/5, height: 75)
                         .foregroundColor(self.viewRouter.currentView == "list" ? Color("appBlue") : .gray)
                         .onTapGesture {

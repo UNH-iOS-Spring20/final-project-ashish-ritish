@@ -10,6 +10,12 @@
 		1867F10B68F55C7001C452D0 /* Pods_MarketPlace_MarketPlaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7770C9822E6B242CE37136E /* Pods_MarketPlace_MarketPlaceUITests.framework */; };
 		770F3D9E24272BF200068BF0 /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F3D9D24272BF200068BF0 /* notification.swift */; };
 		7717E1592464D64600A6597D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7717E1582464D64600A6597D /* GoogleService-Info.plist */; };
+		7717E15A2469176100A6597D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A2024102011008D668E /* Product.swift */; };
+		7717E15B2469179800A6597D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C1A2024102011008D668E /* Product.swift */; };
+		7717E15C246917D900A6597D /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7792830E242FEA7D00117034 /* FirebaseCollection.swift */; };
+		7717E15D246917D900A6597D /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7792830E242FEA7D00117034 /* FirebaseCollection.swift */; };
+		7717E15E246919AB00A6597D /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F3D9D24272BF200068BF0 /* notification.swift */; };
+		7717E15F246919AC00A6597D /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F3D9D24272BF200068BF0 /* notification.swift */; };
 		771C63012458C4E1001824C1 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771C63002458C4E1001824C1 /* CustomPicker.swift */; };
 		772B9BBA2446C52F0014CF31 /* logInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772B9BB92446C52F0014CF31 /* logInView.swift */; };
 		772B9BBC2446C56D0014CF31 /* signUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772B9BBB2446C56D0014CF31 /* signUpView.swift */; };
@@ -716,7 +722,10 @@
 			files = (
 				E950EF70242E7CC00049EDC6 /* ViewRouter.swift in Sources */,
 				E96D775D243E493E0069D52F /* Category.swift in Sources */,
+				7717E15A2469176100A6597D /* Product.swift in Sources */,
 				E98D1F7A23FB202F00F98CD6 /* MarketPlaceTests.swift in Sources */,
+				7717E15C246917D900A6597D /* FirebaseCollection.swift in Sources */,
+				7717E15E246919AB00A6597D /* notification.swift in Sources */,
 				E9708C4223FDBA49009542A8 /* ListingCart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,7 +736,10 @@
 			files = (
 				E950EF71242E7CC00049EDC6 /* ViewRouter.swift in Sources */,
 				E96D775E243E493E0069D52F /* Category.swift in Sources */,
+				7717E15B2469179800A6597D /* Product.swift in Sources */,
 				E98D1F8523FB202F00F98CD6 /* MarketPlaceUITests.swift in Sources */,
+				7717E15D246917D900A6597D /* FirebaseCollection.swift in Sources */,
+				7717E15F246919AC00A6597D /* notification.swift in Sources */,
 				E9708C4323FDBA49009542A8 /* ListingCart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

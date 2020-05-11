@@ -74,4 +74,23 @@ class Product: FirebaseCodable, Identifiable {
         self.imageUrls =  imageUrls
         self.favoriteList = favoriteList
     }
+    
+    #if DEBUG
+    static let example = Product(
+        id: "12s4", data: [
+            "name": "guitar",
+            "price": 1000.0,
+            "email": "karki.ritish@gmail.com",
+            "category": "Music",
+            "condition": "new",
+            "latitude": 41.28758535034469,
+            "longitude": -72.96590875763593,
+            "description": "very nice guitar",
+            "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+            "soldTo": "",
+            "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+            "favoriteList": [""]
+        ]
+    )
+    #endif
 }

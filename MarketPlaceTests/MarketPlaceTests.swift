@@ -10,20 +10,20 @@ import XCTest
 @testable import MarketPlace
 
 class MarketPlaceTests: XCTestCase {
-
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
@@ -32,73 +32,137 @@ class MarketPlaceTests: XCTestCase {
     }
     
     func testProductItemInitSucceds(){
-//           let car = ProductItem.init(name: "Honda", category: "Vechile", condition: "New", email: "ashre1@unh.newhave.edu", date: "02/16/2020", price: 2000.00)
-//           XCTAssertNotNil(car)
-//
-//            let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)
-//            XCTAssertNotNil(phone)
+        let guitar = Product.init(
+            id: "12s4", data: [
+                "name": "guitar",
+                "price": 1000.0,
+                "email": "karki.ritish@gmail.com",
+                "category": "Music",
+                "condition": "new",
+                "latitude": 41.28758535034469,
+                "longitude": -72.96590875763593,
+                "description": "very nice guitar",
+                "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+                "soldTo": "",
+                "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+                "favoriteList": [""]
+            ]
+        )
+        XCTAssertNotNil(guitar)
     }
     
     
     
     func testProductItemInitFails(){
-//        let noProductName = ProductItem.init(name: "", category: "Vechile", condition: "New", email: "ashre1@unh.newhaven.edu", date: "02/16/2020", price: 2000.00)
-//        XCTAssertNil(noProductName)
-//
-//        let noProductCategory = ProductItem.init(name: "", category: "", condition: "New", email: "ashre1@unh.newhaven.edu", date: "02/16/2020", price: 2000.00)
-//        XCTAssertNil(noProductCategory)
-//
-//        let noUserEmail = ProductItem.init(name: "", category: "Vechile", condition: "New", email: "", date: "02/16/2020", price: 2000.00)
-//        XCTAssertNil(noUserEmail)
-//
-//        let noPostDate = ProductItem.init(name: "", category: "Vechile", condition: "New", email: "ashre1@unh.newhaven.edu", date: "", price: 2000.00)
-//        XCTAssertNil(noPostDate)
-//
-//        let negProdPrice = ProductItem.init(name: "", category: "Vechile", condition: "New", email: "ashre1@unh.newhaven.edu", date: "02/16/2020", price: 2000.00)
- //       XCTAssertNil(negProdPrice)
+        let noProductName = Product.init(
+            id: "12s4", data: [
+                "price": 1000.0,
+                "email": "karki.ritish@gmail.com",
+                "category": "Music",
+                "condition": "new",
+                "latitude": 41.28758535034469,
+                "longitude": -72.96590875763593,
+                "description": "very nice guitar",
+                "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+                "soldTo": "",
+                "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+                "favoriteList": [""]
+            ]
+        )
+        XCTAssertNil(noProductName)
+        
+        let noProductCategory = Product.init(
+            id: "12s4", data: [
+                "name": "Guitar",
+                "price": 1000.0,
+                "email": "karki.ritish@gmail.com",
+                "condition": "new",
+                "latitude": 41.28758535034469,
+                "longitude": -72.96590875763593,
+                "description": "very nice guitar",
+                "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+                "soldTo": "",
+                "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+                "favoriteList": [""]
+            ]
+        )
+        XCTAssertNil(noProductCategory)
     }
     
     func testProductItemListItem(){
         
-//        let car = ProductItem.init(name: "Honda", category: "Vechile", condition: "New", email: "ashre1@unh.newhave.edu", date: "02/16/2020", price: 2000.00)
-//        let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)
-//
-//        let lists = ListingCart.init()
-//        XCTAssertEqual(0, lists.items.count)
-//        lists.listItem(item: car!)
-//        XCTAssertEqual(1, lists.items.count)
-//        lists.listItem(item: phone!)
-//        XCTAssertEqual(2, lists.items.count)
+        let guitar = Product.init(
+            id: "12s4", data: [
+                "name": "",
+                "price": 1000.0,
+                "email": "karki.ritish@gmail.com",
+                "category": "Music",
+                "condition": "new",
+                "latitude": 41.28758535034469,
+                "longitude": -72.96590875763593,
+                "description": "very nice guitar",
+                "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+                "soldTo": "",
+                "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+                "favoriteList": [""]
+            ]
+        )
+        
+        let phone = Product.init(
+            id: "12s4", data: [
+                "name": "Iphone",
+                "price": 500.0,
+                "email": "karki.ritish@gmail.com",
+                "category": "Electronic",
+                "condition": "new",
+                "latitude": 41.28758535034469,
+                "longitude": -72.96590875763593,
+                "description": "very nice iphone",
+                "addBy": "bvnzARwG0jX8W2EhufM7X6u3FiG2",
+                "soldTo": "",
+                "imageUrls": ["https://firebasestorage.googleapis.com/v0/b/marketplace-71120.appspot.com/o/Computer%2FbvnzARwG0jX8W2EhufM7X6u3FiG2DesktopN9znYBvC?alt=media&token=df6aaccb-4c42-4dc7-9cf9-3b4f1b64e34b"],
+                "favoriteList": [""]
+            ]
+        )
+        let lists = ListingCart.init()
+        XCTAssertEqual(0, lists.items.count)
+        lists.listItem(item: guitar!)
+        XCTAssertEqual(1, lists.items.count)
+        lists.listItem(item: phone!)
+        XCTAssertEqual(2, lists.items.count)
     }
-
     
     
-    
-    
-    
-    func testListingCartProductTotal() {
-//        let car = ProductItem.init(name: "Honda", category: "Vechile", condition: "New", email: "ashre1@unh.newhave.edu", date: "02/16/2020", price: 2000.00)
-//        let phone = ProductItem.init(name: "iphone", category: "Electronic", condition: "Used", email: "rkark1@unh.newhave.edu", date: "02/11/2020", price: 600.50)
-//
-//        let lists = ListingCart.init()
-//        lists.listItem(item: car!)
-//        lists.listItem(item: phone!)
-//        XCTAssertEqual(2600.50, lists.returnTotal())
+    func testCategoryItemInitFails(){
+        let noCategoryName = Category.init(
+            id: "12s4", data: [:]
+        )
+        XCTAssertNil(noCategoryName)
     }
-
-    func testUserProfileInitSucceds(){
-//        let user1 = UserProfile.init(name:"Ritish Karki", email:"rkark1@unh.newhaven.edu", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
-//        XCTAssertNotNil(user1)
-    }
-
-    func testUserProfileInitFails(){
-//        let noNameUser = UserProfile.init(name:"", email:"rkark1@unh.newhaven.edu", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
-//        XCTAssertNil(noNameUser)
-//
-//        let noEmailUser = UserProfile.init(name:"Ritish karki", email:"", contactNumber:"203-435-3851", zipCode:"06516", address:"21 andrews street")
-//        XCTAssertNil(noEmailUser)
-//
-//        let noContactUser = UserProfile.init(name:"R karki", email:"rkark1@unh.newhaven.edu", contactNumber:"", zipCode:"06516", address:"21 andrews street")
-//        XCTAssertNil(noContactUser)
+    
+    func testNotificationItemInitFails(){
+        let noTitle = Notification.init(
+            id: "12s4", data: [
+                "description": "Your profile was updated sucessfully",
+                "createdTime": 1589041468,
+                "seenTime": 1589041500,
+                "userId": "sOy6rjMA85UVrwHeAkn9Ktpji7s1",
+                "clearId": ["sOy6rjMA85UVrwHeAkn9Ktpji7s1"],
+                "isPublic": false
+            ]
+        )
+        XCTAssertNil(noTitle)
+        
+        let noDescription = Notification.init(
+            id: "12s4", data: [
+                "title":"Profile Updated",
+                "createdTime": 1589041468,
+                "seenTime": 1589041500,
+                "userId": "sOy6rjMA85UVrwHeAkn9Ktpji7s1",
+                "clearId": ["sOy6rjMA85UVrwHeAkn9Ktpji7s1"],
+                "isPublic": false
+            ]
+        )
+        XCTAssertNil(noDescription)
     }
 }

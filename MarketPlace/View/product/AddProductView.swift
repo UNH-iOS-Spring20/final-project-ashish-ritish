@@ -56,7 +56,7 @@ struct AddProductView: View {
                 addProduct(name: self.name,price : self.price,images : self.selectedImages, category: self.categorySelected, condition: self.conditionSelected, latitude: self.latitude, longitude: self.longitude, description: self.productDescription){ completed in
                     
                     if(completed){
-                        CreateNotification(title: "New Product Added", message: "\(self.name) has been added", isPublic: false)
+                        CreateNotification(title: "New Product Added", message: self.name + " has been added", isPublic: true)
                         
                     }else{
                         print("failed operation")

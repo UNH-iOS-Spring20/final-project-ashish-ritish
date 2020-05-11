@@ -28,4 +28,12 @@ class Category: FirebaseCodable {
         self.id =  id
         self.name = name
     }
+    
+    #if DEBUG
+    static let example = Category(
+        id: "12s4", data: [
+            "name": "Music"
+        ]
+    )
+    #endif
 }
